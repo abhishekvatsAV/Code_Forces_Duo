@@ -1,0 +1,8 @@
+.home img {
+    width: 100vh;
+    height: 100vh;
+    box-sizing: border-box;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+}
