@@ -58,7 +58,7 @@ const Login = () => {
           />
         </label>
         <br />
-        {Err && <p>invalid userName</p>}
+        {Err && <p className="error">invalid userName</p>}
         <button onClick={handleUsername}>Go</button>
       </div>
     </div>
