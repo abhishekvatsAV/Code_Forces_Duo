@@ -1,0 +1,24 @@
+.join-card {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 1rem;
+    background-color: #777;
+    border-radius: 0.5rem;
+    box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+    margin: 100px;
+}
+
+.join-card button {
+    margin: 10px;
+    margin-top: 20px;
+    padding: 10px;
+    border-radius: 0.5rem;
+    border: none;
+    background-color: #94DAFF;
+    color: #000;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+}
