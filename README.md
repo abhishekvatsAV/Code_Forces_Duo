@@ -14,10 +14,17 @@ Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
 The page will reload when you make changes.\
 You may also see any lint errors in the console.
 
+### `basic git cmmnd : `
 
-
-### `basic git cmmnd : `  
 git status \
 git add . \
 git commit -m "message" \
 git push origin branch/main \
+
+<!-- to add new branch -->
+
+git checkout -b newbranch \
+
+<!-- to switch branch -->
+
+git checkout branchName \
