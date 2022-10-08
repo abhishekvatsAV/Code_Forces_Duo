@@ -1,5 +1,11 @@
 .navbar {
-    width: 100vw;
-    height: 10vh;
     background: #555;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 5px 10px 5px 20px; 
+}
+.navbar > img{
+    width: 70px;
+    border-radius: 50%;
 }

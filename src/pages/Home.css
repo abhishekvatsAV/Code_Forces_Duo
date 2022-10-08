@@ -1,32 +1,20 @@
 .home {
     height: 100vh;
-    width: 100vw;
     display: flex;
     text-align: center;
     justify-content: space-evenly;
     padding-top: 250px;
     background: linear-gradient(90deg, #fff 0%, #FFD372 100%);
 }
-.home .box1 {
+ .box1 , .box2 {
     height: 200px;
     width: 200px;
     background: #5F9DF7;
     padding: 20px;
     margin-top: 20px;
     border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 40% 20% 40% 20%;
-}
-
-.home .box2 {
-    height: 200px;
-    width: 200px;
-    background: #5F9DF7;
-    padding: 20px;
-    margin-top: 20px;
-    border-radius: 5px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    border-radius: 20% 40% 20% 40%;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    /* border-radius: 40% 20% 40% 20%; */
 }
 
 .home p {
