@@ -1,12 +1,16 @@
 //styles
-import './Navbar.css';
+import "./Navbar.css";
+import { useSelector } from "react-redux";
 
 const Navbar = () => {
-	return (
-		<div className='navbar'>
-			// TODO: add username and profile picture on the right
-		</div>
-	)
-}
+  const info = useSelector((state) => state.user.user);
 
-export default Navbar
+  return (
+    <div className="navbar">
+      <h3>{info.handle}</h3>
+      <img src={info.avatar} alt="no-avatar" />
+    </div>
+  );
+};
+
+export default Navbar;
