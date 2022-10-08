@@ -17,7 +17,7 @@ You may also see any lint errors in the console.
 
 
 ### `basic git cmmnd : `  
-git status 
-git add .
-git commit -m "message"
-git push origin branch/main
+git status \
+git add . \
+git commit -m "message" \
+git push origin branch/main \
