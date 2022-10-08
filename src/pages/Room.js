@@ -4,9 +4,11 @@ import "./Room.css";
 import { MdContentCopy } from "react-icons/md";
 import { useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { v4 as uuidv4 } from 'uuid';
 
 const Room = () => {
-	const [link, setLink] = useState("https://codeforces.com/contest/1559/problem/A");
+	const [roomID, setRoomID] = useState(uuidv4());
+	const [link, setLink] = useState(roomID);
 
 
 	return (
