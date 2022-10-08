@@ -21,7 +21,7 @@
     text-align: center;
     background: #555;
     width: 700px;
-    height: 200px;
+    padding: 20px;
 }
 
 .userHandle input {
@@ -55,4 +55,11 @@
 .userHandle button:hover {
     color: #888;
     background: white;    
+}
+
+.error {
+    color: red;
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
 }

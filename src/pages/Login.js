@@ -2,35 +2,47 @@
 import "./Login.css";
 import Bg from "../assets/login-bg.jpeg";
 import axios from "axios";
-import { useState } from "react";
+import { useCallback, useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { useFetch } from "../hooks/useFetch";
 
 const Login = () => {
+  const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [userimg, setImg] = useState("");
+  const [Err, setError] = useState(false);
 
+  const {data, isPending, error} = useFetch(`https://codeforces.com/api/user.info?handles=${username}`);
+  
   const handleUsername = () => {
-    axios
-      .get(`https://codeforces.com/api/user.info?handles=${username}`)
-      .then(function (response) {
-        // handle success
-        console.log(response);
-        setImg(response.data.result[0].avatar);
-      })
-      .catch(function (error) {
-        // handle error
-        console.log(error);
-      });
+      if(error) {
+        setError(true);
+      }
+      if(data) {
+        navigate("/home");
+        // redux change state
+
+      }
   };
+
   return (
     <div className="login">
       <img src={Bg} alt="login-bg" />
       <div className="userHandle">
         <label htmlFor="">
           <p>Enter your CodeForces Handle:</p> <br />
-          <input type="text" placeholder="Enter your codeforces Handle" />
+          <input 
+            type="text" 
+            placeholder="Enter your codeforces Handle" 
+            value={username}
+            onChange={(e) => setUsername(e.target.value)}
+          />
         </label>
         <br />
-        <button>Go</button>
+        {/* {isPending && <div>Loading...</div>} */}
+        {Err && <p className="error">invalid userName</p>}
+        <button onClick={handleUsername}>Go</button>
+        {/* {error && <div>{error}</div>} */}
       </div>
     </div>
   );
