@@ -15,6 +15,7 @@
     margin-top: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 40% 20% 40% 20%;
 }
 
 .home .box2 {
@@ -25,16 +26,24 @@
     margin-top: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 20% 40% 20% 40%;
 }
 
 .home p {
     margin: 20px 0;
 }
 
-.homebtn {
+.homebtn-1 {
     background: #FF8787;
     height: 30px;
     width: 40px;
     cursor: pointer;
     border-radius: 40% 20% 40% 20%;
+}
+.homebtn-2 {
+    background: #FF8787;
+    height: 30px;
+    width: 40px;
+    cursor: pointer;
+    border-radius: 20% 40% 20% 40%;
 }
