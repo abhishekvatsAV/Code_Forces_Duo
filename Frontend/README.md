@@ -20,15 +20,10 @@ git status \
 git add . \
 git commit -m "message" \
 git push origin branch/main \
-
-<!-- to add new branch -->
-
+To add new branch : \
 git checkout -b newbranch \
-
-<!-- to switch branch -->
-
-git checkout branchName \
-
+To switch branch: \ 
+git checkout branchName 
 
 ### `color theme`
 
