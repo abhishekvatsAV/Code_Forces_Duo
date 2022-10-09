@@ -1,3 +1,4 @@
+
 .login img {
     position: absolute;
     width: 100vw;
@@ -6,7 +7,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
-    opacity: 0.8;
+    /* opacity: 0.8; */
 }
 
 .userHandle {
@@ -19,46 +20,59 @@
     font-size: 2rem;
     font-weight: 600;
     text-align: center;
-    background: #555;
+    background: #0c162d;
     width: 700px;
+    border-radius:10px;
+    border: 1px solid #202637;
+    box-shadow: 5px 5px 8px #202637;
 }
 
 .userHandle input {
     width: 60%;
     height: 2rem;
     border: none;
-    border-bottom: 1px solid white;
+    border-bottom: 1px solid #0a3069;
     background: transparent;
     color: white;
     font-size: 1.5rem;
     font-weight: 600;
     text-align: center;
     outline: none;
+    caret-color: #00cfc8;
 }
 
 .userHandle button {
     margin: 20px;
-    width: 10%;
-    height: 2rem;
-    border: none;
-    background: #888;
-    color: white;
+    margin-top: 30px;
+    width: 15%;
+    border-radius: 10px;
+    height: 2.5rem;
+    background: #0a3069;
+    color: #00cfc8;
     font-size: 1.5rem;
     font-weight: 600;
     text-align: center;
     cursor: pointer;
     transition: 0.5s;
-    border-radius: 15%;
+    border: 1px solid #627597;
+    box-shadow: 3px 3px 1px #202637;
 }
 
 .userHandle button:hover {
-    color: #888;
-    background: white;    
+    color: #00cfc8;
+    background: #0c162d;    
 }
-
+.userHandle >label >p{
+    color: #00cfc8;
+    letter-spacing: 0.25rem;
+    padding: 0px;
+    margin-bottom: 10px;
+}
 .error {
-    color: red;
-    font-size: 1.5rem;
+    color: #627597;
+    font-size: 1.1rem;
     font-weight: 600;
     text-align: center;
+    margin-top:10px;
+    text-align:center;
 }
