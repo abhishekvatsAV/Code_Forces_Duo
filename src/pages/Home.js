@@ -21,7 +21,7 @@ export default function Home() {
           Create your own room and invite your friend or stranger to compete
           with you.
         </p>
-        <VscDebugStart className="homebtn-2" onClick={() => navigate("/room")} />
+        <VscDebugStart className="homebtn-2" onClick={() => navigate("/roomoptions")} />
       </div>
     </div>
   );
