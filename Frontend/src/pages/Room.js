@@ -16,7 +16,7 @@ const Room = () => {
 				<h3>Invite your friend</h3>
 				<p>Copy the link and send it to your friend</p>
 				<label>
-					<input type="text" value={roomID} />
+					<input type="text" value={roomID} readOnly />
 					<CopyToClipboard
 						text={roomID}
 						onCopy={() => alert("Copied")}>
