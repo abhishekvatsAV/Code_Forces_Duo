@@ -3,7 +3,7 @@
     flex-direction: column;
     height: 100vh;
     width: 100vw;
-    background: linear-gradient(90deg, #fff 0%, #C1A3A3 100%);
+    background-color: #444444;
 }
 
 .invite {
@@ -12,44 +12,54 @@
     align-items: center;
     flex-direction: column;
     width: 35rem;
-    background: #555;
-    color: white;
+    background: #171717;
+    color: #e4e4e4;
     font-size: 1.5rem;
     font-weight: 600;
     text-align: center;
     padding: 40px;
     margin-top: 200px;
     margin-left: 200px;
+    border-radius: 10px;
+    box-shadow: 2px 2px 2px #444444;
 }
 
 .invite * {
     padding: 20px;
-    color: #C7F2A4;
+    color: #e4e4e4;
 }
 
-.invite label button {
-    border: none;
-    background: #888;
-    color: white;
-    font-weight: 600;
+.invite h3 {
+    color: #DA0037;
+}
+
+.invite label{
+    background-color: #444444;
+    padding:0px;
+    border-radius: 30px 30px 30px 30px;
+    display: flex;
+    flex-direction: row;
     text-align: center;
-    cursor: pointer;
-    transition: 0.5s;
-    border-radius: 15%;
 }
 
-.invite label button:hover {
-    color: #888;
-    background: white;
+.invite label button { 
+    background-color: #171717;
+    cursor: pointer;
+    border: 1px solid #444444;
+    border-radius: 30px;
+    padding-bottom: 4px;
 }
 
 .invite label input {
-    border: none;
+    height: 1rem;
     border-bottom: 1px solid white;
-    background: transparent;
+    background: #444444;
     color: white;
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-align: center;
+    width: 70%;
+    font-size: 1rem;
+    font-weight: 500;
+    text-align: left;
     outline: none;
+    border-radius: 30px;
+    border: none;
 }

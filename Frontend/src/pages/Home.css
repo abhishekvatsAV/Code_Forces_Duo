@@ -4,21 +4,35 @@
     text-align: center;
     justify-content: space-evenly;
     padding-top: 250px;
-    background: linear-gradient(90deg, #fff 0%, #FFD372 100%);
+    /* background: linear-gradient(90deg, #fff 0%, #FFD372 100%); */
+    background-color: #444444;
+
 }
  .box1 , .box2 {
     height: 200px;
     width: 200px;
-    background: #5F9DF7;
+    background: #171717 ;
     padding: 20px;
     margin-top: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    /* border-radius: 40% 20% 40% 20%; */
+    transition: 0.4s;
+    color: #DA0037;
+    cursor: pointer;
+    font-weight: 500;
+}
+.box1:hover{
+    height: 205px;
+    width: 205px;
+}
+.box2:hover{
+    height: 207px;
+    width: 207px;
 }
 
 .home p {
     margin: 20px 0;
+    color: #EDEDED;
 }
 
 .homebtn-1 {

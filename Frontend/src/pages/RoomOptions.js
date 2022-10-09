@@ -12,7 +12,7 @@ const RoomOptions = () => {
   return (
 		<>
 			<Navbar />
-			<div className='root-options'>
+			<div className='room-options'>
 				<div className="public">
 					<h2>Create a public room:</h2>
 					<VscDebugStart className="public-btn" onClick={() => navigate(`/room/${roomID}`)}/>

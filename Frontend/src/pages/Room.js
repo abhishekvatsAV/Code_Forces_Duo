@@ -5,6 +5,7 @@ import "./Room.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
+import { MdContentCopy } from "react-icons/md";
 
 const Room = () => {
 	const { roomID } = useParams();
@@ -20,7 +21,7 @@ const Room = () => {
 					<CopyToClipboard
 						text={roomID}
 						onCopy={() => alert("Copied")}>
-						<button > copy </button>
+						<button>copy</button>
 					</CopyToClipboard>
 				</label>
 			</div>

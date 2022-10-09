@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import { login } from "../features/userSlice";
 import { useDispatch } from "react-redux";
 import { useFetch } from "../hooks/useFetch";
+import Typewriter from "typewriter-effect";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -49,10 +50,18 @@ const Login = () => {
       <img src={Bg} alt="login-bg" />
       <div className="userHandle">
         <label htmlFor="">
-          <p>Enter your CodeForces Handle:</p> <br />
+          <p>
+          <Typewriter
+              options={{
+                strings: "Enter your CodeForces Handle",
+                autoStart: true,
+                // loop: true,
+                cursor: null,
+              }}
+            /></p>{" "} 
           <input
             type="text"
-            placeholder="Enter your codeforces Handle"
+            placeholder=""
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
