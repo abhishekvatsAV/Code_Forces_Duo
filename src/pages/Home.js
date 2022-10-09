@@ -21,5 +21,6 @@ export default function Home() {
         <VscDebugStart className="homebtn-2" />
       </div>
     </div>
+    // copy this link and send it to the person you want to mwwt with.Be sure to save it so you can use it later, too.
   );
 }
