@@ -1,15 +1,13 @@
 //styles
 import "./Room.css";
 
-import { MdContentCopy } from "react-icons/md";
-import { useState } from "react";
+
 import { CopyToClipboard } from "react-copy-to-clipboard";
-import { v4 as uuidv4 } from 'uuid';
 import Navbar from "../components/Navbar";
+import { useParams } from "react-router-dom";
 
 const Room = () => {
-	const [roomID, setRoomID] = useState(uuidv4());
-	const [link, setLink] = useState(roomID);
+	const { roomID } = useParams();
 
 	return (
 		<div className='room'>
@@ -18,9 +16,9 @@ const Room = () => {
 				<h3>Invite your friend</h3>
 				<p>Copy the link and send it to your friend</p>
 				<label>
-					<input type="text" value={link} onChange={(e) => setLink(e.target.value)} />
+					<input type="text" value={roomID} readOnly />
 					<CopyToClipboard
-						text={link}
+						text={roomID}
 						onCopy={() => alert("Copied")}>
 						<button > copy </button>
 					</CopyToClipboard>

@@ -26,6 +26,7 @@
     width: 205px;
 }
 .box2:hover{
+    /* margin: 10px; */
     height: 207px;
     width: 207px;
 }

@@ -1,0 +1,52 @@
+.root-options { 
+    background: #AEBDCA;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.public {
+    background: #FA7070;
+    width: 200px;
+    height: 200px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.private {
+    background: #FACD70;
+    width: 200px;
+    height: 200px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.public-btn {
+    background: #C6EBC5;
+    margin-top: 20px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
+
+.private-btn {
+    background: #7895B2;
+    margin-top: 20px;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+}
