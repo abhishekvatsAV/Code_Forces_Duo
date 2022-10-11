@@ -5,6 +5,7 @@
     align-items: center;
     padding: 5px 10px 5px 20px; 
     color: #EDEDED;
+    position: relative;
 }
 .navbar > img{
     width: 70px;

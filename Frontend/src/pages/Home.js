@@ -2,9 +2,11 @@
 import "./Home.css";
 import { VscDebugStart } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 export default function Home() {
   const navigate = useNavigate();
+  const [modal, setmodal] = useState(false);
   return (
     <div className="home">
       <div className="box1" onClick={() => navigate("/lobby")}>
