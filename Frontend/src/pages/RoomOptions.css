@@ -1,5 +1,5 @@
 .room-options { 
-    background: #AEBDCA;
+    background: var(--light_black);
     height: 100vh;
     display: flex;
     align-items: center;
@@ -7,7 +7,7 @@
 }
 
 .public {
-    background: #FA7070;
+    background: var(--dark_black);
     width: 200px;
     height: 200px;
     padding: 20px;
@@ -16,10 +16,11 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    color: var(--white);
 }
 
 .private {
-    background: #FACD70;
+    background: var(--dark_black);
     width: 200px;
     height: 200px;
     padding: 20px;
@@ -28,10 +29,11 @@
     justify-content: center;
     align-items: center;
     text-align: center;
+    color: var(--white);
 }
 
 .public-btn {
-    background: #C6EBC5;
+    background: var(--red);
     margin-top: 20px;
     height: 50px;
     width: 50px;
@@ -41,7 +43,7 @@
 }
 
 .private-btn {
-    background: #7895B2;
+    background: var(--red);
     margin-top: 20px;
     height: 50px;
     width: 50px;

@@ -1,11 +1,10 @@
 .navbar {
-    background: #171717;
+    background: var(--dark_black);
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 5px 10px 5px 20px; 
-    color: #EDEDED;
-    position: relative;
+    color: var(--white);
 }
 .navbar > img{
     width: 70px;

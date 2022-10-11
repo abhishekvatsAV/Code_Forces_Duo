@@ -2,8 +2,8 @@
     display: flex;
     flex-direction: column;
     height: 100vh;
-    /* width: 100vw; */
-    background-color: #444444;
+    width: 100vw;
+    background-color: var(--light_black);
 }
 
 .invite {
@@ -12,8 +12,8 @@
     align-items: center;
     flex-direction: column;
     width: 35rem;
-    background: #171717;
-    color: #e4e4e4;
+    background: var(--dark_black);
+    color: var(--white);
     font-size: 1.5rem;
     font-weight: 600;
     text-align: center;
@@ -21,22 +21,22 @@
     margin-top: 200px;
     margin-left: 200px;
     border-radius: 10px;
-    box-shadow: 2px 2px 2px #444444;
+    box-shadow: 2px 2px 2px var(--light_black);
 }
 
 .invite * {
     padding: 20px;
-    color: #e4e4e4;
+    color: var(--white);
 }
 
 .invite h3 {
-    color: #DA0037;
+    color: var(--red);
 }
 
 .inputLink{
     display: flex;
     flex-direction: row;
-    background-color: #444444;
+    background-color: var(--light_black);
     padding:5px;
     border-radius: 30px 30px 30px 30px;
     margin-top:20px;
@@ -44,9 +44,9 @@
 }
 
 .inputLink button { 
-    background-color: #171717;
+    background-color: var(--dark_black);
     cursor: pointer;
-    border: 1px solid #444444;
+    border: 1px solid var(--light_black);
     border-radius: 30px;
     text-align: center;
     height: 20px;
@@ -61,7 +61,7 @@
 .inputLink input {
     height: 1rem;
     border-bottom: 1px solid white;
-    background: #444444;
+    background: var(--light_black);
     color: white;
     width: 70%;
     font-size: 1rem;
