@@ -22,12 +22,14 @@ git commit -m "message" \
 git push origin branch/main \
 To add new branch : \
 git checkout -b newbranch \
-To switch branch: \ 
-git checkout branchName 
+To switch branch: \
+git checkout branchName
+To switch branch: \
+git checkout branchName
 
 ### `color theme`
 
-1. dark black : #171717  \ 
-2. dark mode black: #444444  \
-3. red : #DA0037  \ 
-4. white : #EDEDED 
+1. dark black : #171717 \
+2. dark mode black: #444444 \
+3. red : #DA0037 \
+4. white : #EDEDED

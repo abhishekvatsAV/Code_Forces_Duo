@@ -20,47 +20,51 @@
     font-size: 2rem;
     font-weight: 600;
     text-align: center;
-    background: #0c162d;
+    background: #171717;
     width: 700px;
-    border-radius:10px;
     border: 1px solid #202637;
     box-shadow: 5px 5px 8px #202637;
+    border-radius:10px;
 }
 
 .userHandle input {
     width: 60%;
     height: 2rem;
     border: none;
-    border-bottom: 1px solid #0a3069;
+    border-bottom: 1px solid #444444;
     background: transparent;
     color: white;
     font-size: 1.5rem;
     font-weight: 600;
     text-align: center;
     outline: none;
-    caret-color: #00cfc8;
+    caret-color: #e4e4e4;
 }
 
 .userHandle button {
     margin: 20px;
-    margin-top: 30px;
     width: 15%;
-    border-radius: 10px;
     height: 2.5rem;
-    background: #0a3069;
-    color: #00cfc8;
+    border: none;
+    background: #444444;
+    color: #EDEDED;
     font-size: 1.5rem;
     font-weight: 600;
     text-align: center;
     cursor: pointer;
     transition: 0.5s;
-    border: 1px solid #627597;
-    box-shadow: 3px 3px 1px #202637;
+    box-shadow: 3px 3px 1px #171717;
+    border-radius: 6px;
 }
 
 .userHandle button:hover {
-    color: #00cfc8;
-    background: #0c162d;    
+    opacity: 0.8;
+}
+.userHandle >label >p{
+    color:#DA0037;
+    letter-spacing: 0.25rem;
+    padding: 0px;
+    margin-bottom: 10px;
 }
 .userHandle >label >p{
     color: #00cfc8;
@@ -69,10 +73,9 @@
     margin-bottom: 10px;
 }
 .error {
-    color: #627597;
-    font-size: 1.1rem;
+    color: #444444;
+    font-size: 1.5rem;
     font-weight: 600;
     text-align: center;
     margin-top:10px;
-    text-align:center;
 }

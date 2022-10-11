@@ -15,35 +15,35 @@ const Login = () => {
   const [Err, setError] = useState(false);
   const dispatch = useDispatch();
 
-  // const handleUsername = () => {
-  //   // axios
-  //   //   .get(`https://codeforces.com/api/user.info?handles=${username}`)
-  //   //   .then(function (response) {
-  //   //     // handle success
-  //   //     console.log(response);
-  //   //     dispatch(login(response.data.result[0]));
-  //   //     navigate("/home");
-  //   //   })
-  //   //   .catch(function (error) {
-  //   //     // handle error
-  //   //     console.log(error);
-  //   //     setError(true);
-  //   //   });
-  // };
-  const { data, isPending, error } = useFetch(
-    `https://codeforces.com/api/user.info?handles=${username}`
-  );
-  const handleUsername = (e) => {
-    console.log(e);
-    if (error) {
-      setError(true);
-    }
-    if (data) {
-      // redux change state
-      dispatch(login(data.result[0]));
-      navigate("/home");
-    }
+  const handleUsername = () => {
+    axios
+      .get(`https://codeforces.com/api/user.info?handles=${username}`)
+      .then(function (response) {
+        // handle success
+        console.log(response);
+        dispatch(login(response.data.result[0]));
+        navigate("/home");
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+        setError(true);
+      });
   };
+  // const { data, isPending, error } = useFetch(
+  //   `https://codeforces.com/api/user.info?handles=${username}`
+  // );
+  // const handleUsername = (e) => {
+  //   console.log(e);
+  //   if (error) {
+  //     setError(true);
+  //   }
+  //   if (data) {
+  //     // redux change state
+  //     dispatch(login(data.result[0]));
+  //     navigate("/home");
+  //   }
+  // };
 
   return (
     <div className="login">
@@ -55,16 +55,14 @@ const Login = () => {
               options={{
                 strings: "Enter your CodeForces Handle",
                 autoStart: true,
-                // loop: true,
+                delay: 75,
                 cursor: null,
               }}
             />
           </p>{" "}
-          {/* <br /> */}
           <input
             type="text"
             placeholder=""
-            autoFocus
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
