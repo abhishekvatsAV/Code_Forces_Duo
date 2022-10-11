@@ -3,10 +3,22 @@ import "./Home.css";
 import { VscDebugStart } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { v4 as uuidv4 } from "uuid";
+import { CopyToClipboard } from "react-copy-to-clipboard";
 
 export default function Home() {
   const navigate = useNavigate();
-  const [modal, setmodal] = useState(false);
+
+  const [privateOn, setPrivateon] = useState(false);
+  const [roomID, setRoomid] = useState("");
+  const handleClick = () => {
+    setRoomid(uuidv4);
+  }
+
+  const [password, setPassword] = useState("");
+  const handleClick2 = () => {
+    setPassword(uuidv4);
+  }
   return (
     <div className="home">
       <div className="box1" onClick={() => navigate("/lobby")}>
@@ -15,23 +27,59 @@ export default function Home() {
           Go to lobby and see how many rooms are open to join and compete with
           them.
         </p>
-        {/* <VscDebugStart
-          className="homebtn-1"
-          onClick={() => navigate("/lobby")}
-        /> */}
       </div>
-      <div className="box2" onClick={() => navigate("/roomoptions")}>
+      <div className="box2">
         <h3>Create a Room</h3>
         <p>
           Create your own room and invite your friend or stranger to compete
           with you.
         </p>
-        {/* <VscDebugStart
-          className="homebtn-2"
-          onClick={() => navigate("/roomoptionsoptions")}
-        /> */}
+        <div className="input-group box2Input">
+          <input
+            type="text"
+            value={roomID}
+            readOnly
+            className="form-control"
+            aria-label="Recipient's username"
+            aria-describedby="button-addon2"
+            placeholder="Genrate Room ID"
+          />
+          {/* <input type="text" class="form-control" placeholder="generate room code" aria-label="Recipient's username with two button addons" /> */}
+          <button
+            className="btn btn-outline-secondary" type="button" onClick={handleClick}>generate</button>
+          <CopyToClipboard text={roomID} onCopy={() => alert("Copied")}>
+            <button className="btn btn-outline-secondary" type="button">copy</button>
+          </CopyToClipboard>
+        </div>
+
+        <div className="container">
+          <p>Private Room</p>
+          <input type="checkbox" onClick={() => setPrivateon(privateOn?false:true)} />
+        </div>
+
+        {privateOn && (
+          <div className="input-group box2Input">
+            <input
+              type="text"
+              value={password}
+              readOnly
+              className="form-control"
+              aria-label="Recipient's username"
+              aria-describedby="button-addon2"
+              placeholder="Genrate Room ID"
+            />
+            {/* <input type="text" class="form-control" placeholder="generate room code" aria-label="Recipient's username with two button addons" /> */}
+            <button
+              className="btn btn-outline-secondary" type="button" onClick={handleClick2}>generate</button>
+            <CopyToClipboard text={password} onCopy={() => alert("Copied")}>
+              <button className="btn btn-outline-secondary" type="button">copy</button>
+            </CopyToClipboard>
+          </div>
+        )}
+
+
       </div>
     </div>
-    // copy this link and send it to the person you want to mwwt with.Be sure to save it so you can use it later, too.
+    // copy this link and send it to the person you want to connect with.Be sure to save it so you can use it later, too.
   );
 }
