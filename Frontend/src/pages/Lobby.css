@@ -3,5 +3,5 @@
     align-items: center;
     justify-content: center;
     height: 100vh;
-    background: linear-gradient(90deg, #fff 0%, #6998AB 100%)
+    background: var(--light_black);
 }

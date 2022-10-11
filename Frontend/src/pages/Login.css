@@ -20,7 +20,7 @@
     font-size: 2rem;
     font-weight: 600;
     text-align: center;
-    background: #171717;
+    background: var(--dark_black);
     width: 700px;
     border: 1px solid #202637;
     box-shadow: 5px 5px 8px #202637;
@@ -31,7 +31,7 @@
     width: 60%;
     height: 2rem;
     border: none;
-    border-bottom: 1px solid #444444;
+    border-bottom: 1px solid var(--light_black);
     background: transparent;
     color: white;
     font-size: 1.5rem;
@@ -46,14 +46,14 @@
     width: 15%;
     height: 2.5rem;
     border: none;
-    background: #444444;
-    color: #EDEDED;
+    background: var(--light_black);
+    color: var(--white);
     font-size: 1.5rem;
     font-weight: 600;
     text-align: center;
     cursor: pointer;
     transition: 0.5s;
-    box-shadow: 3px 3px 1px #171717;
+    box-shadow: 3px 3px 1px var(--dark_black);
     border-radius: 6px;
 }
 
@@ -61,7 +61,7 @@
     opacity: 0.8;
 }
 .userHandle >label >p{
-    color:#DA0037;
+    color: var(--red);
     letter-spacing: 0.25rem;
     padding: 0px;
     margin-bottom: 10px;
@@ -73,7 +73,7 @@
     margin-bottom: 10px;
 }
 .error {
-    color: #444444;
+    color: var(--light_black);
     font-size: 1.5rem;
     font-weight: 600;
     text-align: center;

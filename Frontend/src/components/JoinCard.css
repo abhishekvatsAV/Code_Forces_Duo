@@ -4,10 +4,11 @@
     justify-content: center;
     flex-direction: column;
     padding: 1rem;
-    background-color: #777;
+    background-color: var(--dark_black);
     border-radius: 0.5rem;
     box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
     margin: 100px;
+    color: var(--white);
 }
 
 .join-card button {
@@ -16,8 +17,8 @@
     padding: 10px;
     border-radius: 0.5rem;
     border: none;
-    background-color: #94DAFF;
-    color: #000;
+    background-color: var(--light_black);
+    color: var(--white);
     font-size: 1.2rem;
     font-weight: bold;
     cursor: pointer;
