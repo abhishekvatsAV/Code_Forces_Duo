@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { v4 as uuidv4 } from "uuid";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { useDispatch, useSelector } from "react-redux";
+import { changePassword } from "../features/keySlice";
 
 export default function Home() {
   const navigate = useNavigate();
@@ -18,7 +20,13 @@ export default function Home() {
   const [password, setPassword] = useState("");
   const handleClick2 = () => {
     setPassword(uuidv4);
+    dispatch(changePassword(password));
   }
+
+  const { key } = useSelector((state) => state.Key);
+
+  const dispatch = useDispatch();
+
   return (
     <div className="home">
       <div className="box1" onClick={() => navigate("/lobby")}>
@@ -69,7 +77,10 @@ export default function Home() {
               placeholder="Genrate Password"
             />
             <button
-              className="btn btn-outline-secondary" type="button" onClick={handleClick2}>generate</button>
+              className="btn btn-outline-secondary" 
+              type="button" 
+              onClick={handleClick2}
+            >generate</button>
             <CopyToClipboard text={password} onCopy={() => alert("Copied")}>
               <button className="btn btn-outline-secondary" type="button">copy</button>
             </CopyToClipboard>

@@ -5,9 +5,13 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
 import { MdContentCopy } from "react-icons/md";
+import { useDispatch, useSelector } from "react-redux";
+import { changePassword } from "../features/keySlice";
 
 const Room = () => {
   const { roomID } = useParams();
+
+  const { key } = useSelector((state) => state.Key);
 
   return (
     <div className="room">
@@ -28,6 +32,7 @@ const Room = () => {
             <button className="btn btn-outline-secondary">copy</button>
           </CopyToClipboard>
         </div>
+          <p>{key}</p>
       </div>
     </div>
   );
