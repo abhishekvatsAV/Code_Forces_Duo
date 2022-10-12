@@ -19,6 +19,7 @@ const Room = () => {
       <div className="invite">
         <h3>Here's the link to your meeting</h3>
         <p>Copy the link and send it to people you want to compete with.</p>
+        <h5>Room Id:</h5>
         <div className="input-group mb-3 inputLink">
           <input
             type="text"
@@ -32,22 +33,26 @@ const Room = () => {
             <button className="btn btn-outline-secondary">copy</button>
           </CopyToClipboard>
         </div>
-        
-        <h5>Password:</h5>
+        {pswd !== "" && (
+          <>
+            <h5>Password:</h5>
 
-        <div className="input-group mb-3 inputLink">
-          <input
-            type="text"
-            value={pswd}
-            readOnly
-            className="form-control"
-            aria-label="Recipient's username"
-            aria-describedby="button-addon2"
-          />
-          <CopyToClipboard text={pswd} onCopy={() => alert("Copied")}>
-            <button className="btn btn-outline-secondary">copy</button>
-          </CopyToClipboard>
-        </div>
+            <div className="input-group mb-3 inputLink">
+              <input
+                type="text"
+                value={pswd}
+                readOnly
+                className="form-control"
+                aria-label="Recipient's username"
+                aria-describedby="button-addon2"
+              />
+              <CopyToClipboard text={pswd} onCopy={() => alert("Copied")}>
+                <button className="btn btn-outline-secondary">copy</button>
+              </CopyToClipboard>
+
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
