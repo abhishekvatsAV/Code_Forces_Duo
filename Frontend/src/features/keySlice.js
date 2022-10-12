@@ -1,13 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const keySlice = createSlice({
-  name: "Key",
+  name: "password",
   initialState: {
-    key: ""
+    pswd: ""
   },
   reducers: {
     changePassword: (state, action) => {
-      state.key = action.payload;
+      state.pswd = action.payload;
     }
   },
 });

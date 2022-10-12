@@ -11,7 +11,7 @@ import { changePassword } from "../features/keySlice";
 const Room = () => {
   const { roomID } = useParams();
 
-  const { key } = useSelector((state) => state.Key);
+  const { pswd } = useSelector((state) => state.password);
 
   return (
     <div className="room">
@@ -32,7 +32,7 @@ const Room = () => {
             <button className="btn btn-outline-secondary">copy</button>
           </CopyToClipboard>
         </div>
-          <p>{key}</p>
+          <p>{pswd}</p>
       </div>
     </div>
   );

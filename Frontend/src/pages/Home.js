@@ -1,10 +1,15 @@
 //styles
 import "./Home.css";
+
 import { VscDebugStart } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+
+//third party
 import { v4 as uuidv4 } from "uuid";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+
+//redux
 import { useDispatch, useSelector } from "react-redux";
 import { changePassword } from "../features/keySlice";
 
@@ -17,15 +22,15 @@ export default function Home() {
     setRoomid(uuidv4);
   }
 
+  
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
   const handleClick2 = () => {
     setPassword(uuidv4);
     dispatch(changePassword(password));
   }
 
-  const { key } = useSelector((state) => state.Key);
-
-  const dispatch = useDispatch();
 
   return (
     <div className="home">

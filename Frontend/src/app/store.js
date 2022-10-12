@@ -5,6 +5,6 @@ import keyReducer from "../features/keySlice";
 export default configureStore({
   reducer: {
     user: userReducer,
-    Key: keyReducer,
+    password: keyReducer,
   },
 });
