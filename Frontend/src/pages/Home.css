@@ -88,3 +88,7 @@ input:checked::after {
     background-color: #ddd;
     cursor: not-allowed;
 }
+
+.invite h5 {
+    color: var(--red);
+}

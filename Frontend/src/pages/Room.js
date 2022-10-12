@@ -32,7 +32,22 @@ const Room = () => {
             <button className="btn btn-outline-secondary">copy</button>
           </CopyToClipboard>
         </div>
-          <p>{pswd}</p>
+        
+        <h5>Password:</h5>
+
+        <div className="input-group mb-3 inputLink">
+          <input
+            type="text"
+            value={pswd}
+            readOnly
+            className="form-control"
+            aria-label="Recipient's username"
+            aria-describedby="button-addon2"
+          />
+          <CopyToClipboard text={pswd} onCopy={() => alert("Copied")}>
+            <button className="btn btn-outline-secondary">copy</button>
+          </CopyToClipboard>
+        </div>
       </div>
     </div>
   );

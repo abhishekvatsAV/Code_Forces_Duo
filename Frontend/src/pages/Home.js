@@ -25,10 +25,10 @@ export default function Home() {
   
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
+  dispatch(changePassword(password));
 
   const handleClick2 = () => {
-    setPassword(uuidv4);
-    dispatch(changePassword(password));
+    setPassword(uuidv4)
   }
 
 
@@ -91,8 +91,6 @@ export default function Home() {
             </CopyToClipboard>
           </div>
         )}
-
-        {/* // TODO: add a button to create room */}
           <button 
             className={`btn btn-danger roomButton ${
               (roomID==="" && privateOn===false) ? 
