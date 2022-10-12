@@ -66,9 +66,8 @@ export default function Home() {
               className="form-control"
               aria-label="Recipient's username"
               aria-describedby="button-addon2"
-              placeholder="Genrate Room ID"
+              placeholder="Genrate Password"
             />
-            {/* <input type="text" class="form-control" placeholder="generate room code" aria-label="Recipient's username with two button addons" /> */}
             <button
               className="btn btn-outline-secondary" type="button" onClick={handleClick2}>generate</button>
             <CopyToClipboard text={password} onCopy={() => alert("Copied")}>
@@ -77,7 +76,23 @@ export default function Home() {
           </div>
         )}
 
+        {/* // TODO: add a button to create room */}
+          <button 
+            className={`btn btn-danger roomButton ${
+              (roomID==="" && privateOn===false) ? 
+                "disabled"
+               : `${
 
+              (privateOn===true && password==="" || privateOn===true && password !== "" && roomID==="") ? 
+                "disabled"
+               : ""
+              }`
+              }`}
+            // {`navbar ${state && "navbar_black"}`}
+            onClick={() => navigate(`/room/${roomID}`)}
+          >
+            Create Room
+          </button>
       </div>
     </div>
     // copy this link and send it to the person you want to connect with.Be sure to save it so you can use it later, too.
