@@ -1,7 +1,35 @@
 .lobby {
     display: flex;
     align-items: center;
-    justify-content: center;
+    /* justify-content: center; */
     height: 100vh;
+    background: var(--light_black);
+}
+
+.lobby > h1 {
+    font-size: 3rem;
+    font-weight: 600;
+    color: var(--white);
+    margin: 0;
+    padding: 0;
+    margin-left: 20px;
+}
+
+.lobby .privateRoom {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 100%;
+    background: var(--dark_black);
+}
+
+.lobby .publicRoom {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 50%;
+    height: 100%;
     background: var(--light_black);
 }

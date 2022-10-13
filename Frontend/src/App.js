@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/" exact element={<Login />} />
+          {/* <Route path="/" exact element={<Login />} />
           <Route path="/home" element={
             <>
               <Navbar />
@@ -21,7 +21,7 @@ function App() {
             </>
           } />
           <Route path="/roomoptions" element={<RoomOptions />} />
-          <Route path="/room/:roomID" element={<Room />} />
+          <Route path="/room/:roomID" element={<Room />} /> */}
           <Route path="/lobby" element={<Lobby />} />
         </Routes>
       </BrowserRouter>

@@ -15,7 +15,7 @@ app.use((req, res, next) => {
 
 // routes
 app.get("/", function (req, res) {
-	// res.send("hi");
+	res.send("hi");
 	// res.sendFile(__dirname + "/index.html");
 });
 
