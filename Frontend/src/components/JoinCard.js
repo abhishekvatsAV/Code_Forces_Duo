@@ -1,14 +1,14 @@
 //styles
 import "./JoinCard.css";
 
-const JoinCard = ({id, name}) => {
+const JoinCard = ({ id, name }) => {
   return (
-    <div className='join-card'>
-			<h1>{id}</h1>
-			<h1>{name}</h1>
-			<button>Join</button>
+    <div className="joinCard">
+      <h3>{id}</h3>
+      <h3>{name}</h3>
+      <button className="btn btn-danger btn-sm">Join</button>
     </div>
-  )
-}
+  );
+};
 
-export default JoinCard
+export default JoinCard;

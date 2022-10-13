@@ -4,4 +4,23 @@
     justify-content: center;
     height: 100vh;
     background: var(--light_black);
+    padding: 20px;
+}
+
+.lobbyContent{
+    display: grid;
+    grid-template-columns: 3fr 3fr;
+    gap: 5rem;
+    grid-area: auto;
+    height: 100vh;
+    width: 100vw;
+    padding-top: 1rem;
+}
+
+
+.publicContent > h3 , .privateContent > h3{
+    border-radius: 0px  20px 20px 0px;
+    width: 50%;
+    background-color: aquamarine;
+    margin-bottom: 40px;
 }
