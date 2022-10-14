@@ -1,0 +1,29 @@
+const privateCards = [
+		{
+			id: 1,
+			name: "player1",
+			players: 2,
+			roomID: "123456",
+		},
+		{
+			id: 2,
+			name: "player2",
+			players: 2,
+			roomID: "123456",
+		}
+	]
+
+	const publicCards = [
+		{
+			id: 1,
+			name: "player1",
+			players: 2,
+			roomID: "123456",
+		},
+		{
+			id: 2,
+			name: "player2",
+			players: 2,
+			roomID: "123456",
+		}
+	]

@@ -29,21 +29,18 @@ const Login = () => {
         console.log(error);
         setError(true);
       });
+      axios
+      .post("http://localhost:4000/", {
+        username: username,
+      })
+      .then(function (response) {
+        console.log(response);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
   };
-  // const { data, isPending, error } = useFetch(
-  //   `https://codeforces.com/api/user.info?handles=${username}`
-  // );
-  // const handleUsername = (e) => {
-  //   console.log(e);
-  //   if (error) {
-  //     setError(true);
-  //   }
-  //   if (data) {
-  //     // redux change state
-  //     dispatch(login(data.result[0]));
-  //     navigate("/home");
-  //   }
-  // };
+ 
 
   return (
     <div className="login">
