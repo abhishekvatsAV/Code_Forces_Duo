@@ -16,11 +16,11 @@ app.use(express.json());
 // 	next();
 // });
 
-// // routes
-// app.get("/", function (req, res) {
-// 	res.send("hi");
-// 	// res.sendFile(__dirname + "/index.html");
-// });
+// routes
+app.get("/", function (req, res) {
+	res.send("hi");
+	// res.sendFile(__dirname + "/index.html");
+});
 
 app.post('/', async (req, res) => {
 	const user = new User(req.body);
