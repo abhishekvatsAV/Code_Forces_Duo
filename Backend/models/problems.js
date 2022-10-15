@@ -7,14 +7,31 @@ const problemSchema = new schema({
         type:String,
         required:true
     },
-    difficulty:{
+    difficultyIndex:{
         type:String,
-        default:"Easy",
-        enums:["Easy","Medium","Hard","Expert"]
+        default:"A"
+    },
+    contestId:{
+        type:Number,
+        required:true
+    },
+    name:{
+        type:String,
+        required:true
+    },
+    rating:{
+        type:String,
+        required:true
     },
     solvedBy:{
         type:Number,
         default:0
-    }
+    },
+    tags:[
+        {
+            type:String,
+            required:true
+        }
+    ]
 })
 module.exports = mongoose.model("problem",problemSchema);

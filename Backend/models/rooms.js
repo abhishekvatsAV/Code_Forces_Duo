@@ -17,6 +17,10 @@ const roomSchema = new schema({
         type:String,
         enums:["Public","Private"],
         default:"Public"
+    },
+    isRoomFull:{
+        type: Boolean,
+        default:false
     }
 },{
     timestamps:true

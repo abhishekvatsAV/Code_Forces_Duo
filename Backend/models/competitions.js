@@ -29,6 +29,10 @@ const competitionSchema = new schema({
         type:ObjectId,
         required:true,
         ref:"room"
+    },
+    isRoomLeft:{
+        type: Boolean,
+        default:false
     }
 },{
     timestamps:true

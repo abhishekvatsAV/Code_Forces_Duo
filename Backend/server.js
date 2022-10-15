@@ -2,9 +2,14 @@ const express = require("express");
 const mongoose = require("mongoose");
 const User = require("./models/userModel");
 require("dotenv").config("./.env");
+const cors = require("cors");
 //express app
 const app = express();
 
+//cors
+app.use(cors({
+	origin:"*"
+}));
 // middleware & static files
 app.use(express.static("public"));
 app.use(express.json());
@@ -22,19 +27,9 @@ app.get("/", function (req, res) {
 	// res.sendFile(__dirname + "/index.html");
 });
 
-app.post('/', async (req, res) => {
-	const user = new User(req.body);
-	console.log(user);
-	try {
-		await user.save();
-		res.send(user);
-	} catch (error) {
-		console.log(error);
-		res.status(500).send(error);
-	}
-})
+app.use("/rooms",require("./routes/rooms"));
 
-
+app.use("/users",require("./routes/users"));
 
 // listen for requests and connect to database
 mongoose.connect(process.env.MONGO_URI)
