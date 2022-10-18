@@ -27,14 +27,13 @@ app.get("/", function (req, res) {
 	// res.sendFile(__dirname + "/index.html");
 });
 
-app.use("/rooms",require("./routes/rooms"));
+// app.use("/rooms",require("./routes/rooms"));
 
 app.use("/users",require("./routes/users"));
 
 // listen for requests and connect to database
 mongoose.connect(process.env.MONGO_URI)
 	.then(() => {
-
 		const PORT = process.env.PORT || 4000;
 		app.listen(PORT, function () {
 			console.log(`Server started on port ${PORT}`);
@@ -42,4 +41,4 @@ mongoose.connect(process.env.MONGO_URI)
 	})
 	.catch((err) => console.log(err));
 	
-console.log(process.env.MONGO_URI);
+// console.log(process.env.MONGO_URI);

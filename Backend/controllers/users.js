@@ -14,9 +14,10 @@ exports.registerUser = async (req,res,next) => {
                 });
             }
             userData = new users({
-                userName,
+                userName: userName,
                 profile:profile?.data?.result[0]
             });
+            console.log("helo bbg", userData);
             await userData.save();
         }
         return res.status(200).json({
@@ -24,8 +25,10 @@ exports.registerUser = async (req,res,next) => {
             userData
         })
     } catch (error) {
+        console.log(error);
         return res.status(500).json({
             message:error.message
         });
     }
+    next();
 }

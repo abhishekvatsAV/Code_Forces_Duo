@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "../components/Navbar";
 import JoinCard from "../components/JoinCard";
 
@@ -8,6 +8,15 @@ import "./Lobby.css";
 const Lobby = () => {
   // just a dummy data
   // TODO: fetch data from server
+
+  useEffect(() => {
+    const fetchRooms = async () => {
+      const response = await fetch("/rooms/getAllRooms");
+      const data = await response.json();
+      console.log(data);
+    }
+  }, [])
+
   const privateCards = [
     {
       id: 1,

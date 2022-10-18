@@ -22,6 +22,17 @@ const Login = () => {
         // handle success
         console.log(response);
         dispatch(login(response.data.result[0]));
+        return {userName: username}
+      })
+      .then(({userName})=> { // storing the user in db
+        axios 
+          .post('http://localhost:4000/users/registerUser',{
+            method: "POST",
+            headers : {
+              "Content-Type" : "application/json"
+            },
+            userName : JSON.stringify(userName)
+          })
         navigate("/home");
       })
       .catch(function (error) {
@@ -47,7 +58,6 @@ const Login = () => {
       <img src={Bg} alt="login-bg" />
       <div className="userHandle">
         <label htmlFor="">
-          <p>
             <Typewriter
               options={{
                 strings: "Enter your CodeForces Handle",
@@ -56,7 +66,7 @@ const Login = () => {
                 cursor: null,
               }}
             />
-          </p>{" "}
+          {" "}
           <input
             type="text"
             placeholder=""
