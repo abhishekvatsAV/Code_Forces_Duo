@@ -3,44 +3,50 @@ const competitions = require("../models/competitionsModel");
 const problems = require("../models/problemsModel");
 const room = require("../models/roomsModel");
 
+
 exports.addRoom = async (req, res, next) => {
+    console.log("first");
     try {
-        let { roomId, password, roomType, userId } = req.body;
+        let { roomId, password, roomType, host } = req.body;
+        console.log(req.body);
         let roomData = new room({
             roomId,
             password,
-            roomType
+            roomType,
+            host
         });
         await roomData.save();
-        let problemData = await axios.get("https://codeforces.com/api/problemset.problems?tags=implementation");
-        let randomProblem = problemData?.data?.result?.problems[Math.floor(Math.round() * 8128)];
-        let existingProblem = await problems.findOne({
-            difficultyIndex: randomProblem.index,
-            contestId: randomProblem.contestId,
-            isRoomLeft:false
-        });
-        if (!existingProblem) {
-            existingProblem = new problems({
-                link: `https://codeforces.com/problemset/problem/${randomProblem.contestId}/${randomProblem.index}`,
-                ...randomProblem,
-                difficultyIndex: randomProblem.index
-            });
-            await existingProblem.save();
-        }
-        let competitionData = new competitions({
-            problemId: existingProblem._id,
-            user: userId,
-            competitionName: `competition-${roomId}`,
-            roomId: roomData._id
-        });
-        await competitionData.save();
+        console.log("successs ---------------")
+    //     let problemData = await axios.get("https://codeforces.com/api/problemset.problems");
+    //     let randomProblem = problemData?.data?.result?.problems[Math.floor(Math.round() * 8128)];
+    //     let existingProblem = await problems.findOne({
+    //         difficultyIndex: randomProblem.index,
+    //         contestId: randomProblem.contestId,
+    //         isRoomLeft:false
+    //     });
+    //     if (!existingProblem) {
+    //         existingProblem = new problems({
+    //             link: `https://codeforces.com/problemset/problem/${randomProblem.contestId}/${randomProblem.index}`,
+    //             ...randomProblem,
+    //             difficultyIndex: randomProblem.index
+    //         });
+    //         await existingProblem.save();
+    //     }
+    //     let competitionData = new competitions({
+    //         problemId: existingProblem._id,
+    //         user: userId,
+    //         competitionName: `competition-${roomId}`,
+    //         roomId: roomData._id
+    //     });
+    //     await competitionData.save();
         return res.status(200).json({
             message: "room created successfully",
             roomData
         })
     } catch (error) {
+        console.log(error, "could not create room")
         return res.status(500).json({
-            message: "room created successfully"
+            message: "something went wrong room not created"
         })
     }
 }

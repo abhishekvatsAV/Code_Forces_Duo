@@ -26,7 +26,7 @@ app.get("/", function (req, res) {
 	// res.sendFile(__dirname + "/index.html");
 });
 
-// app.use("/rooms",require("./routes/rooms"));
+app.use("/rooms",require("./routes/rooms"));
 
 app.use("/users",require("./routes/users"));
 

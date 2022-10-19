@@ -9,42 +9,33 @@ const Lobby = () => {
   // just a dummy data
   // TODO: fetch data from server
 
+  const [privateCards, setPrivateCards] = React.useState([]);
+  const [publicCards, setPublicCards] = React.useState([]);
+
   useEffect(() => {
     const fetchRooms = async () => {
-      const response = await fetch("/rooms/getAllRooms");
+      const response = await fetch("http://localhost:4000/rooms/getAllRooms");
       const data = await response.json();
-      console.log(data);
+      // console.log(data.allRooms);
+      const privateRooms = [];
+      const publicRooms = [];
+      data.allRooms.map((room) => {
+        if(room.roomType === "Public") {
+          publicRooms.push(room);
+        }
+        else { 
+          privateRooms.push(room);
+        }
+      })
+      console.log(publicCards, privateCards);
+      setPrivateCards(privateRooms);
+      setPublicCards(publicRooms);
     }
+    fetchRooms();
+    
   }, [])
 
-  const privateCards = [
-    {
-      id: 1,
-      name: "player1",
-      players: 2,
-      roomID: "123456",
-    },
-    {
-      id: 2,
-      name: "player2",
-      players: 2,
-      roomID: "123456",
-    },
-  ];
-  const publicCards = [
-    {
-      id: 1,
-      name: "player1",
-      players: 2,
-      roomID: "123456",
-    },
-    {
-      id: 2,
-      name: "player2",
-      players: 2,
-      roomID: "123456",
-    },
-  ];
+  
 
   return (
     <>
@@ -54,14 +45,13 @@ const Lobby = () => {
           <div className="publicContent">
             <h3>Public Rooms</h3>
             {publicCards.map((card) => (
-              <JoinCard key={card.id} id={card.id} name={card.name} />
+              <JoinCard key={card.roomId} id={card.roomId} name={card.host} />
             ))}
           </div>
           <div className="privateContent">
             <h3>Private Rooms</h3>
             {privateCards.map((card) => (
-
-              <JoinCard key={card.id} id={card.id} name={card.name} />
+              <JoinCard key={card.roomId} id={card.roomId} name={card.host} />
             ))}
           </div>
         </div>

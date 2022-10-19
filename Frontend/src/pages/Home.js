@@ -13,8 +13,11 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useDispatch, useSelector } from "react-redux";
 import { changePassword } from "../features/keySlice";
 
+import axios from "axios";
+
 export default function Home() {
   const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
 
   const [privateOn, setPrivateon] = useState(false);
   const [roomID, setRoomid] = useState("");
@@ -22,13 +25,24 @@ export default function Home() {
     setRoomid(uuidv4);
   }
 
-  
+
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   dispatch(changePassword(password));
 
   const handleClick2 = () => {
     setPassword(uuidv4)
+  }
+
+  const handleCreateRoom = async () => {
+    const response = await axios.post("http://localhost:4000/rooms/addRoom", {
+      roomId: roomID,
+      password: password,
+      roomType: privateOn ? "Private" : "Public",
+      host: `${user[0].handle}`
+    })
+
+    navigate(`/room/${roomID}`)
   }
 
 
@@ -67,7 +81,7 @@ export default function Home() {
 
         <div className="container">
           <p>Private Room</p>
-          <input type="checkbox" onClick={() => setPrivateon(privateOn?false:true)} />
+          <input type="checkbox" onClick={() => setPrivateon(privateOn ? false : true)} />
         </div>
 
         {privateOn && (
@@ -82,8 +96,8 @@ export default function Home() {
               placeholder="Genrate Password"
             />
             <button
-              className="btn btn-outline-secondary" 
-              type="button" 
+              className="btn btn-outline-secondary"
+              type="button"
               onClick={handleClick2}
             >generate</button>
             <CopyToClipboard text={password} onCopy={() => alert("Copied")}>
@@ -91,22 +105,19 @@ export default function Home() {
             </CopyToClipboard>
           </div>
         )}
-          <button 
-            className={`btn btn-danger roomButton ${
-              (roomID==="" && privateOn===false) ? 
+        <button
+          className={`btn btn-danger roomButton ${(roomID === "" && privateOn === false) ?
+              "disabled"
+              : `${(privateOn === true && password === "" || privateOn === true && password !== "" && roomID === "") ?
                 "disabled"
-               : `${
-
-              (privateOn===true && password==="" || privateOn===true && password !== "" && roomID==="") ? 
-                "disabled"
-               : ""
+                : ""
               }`
-              }`}
-            // {`navbar ${state && "navbar_black"}`}
-            onClick={() => navigate(`/room/${roomID}`)}
-          >
-            Create Room
-          </button>
+            }`}
+          // {`navbar ${state && "navbar_black"}`}
+          onClick={handleCreateRoom}
+        >
+          Create Room
+        </button>
       </div>
     </div>
     // copy this link and send it to the person you want to connect with.Be sure to save it so you can use it later, too.

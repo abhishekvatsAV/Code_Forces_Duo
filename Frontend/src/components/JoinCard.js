@@ -4,11 +4,11 @@ import "./JoinCard.css";
 const JoinCard = ({ id, name }) => {
   return (
     <div className="joinCard">
-      <h3>{id}</h3>
+      {/* <h3>{id}</h3> */}
       <h3>{name}</h3>
       <button
         type="button"
-        class="btn btn-danger btn-small"
+        className="btn btn-danger btn-small"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
       >
@@ -17,20 +17,20 @@ const JoinCard = ({ id, name }) => {
 
       {/* modal */}
       <div
-        class="modal fade"
+        className="modal fade"
         id="exampleModal"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="exampleModalLabel"
         aria-hidden="true"
       >
         <div
-          class="modal-dialog modal-dialog-centered"
+          className="modal-dialog modal-dialog-centered"
           style={{ color: "black" }}
         >
-          <div class="modal-content" style={{ backgroundColor: "#171717" }}>
-            <div class="modal-header" style={{borderBottom:"none"}}>
+          <div className="modal-content" style={{ backgroundColor: "#171717" }}>
+            <div className="modal-header" style={{borderBottom:"none"}}>
               <h1
-                class="modal-title fs-5"
+                className="modal-title fs-5"
                 id="exampleModalLabel"
                 style={{ color: "white" }}
               >
@@ -38,14 +38,14 @@ const JoinCard = ({ id, name }) => {
               </h1>
               <button
                 type="button"
-                class="btn-close"
+                className="btn-close"
                 data-bs-dismiss="modal"
                 aria-label="Close"
                 style={{ backgroundColor: "white" }}
               ></button>
             </div>{" "}
             <input
-              class="modal-body modalInput"
+              className="modal-body modalInput"
               style={{
                 width: "100%",
                 border: "none",
@@ -56,8 +56,8 @@ const JoinCard = ({ id, name }) => {
               }}
               type="text"
             />
-            <div class="modal-footer" style={{borderTop:"none"}}>
-              <button type="button" class="btn btn-light">
+            <div className="modal-footer" style={{borderTop:"none"}}>
+              <button type="button" className="btn btn-light">
                 Join Room
               </button>
             </div>
