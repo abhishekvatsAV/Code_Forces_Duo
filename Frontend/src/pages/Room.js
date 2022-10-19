@@ -7,11 +7,30 @@ import { useParams } from "react-router-dom";
 import { MdContentCopy } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { changePassword } from "../features/keySlice";
+import axios from 'axios'
 
 const Room = () => {
   const { roomID } = useParams();
 
   const { pswd } = useSelector((state) => state.password);
+
+  const handleClick = async (e) => {
+    e.preventDefault();
+    const response = await axios.get(
+      "https://codeforces.com/api/problemset.problems/"
+    );
+    const arr = [];
+    let size = 5;
+    let i = 0;
+    while (size > 0) {
+      if (response?.data?.result?.problems[i]?.rating === 800) {
+        arr.push(response.data.result.problems[i]);
+        size--;
+      }
+      i++;
+    }
+    // console.log(arr);
+  }
 
   return (
     <div className="room">
@@ -54,6 +73,23 @@ const Room = () => {
           </>
         )}
       </div>
+      <footer className="roomCreateFooter">
+        <form action="">
+          <div className="range">
+            <p>Range: </p>
+          </div>
+            <input type="number" required placeholder="lowerBound" />
+            {" - "}
+            <input type="number" required placeholder="upperBound" />
+          <div className="questions">
+            <p>No of questions: </p>
+          </div>
+            <input type="number" required placeholder="Questions.." />
+          <button onClick={handleClick}>
+            SET
+          </button>
+        </form>
+      </footer>
     </div>
   );
 };

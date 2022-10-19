@@ -1,1 +1,0 @@
-const competition = require("../models/competitions");

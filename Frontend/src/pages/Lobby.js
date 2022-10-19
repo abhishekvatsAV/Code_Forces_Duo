@@ -60,6 +60,7 @@ const Lobby = () => {
           <div className="privateContent">
             <h3>Private Rooms</h3>
             {privateCards.map((card) => (
+
               <JoinCard key={card.id} id={card.id} name={card.name} />
             ))}
           </div>

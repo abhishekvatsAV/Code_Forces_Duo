@@ -1,7 +1,8 @@
 .room {
     display: flex;
     flex-direction: column;
-    height: 100vh;
+    height: 100%;
+    min-height: 100vh;
     width: 100vw;
     background-color: var(--light_black);
 }
@@ -17,12 +18,13 @@
     font-size: 1.5rem;
     font-weight: 600;
     text-align: center;
-    padding: 40px;
-    margin-top: 200px;
-    margin-left: 200px;
+    padding: 20px;   
     border-radius: 10px;
+    margin-top: 4rem;
+
     box-shadow: 2px 2px 2px var(--light_black);
 }
+
 
 .invite * {
     padding: 20px;
@@ -33,17 +35,17 @@
     color: var(--red);
 }
 
-.inputLink{
+.inputLink {
     display: flex;
     flex-direction: row;
     background-color: var(--light_black);
-    padding:5px;
+    padding: 5px;
     border-radius: 30px 30px 30px 30px;
-    margin-top:20px;
+    margin-top: 20px;
     justify-content: space-between;
 }
 
-.inputLink button { 
+.inputLink button {
     background-color: var(--dark_black);
     cursor: pointer;
     border: 1px solid var(--light_black);
@@ -53,7 +55,8 @@
     display: inline-flex;
     align-items: center;
 }
-.inputLink button:hover{
+
+.inputLink button:hover {
     opacity: 0.8;
     transition: 0.3s ease-in-out;
 }
@@ -72,3 +75,77 @@
     border: none;
     width: 100%;
 }
+
+
+
+/* range */
+
+.roomCreateFooter form {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 100px;
+    background-color: var(--dark_black);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--white);
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    padding: 20px;
+}
+
+.roomCreateFooter form input {
+    width: 100px;
+    height: 2rem;
+    background: var(--light_black);
+    outline: none;
+    --webkit-appearance: none;
+    border-radius: 0px;
+    border: none;
+    color: var(--white);
+    margin: 20px;
+    margin-bottom: 0;
+}
+
+.room form p {
+    color: var(--red);
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    margin: 20px;
+    margin-bottom: 0;
+}
+
+.room form button {
+    background-color: var(--white);
+    cursor: pointer;
+    border: 1px solid var(--red);
+    border-radius: 3px;
+    text-align: center;
+    height: 40px;
+    width: 50px;
+    display: inline-flex;
+    align-items: center;
+    text-align: center;
+    margin-bottom: -10px;
+}
+
+.room form button:hover {
+    color: var(--white);
+    background-color: var(--red);
+    border: 1px solid var(--white);
+    /* opacity: 0.6; */
+    transition: 0.3s ease-in-out;
+}
+
+.room form button span {
+    color: var(--red);
+    font-size: 1.5rem;
+    font-weight: 600;
+    text-align: center;
+    /* padding: 20px; */
+}
+
+

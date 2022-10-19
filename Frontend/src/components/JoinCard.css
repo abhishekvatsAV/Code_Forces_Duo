@@ -16,6 +16,10 @@
     cursor: pointer;
     border-radius: 0px  20px 20px 0px;
 }
+.modalInput::placeholder{
+    color: var(--dark_black);
+}
+
 
 
 /* .joinCard > h3{

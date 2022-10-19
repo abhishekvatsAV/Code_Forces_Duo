@@ -1,7 +1,7 @@
 const { default: axios } = require("axios");
-const competitions = require("../models/competitions");
-const problems = require("../models/problems");
-const room = require("../models/rooms");
+const competitions = require("../models/competitionsModel");
+const problems = require("../models/problemsModel");
+const room = require("../models/roomsModel");
 
 exports.addRoom = async (req, res, next) => {
     try {

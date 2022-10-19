@@ -1,4 +1,4 @@
-const users = require("../models/users");
+const users = require("../models/usersModel");
 const axios = require("axios");
 exports.registerUser = async (req,res,next) => {
     try {
