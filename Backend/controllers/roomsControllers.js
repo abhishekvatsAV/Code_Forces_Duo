@@ -4,6 +4,7 @@ const problems = require("../models/problemsModel");
 const room = require("../models/roomsModel");
 
 
+// working fine
 exports.addRoom = async (req, res, next) => {
     console.log("first");
     try {
@@ -49,6 +50,7 @@ exports.addRoom = async (req, res, next) => {
             message: "something went wrong room not created"
         })
     }
+    next();
 }
 
 exports.joinRoom = async (req, res, next) => {
@@ -62,28 +64,39 @@ exports.joinRoom = async (req, res, next) => {
                 message: "room not found"
             })
         }
-        let roomUserCount = await competitions.countDocuments({
-            roomId
-        });
+
         if (roomData.isRoomFull) {
             return res.status(400).json({
-                message: "sorry the room is full"
+                message: "room is full"
             })
         }
-        if (roomUserCount === 1) {
-            roomData.isRoomFull = true;
-            await roomData.save();
-        }
-        let existingCompetition = await competitions.findOne({
-            roomId
-        });
-        let competitionData = new competitions({
-            problemId: existingCompetition.problemId,
-            user: userId,
-            competitionName: `competition-${roomId}`,
-            roomId
-        });
-        await competitionData.save();
+        roomData.isRoomFull = true;
+        await roomData.save();
+
+
+        // let roomUserCount = await competitions.countDocuments({
+        //     roomId
+        // });
+        // if (roomData.isRoomFull) {
+        //     return res.status(400).json({
+        //         message: "sorry the room is full"
+        //     })
+        // }
+        // if (roomUserCount === 1) {
+        //     roomData.isRoomFull = true;
+        //     await roomData.save();
+        // }
+        // let existingCompetition = await competitions.findOne({
+        //     roomId
+        // });
+        // let competitionData = new competitions({
+        //     problemId: existingCompetition.problemId,
+        //     user: userId,
+        //     competitionName: `competition-${roomId}`,
+        //     roomId
+        // });
+        // await competitionData.save();
+
         return res.status(200).json({
             message: "room joined successfully"
         })
@@ -92,8 +105,10 @@ exports.joinRoom = async (req, res, next) => {
             message: error.message
         })
     }
+    next();
 }
 
+// working fine
 exports.getAllRooms = async (req, res, next) => {
     try {
         let allRooms = await room
@@ -110,6 +125,7 @@ exports.getAllRooms = async (req, res, next) => {
             message: error.message
         });
     }
+    next();
 }
 
 exports.leaveRoom = async (req,res,next) => {

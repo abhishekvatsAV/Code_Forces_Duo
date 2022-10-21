@@ -5,7 +5,7 @@ const roomController = require("../controllers/roomsControllers");
 const router = express.Router();
 
 router.post("/addRoom",roomController.addRoom);
-// router.post("/joinRoom",roomController.joinRoom);
+router.post("/joinRoom",roomController.joinRoom);
 router.get("/getAllRooms",roomController.getAllRooms);
 // router.post("/leaveRoom",roomController.leaveRoom);
 

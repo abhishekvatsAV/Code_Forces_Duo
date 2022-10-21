@@ -41,3 +41,29 @@ mongoose.connect(process.env.MONGO_URI)
 	.catch((err) => console.log(err));
 	
 // console.log(process.env.MONGO_URI);
+
+
+
+
+
+
+
+// socket io
+const http = require("http").createServer(app);
+const io = require("socket.io")(http, {
+	cors: { origin: "*" },
+});
+
+io.on("connection", (socket) => {
+	console.log("a user connected");
+	// join room 
+	socket.on("joinRoom", (roomId, userId) => {
+		socket.join(roomId);
+		socket.to(roomId).broadcast.emit("user-connected", userId);
+	});
+
+	socket.on("disconnect", () => {
+		console.log("user disconnected");
+	});
+
+});
