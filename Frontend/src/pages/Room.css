@@ -4,9 +4,10 @@
     height: 100%;
     min-height: 100vh;
     width: 100vw;
+    align-items: center;
     background-color: var(--light_black);
+    justify-content: center;
 }
-
 .invite {
     display: flex;
     justify-content: center;
@@ -24,7 +25,6 @@
 
     box-shadow: 2px 2px 2px var(--light_black);
 }
-
 
 .invite * {
     padding: 20px;
@@ -76,8 +76,6 @@
     width: 100%;
 }
 
-
-
 /* range */
 
 .roomCreateFooter{
@@ -90,67 +88,3 @@
     justify-content: space-between;
     align-items: center;
 } 
-
-.roomCreateFooter form {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    color: var(--white);
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-align: center;
-}
-
-.roomCreateFooter form input {
-    width: 100px;
-    height: 2rem;
-    background: var(--light_black);
-    outline: none;
-    --webkit-appearance: none;
-    border-radius: 0px;
-    border: none;
-    color: var(--white);
-    margin: 20px;
-    margin-bottom: 0;
-}
-
-.room form p {
-    color: var(--red);
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-align: center;
-    margin: 20px;
-    margin-bottom: 0;
-}
-
-.room form button {
-    background-color: var(--white);
-    cursor: pointer;
-    border: 1px solid var(--red);
-    border-radius: 3px;
-    text-align: center;
-    height: 40px;
-    width: 50px;
-    display: inline-flex;
-    align-items: center;
-    text-align: center;
-    margin-bottom: -10px;
-}
-
-.room form button:hover {
-    color: var(--white);
-    background-color: var(--red);
-    border: 1px solid var(--white);
-    /* opacity: 0.6; */
-    transition: 0.3s ease-in-out;
-}
-
-.room form button span {
-    color: var(--red);
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-align: center;
-    /* padding: 20px; */
-}
-
-

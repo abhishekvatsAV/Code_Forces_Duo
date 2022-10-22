@@ -17,6 +17,7 @@ import { changePassword } from "../features/keySlice";
 import axios from "axios";
 
 export default function Home() {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
 
@@ -24,38 +25,59 @@ export default function Home() {
   const [roomID, setRoomid] = useState("");
   const handleClick = () => {
     setRoomid(uuidv4);
-  }
-
+  };
 
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   dispatch(changePassword(password));
 
   const handleClick2 = () => {
-    setPassword(uuidv4)
-  }
+    setPassword(uuidv4);
+  };
 
   const handleCreateRoom = async () => {
+    setLoading(true);
     const response = await axios.post("http://localhost:4000/rooms/addRoom", {
       roomId: roomID,
       password: password,
       roomType: privateOn ? "Private" : "Public",
-      host: `${user[0].handle}`
-    })
+      host: `${user[0].handle}`,
+    });
 
-    navigate(`/room/${roomID}`)
-  }
+    const res = await axios.get(
+      "https://codeforces.com/api/problemset.problems/"
+    );
+    const arr = [];
+    let size = 5;
+    let i = 0;
+    while (size > 0) {
+      if (res?.data?.result?.problems[i]?.rating === 800) {
+        arr.push(res.data.result.problems[i]);
+        size--;
+      }
+      i++;
+    }
+    console.log(arr);
 
+    setLoading(false);
+
+    navigate(`/room/${roomID}`);
+  };
 
   return (
     <div className="home">
+      {loading && (<div class="center">
+        <div id="loading" class="loading1"></div>
+        <div id="loading" class="loading2"></div>
+        <div id="loading" class="loading3"></div>
+      </div>)}
       <div className="box1">
         <h3>Go to Lobby</h3>
         <p>
           Go to lobby and see how many rooms are open to join and compete with
           them.
         </p>
-        < FaArrowRight className="arrow" onClick={() => navigate("/lobby")} />
+        <FaArrowRight className="arrow" onClick={() => navigate("/lobby")} />
       </div>
       <div className="box2">
         <h3>Create a Room</h3>
@@ -75,15 +97,25 @@ export default function Home() {
           />
           {/* <input type="text" class="form-control" placeholder="generate room code" aria-label="Recipient's username with two button addons" /> */}
           <button
-            className="btn btn-outline-secondary" type="button" onClick={handleClick}>generate</button>
+            className="btn btn-outline-secondary"
+            type="button"
+            onClick={handleClick}
+          >
+            generate
+          </button>
           <CopyToClipboard text={roomID} onCopy={() => alert("Copied")}>
-            <button className="btn btn-outline-secondary" type="button">copy</button>
+            <button className="btn btn-outline-secondary" type="button">
+              copy
+            </button>
           </CopyToClipboard>
         </div>
 
         <div className="container">
           <p>Private Room</p>
-          <input type="checkbox" onClick={() => setPrivateon(privateOn ? false : true)} />
+          <input
+            type="checkbox"
+            onClick={() => setPrivateon(privateOn ? false : true)}
+          />
         </div>
 
         {privateOn && (
@@ -101,43 +133,94 @@ export default function Home() {
               className="btn btn-outline-secondary"
               type="button"
               onClick={handleClick2}
-            >generate</button>
+            >
+              generate
+            </button>
             <CopyToClipboard text={password} onCopy={() => alert("Copied")}>
-              <button className="btn btn-outline-secondary" type="button">copy</button>
+              <button className="btn btn-outline-secondary" type="button">
+                copy
+              </button>
             </CopyToClipboard>
           </div>
         )}
         <FaArrowRight
-          className={`arrow ${(roomID === "" && privateOn === false) ?
-            "disabled"
-            : `${(privateOn === true && password === "" || privateOn === true && password !== "" && roomID === "") ?
-              "disabled"
-              : ""
-            }`
+          className={`arrow ${roomID === "" && privateOn === false
+              ? "disabled"
+              : `${(privateOn === true && password === "") ||
+                (privateOn === true && password !== "" && roomID === "")
+                ? "disabled"
+                : ""
+              }`
             }`}
-
-          data-bs-toggle="modal" data-bs-target="#exampleModal"
+          data-bs-toggle="modal"
+          data-bs-target="#exampleModal"
         />
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div
+          class="modal fade"
+          id="exampleModal"
+          tabindex="-1"
+          aria-labelledby="exampleModalLabel"
+          aria-hidden="true"
+        >
           <div class="modal-dialog">
-            <div class="modal-content">
+            <div class="modal-content" style={{ backgroundColor: "#171717" }}>
               <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">Set Room Constraits</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <h1 class="modal-title fs-5" id="exampleModalLabel">
+                  Set Room Constraits
+                </h1>
+                <button
+                  type="button"
+                  class="btn-close btn-close-white"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
               </div>
-              <div class="modal-body">
-                ...
+              <div class="modal-body" style={{ padding: 0 }}>
+                <form action="" className="homeForm">
+                  <label style={{ display: "block" }}>Range: </label>
+                  <input
+                    type="number"
+                    min="800"
+                    max="3500"
+                    required
+                    placeholder="lowerBound"
+                  />
+                  {" - "}
+                  <input
+                    type="number"
+                    min="800"
+                    max="3500"
+                    required
+                    placeholder="upperBound"
+                  />
+                  <label style={{ display: "block" }} for="questionNo">
+                    Number of questions:
+                  </label>
+                  <input
+                    name="questionNo"
+                    type="number"
+                    required
+                    placeholder="Questions.."
+                    style={{ width: "100%" }}
+                  />
+                </form>
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" aria-label="Close" onClick={handleCreateRoom}>Create Room</button>
+                <button
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                  type="button"
+                  class="btn btn-danger"
+                  onClick={handleCreateRoom}
+                >
+                  Create Room
+                </button>
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
-    // copy this link and send it to the person you want to connect with.Be sure to save it so you can use it later, too.
   );
 }
