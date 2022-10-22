@@ -22,16 +22,16 @@ const Login = () => {
         // handle success
         console.log(response);
         dispatch(login(response.data.result[0]));
-        return {userName: username}
+        return { userName: username }
       })
-      .then(({userName})=> { // storing the user in db
-        axios 
-          .post('http://localhost:4000/users/registerUser',{
+      .then(({ userName }) => { // storing the user in db
+        axios
+          .post('http://localhost:4000/users/registerUser', {
             method: "POST",
-            headers : {
-              "Content-Type" : "application/json"
+            headers: {
+              "Content-Type": "application/json"
             },
-            userName : JSON.stringify(userName)
+            userName: JSON.stringify(userName)
           })
         navigate("/home");
       })
@@ -40,7 +40,7 @@ const Login = () => {
         console.log(error);
         setError(true);
       });
-      axios
+    axios
       .post("http://localhost:4000/", {
         username: username,
       })
@@ -51,21 +51,167 @@ const Login = () => {
         console.log(error);
       });
   };
- 
+
 
   return (
     <div className="login">
-      <img src={Bg} alt="login-bg" />
+      {/* <img src={Bg} alt="login-bg" /> */}
+      <div className='wrap'>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+        <div className='c'></div>
+      </div>
       <div className="userHandle">
         <label htmlFor="">
-            <Typewriter
-              options={{
-                strings: "Enter your CodeForces Handle",
-                autoStart: true,
-                delay: 75,
-                cursor: null,
-              }}
-            />
+          <Typewriter
+            options={{
+              strings: "Enter your CodeForces Handle",
+              autoStart: true,
+              delay: 75,
+              cursor: null,
+            }}
+          />
           {" "}
           <input
             type="text"
