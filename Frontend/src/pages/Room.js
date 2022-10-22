@@ -12,30 +12,12 @@ import { useRef, useEffect } from "react";
 
 const Room = () => {
   const { roomID } = useParams();
-  const ref = useRef(false);
+  // const ref = useRef(false);
 
   const { pswd } = useSelector((state) => state.password);
-  useEffect(() => {
-    ref.current.click();
-  });
-
-  const handleClick = async (e) => {
-    e.preventDefault();
-    const response = await axios.get(
-      "https://codeforces.com/api/problemset.problems/"
-    );
-    const arr = [];
-    let size = 5;
-    let i = 0;
-    while (size > 0) {
-      if (response?.data?.result?.problems[i]?.rating === 800) {
-        arr.push(response.data.result.problems[i]);
-        size--;
-      }
-      i++;
-    }
-    // console.log(arr);
-  };
+  // useEffect(() => {
+  //   ref.current.click();
+  // });
 
   return (
     <div className="room">
@@ -114,48 +96,13 @@ const Room = () => {
           </div>
         </div>
       </div>
-      <form action="">
-        <label style={{ display: "block" }}>Range: </label>
-        <input
-          type="number"
-          min="800"
-          max="3500"
-          required
-          placeholder="lowerBound"
-        />
-        {" - "}
-        <input
-          type="number"
-          min="800"
-          max="3500"
-          required
-          placeholder="upperBound"
-        />
-        <label style={{ display: "block" }} for="questionNo">
-          Number of questions:
-        </label>
-        <input
-          name="questionNo"
-          type="number"
-          required
-          placeholder="Questions.."
-          style={{ width: "100%" }}
-        />
-        <button
-          className="btn btn-outline-danger"
-          onClick={handleClick}
-          style={{ width: "100%" }}
-        >
-          SET
-        </button>
-      </form>
       <footer className="roomCreateFooter">
         <button
           type="button"
-          class="btn btn-primary"
+          class="btn btn-danger"
           data-bs-toggle="modal"
           data-bs-target="#staticBackdrop"
-          ref={ref}
+          // ref={ref}
           style={{ width: "8rem", height: "50%", marginLeft: "1rem" }}
           onClick={() => console.log("clicked")}
         >

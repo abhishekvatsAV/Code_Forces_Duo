@@ -88,21 +88,3 @@
     justify-content: space-between;
     align-items: center;
 } 
-.room form{
-    width: 300px;
-    height: 40vh;
-    background-color: var(--dark_black);
-    color: var(--white);
-    padding: 10px;
-}
-
-.room form input{
-    width: 47%;
-    height: 30px;
-    margin: 15px 0 30px 0;
-    cursor: text;
-    padding-left: 20px;
-    border: none;
-    outline: none;
-    border-radius: 5px;
-}
