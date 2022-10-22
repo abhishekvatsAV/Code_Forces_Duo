@@ -56,6 +56,7 @@ const Login = () => {
   return (
     <div className="login">
       {/* <img src={Bg} alt="login-bg" /> */}
+      {/* below div for background */}
       <div className='wrap'>
         <div className='c'></div>
         <div className='c'></div>
@@ -202,11 +203,12 @@ const Login = () => {
         <div className='c'></div>
         <div className='c'></div>
       </div>
+
       <div className="userHandle">
         <label htmlFor="">
           <Typewriter
             options={{
-              strings: "Enter your CodeForces Handle",
+              strings: "Enter Your CodeForces Handle",
               autoStart: true,
               delay: 75,
               cursor: null,

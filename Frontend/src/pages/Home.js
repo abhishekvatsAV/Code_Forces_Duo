@@ -8,6 +8,7 @@ import { useState } from "react";
 //third party
 import { v4 as uuidv4 } from "uuid";
 import { CopyToClipboard } from "react-copy-to-clipboard";
+import { FaArrowRight } from "react-icons/fa";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -48,12 +49,13 @@ export default function Home() {
 
   return (
     <div className="home">
-      <div className="box1" onClick={() => navigate("/lobby")}>
+      <div className="box1">
         <h3>Go to Lobby</h3>
         <p>
           Go to lobby and see how many rooms are open to join and compete with
           them.
         </p>
+        < FaArrowRight className="arrow" onClick={() => navigate("/lobby")} />
       </div>
       <div className="box2">
         <h3>Create a Room</h3>
@@ -105,8 +107,8 @@ export default function Home() {
             </CopyToClipboard>
           </div>
         )}
-        <button
-          className={`btn btn-danger roomButton ${(roomID === "" && privateOn === false) ?
+        <FaArrowRight
+          className={`arrow ${(roomID === "" && privateOn === false) ?
               "disabled"
               : `${(privateOn === true && password === "" || privateOn === true && password !== "" && roomID === "") ?
                 "disabled"
@@ -117,7 +119,7 @@ export default function Home() {
           onClick={handleCreateRoom}
         >
           Create Room
-        </button>
+        </FaArrowRight>
       </div>
     </div>
     // copy this link and send it to the person you want to connect with.Be sure to save it so you can use it later, too.
