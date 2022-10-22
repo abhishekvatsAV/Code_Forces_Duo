@@ -130,7 +130,7 @@ export default function Home() {
                 ...
               </div>
               <div class="modal-footer">
-                <button type="button" class="btn btn-primary" onClick={handleCreateRoom}>Create Room</button>
+                <button type="button" class="btn btn-primary" aria-label="Close" onClick={handleCreateRoom}>Create Room</button>
               </div>
             </div>
           </div>
