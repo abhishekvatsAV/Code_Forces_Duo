@@ -1,12 +1,27 @@
 .home {
     height: 100vh;
-    display: flex;
+    /* display: flex;
     text-align: center;
-    justify-content: space-evenly;
-    padding-top: 250px;
+    justify-content: space-evenly; */
+    padding: 100px;
     background-color: var(--light_black);
 
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* grid-template-rows: 1fr 1fr; */
+    gap: 30px;
 }
+
+.box1 {
+    justify-self: start;
+    align-self: start;
+}
+
+.box2 {
+    justify-self: end;
+    align-self: end;
+}
+
 
 .box1,
 .box2 {
@@ -46,8 +61,12 @@ input {
     background-color: #ddd;
     border-radius: 25px;
     transition: background .6s;
-    cursor: pointer;
+    cursor: text;
     position: relative;
+}
+
+input[type=checkbox] {
+    cursor: pointer;
 }
 
 input::after {
@@ -85,11 +104,25 @@ input:checked::after {
 }
 
 .disabled {
-    background-color: #ddd;
-    cursor: not-allowed;
+    /* background-color: #ddd; */
+    /* cursor: not-allowed; */
+    opacity: 0.5;
+    pointer-events: none;
 }
 
 .invite h5 {
     padding: 0;
     color: var(--red);
+}
+
+.arrow {
+    width: 20px;
+    height: 20px;
+    /* border-left: 20px solid transparent;
+    border-right: 20px solid transparent;
+    border-top: 20px solid var(--red); */
+    margin: 0 auto;
+    margin-top: 20px;
+    bottom: 0px;
+    cursor: pointer;
 }

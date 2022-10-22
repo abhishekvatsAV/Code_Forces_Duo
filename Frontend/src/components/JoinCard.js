@@ -1,7 +1,20 @@
 //styles
 import "./JoinCard.css";
 
-const JoinCard = ({ id, name }) => {
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:4000");
+
+socket.on("connect", () => {
+  console.log("connected");
+});
+
+const handleClick = (roomId) => {
+  console.log("clicked");
+  socket.emit("joinRoom", roomId);
+}
+
+const JoinCard = ({ roomId, name }) => {
   return (
     <div className="joinCard">
       {/* <h3>{id}</h3> */}
@@ -11,6 +24,7 @@ const JoinCard = ({ id, name }) => {
         className="btn btn-danger btn-small"
         data-bs-toggle="modal"
         data-bs-target="#exampleModal"
+        onClick={() => handleClick(roomId)}
       >
         join room
       </button>
