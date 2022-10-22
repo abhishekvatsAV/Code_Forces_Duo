@@ -39,6 +39,7 @@
     text-align: center;
     outline: none;
     caret-color: #e4e4e4;
+    cursor:text;
 }
 
 .userHandle button {

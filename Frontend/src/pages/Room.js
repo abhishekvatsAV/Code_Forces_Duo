@@ -7,8 +7,8 @@ import { useParams } from "react-router-dom";
 import { MdContentCopy } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import { changePassword } from "../features/keySlice";
-import axios from 'axios'
-import {useRef , useEffect} from "react";
+import axios from "axios";
+import { useRef, useEffect } from "react";
 
 const Room = () => {
   const { roomID } = useParams();
@@ -35,7 +35,7 @@ const Room = () => {
       i++;
     }
     // console.log(arr);
-  }
+  };
 
   return (
     <div className="room">
@@ -114,34 +114,53 @@ const Room = () => {
           </div>
         </div>
       </div>
-
+      <form action="">
+        <label style={{ display: "block" }}>Range: </label>
+        <input
+          type="number"
+          min="800"
+          max="3500"
+          required
+          placeholder="lowerBound"
+        />
+        {" - "}
+        <input
+          type="number"
+          min="800"
+          max="3500"
+          required
+          placeholder="upperBound"
+        />
+        <label style={{ display: "block" }} for="questionNo">
+          Number of questions:
+        </label>
+        <input
+          name="questionNo"
+          type="number"
+          required
+          placeholder="Questions.."
+          style={{ width: "100%" }}
+        />
+        <button
+          className="btn btn-outline-danger"
+          onClick={handleClick}
+          style={{ width: "100%" }}
+        >
+          SET
+        </button>
+      </form>
       <footer className="roomCreateFooter">
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop"
-        ref={ref}
-        style={{ width: "8rem", height: "50%", marginLeft: "1rem" }}
-        onClick={() => console.log("clicked")}
-      >
-        Details
-      </button>
-        <form action="">
-          <div className="range">
-            <p>Range: </p>
-          </div>
-            <input type="number" required placeholder="lowerBound" />
-            {" - "}
-            <input type="number" required placeholder="upperBound" />
-          <div className="questions">
-            <p>No of questions: </p>
-          </div>
-            <input type="number" required placeholder="Questions.." />
-          <button onClick={handleClick}>
-            SET
-          </button>
-        </form>
+        <button
+          type="button"
+          class="btn btn-primary"
+          data-bs-toggle="modal"
+          data-bs-target="#staticBackdrop"
+          ref={ref}
+          style={{ width: "8rem", height: "50%", marginLeft: "1rem" }}
+          onClick={() => console.log("clicked")}
+        >
+          Details
+        </button>
       </footer>
     </div>
   );
