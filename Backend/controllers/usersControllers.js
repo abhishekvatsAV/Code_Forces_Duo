@@ -30,5 +30,4 @@ exports.registerUser = async (req,res,next) => {
             message:error.message
         });
     }
-    next();
 }

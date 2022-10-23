@@ -1,40 +1,35 @@
 const mongoose = require("mongoose");
 
-const {ObjectId} = mongoose.Schema.Types;
+const { ObjectId } = mongoose.Schema.Types;
 
 const schema = mongoose.Schema;
 
 const competitionSchema = new schema({
-    problemId:{
-        type:ObjectId,
-        required:true,
-        ref:"problem"
+    problems: [
+        {
+            problemId: {
+                type: ObjectId,
+                required: true,
+                ref: "problem"
+            }
+        }
+    ],
+    users: [
+        {
+            type: ObjectId,
+            required: true
+        }
+    ],
+    competitionName: {
+        type: String,
+        required: true
     },
-    user:{
-        type:ObjectId,
-        required:true
-    },
-    competitionName:{
-        type:String,
-        required:true
-    },
-    isQuestionSolved:{
-        type:Boolean,
-        default:false
-    },
-    solvedAt:{
-        type:Date
-    },
-    roomId:{
-        type:ObjectId,
-        required:true,
-        ref:"room"
-    },
-    isRoomLeft:{
-        type: Boolean,
-        default:false
+    roomId: {
+        type: ObjectId,
+        required: true,
+        ref: "room"
     }
-},{
-    timestamps:true
+}, {
+    timestamps: true
 });
-module.exports = mongoose.model("competition",competitionSchema);
+module.exports = mongoose.model("competition", competitionSchema);

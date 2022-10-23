@@ -22,10 +22,14 @@ const roomSchema = new schema({
         type: String,
         required: true
     },
-    isRoomFull:{
-        type: Boolean,
-        default:false
-    }
+    users:[
+        {
+            userId : {
+                type:ObjectId,
+                required:true
+            }
+        }
+    ]
 },{
     timestamps:true
 });
