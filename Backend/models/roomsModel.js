@@ -26,7 +26,8 @@ const roomSchema = new schema({
         {
             userId : {
                 type:ObjectId,
-                required:true
+                required:true,
+                ref:"users"
             }
         }
     ]
