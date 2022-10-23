@@ -1,4 +1,4 @@
-const { default: axios } = require("axios");
+
 const competitions = require("../models/competitionsModel");
 const problems = require("../models/problemsModel");
 const room = require("../models/roomsModel");
@@ -8,7 +8,7 @@ const room = require("../models/roomsModel");
 exports.addRoom = async (req, res, next) => {
     console.log("first");
     try {
-        let { roomId, password, roomType, host, problemsToSolve, userId } = req.body;
+        let { roomId, password, roomType, host, problems, range } = req.body;
         console.log(req.body);
         let roomData = new room({
             roomId,
@@ -17,21 +17,17 @@ exports.addRoom = async (req, res, next) => {
             host,
             users: [
                 {
-                    userId
+                    userId:host
                 }
             ]
         });
         await roomData.save();
         // console.log("successs ---------------")
-        let problems = Array(problemsToSolve)
-            .fill()
-            .map(async () => {
-                let problemData = await axios.get("https://codeforces.com/api/problemset.problems");
-                let randomProblem = problemData?.data?.result?.problems[Math.floor(Math.round() * 8128)];
+        let problemsData = problems
+            .map(async (randomProblem) => {
                 let existingProblem = await problems.findOne({
                     difficultyIndex: randomProblem.index,
-                    contestId: randomProblem.contestId,
-                    isRoomLeft: false
+                    contestId: randomProblem.contestId
                 });
                 if (!existingProblem) {
                     existingProblem = new problems({
@@ -46,9 +42,10 @@ exports.addRoom = async (req, res, next) => {
                 }
             })
         let competitionData = new competitions({
-            problems,
+            problems:problemsData,
             competitionName: `competition-${roomId}`,
-            roomId: roomData._id
+            roomId: roomData._id,
+            range
         });
         await competitionData.save();
         return res.status(200).json({
@@ -101,9 +98,20 @@ exports.getAllRooms = async (req, res, next) => {
     try {
         let allRooms = await room
             .find()
+            .populate("users.userId","userName")
             .sort({
                 isRoomFull: 1
             });
+        allRooms = allRooms.map(async (room) => {
+            let competitionData = await competitions.findOne({
+                roomId:room._id
+            })
+            .populate("problemId");
+            return {
+                ...room,
+                competitionData
+            }
+        })
         return res.status(200).json({
             message: "rooms fetched successfully",
             allRooms
