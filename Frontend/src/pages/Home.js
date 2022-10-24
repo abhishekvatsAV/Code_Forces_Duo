@@ -3,7 +3,7 @@ import "./Home.css";
 
 import { VscDebugStart } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
 //third party
 import { v4 as uuidv4 } from "uuid";
@@ -20,6 +20,9 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const rangeUpperLimit = useRef(800);
+  const rangeLowerLimit = useRef(800);
+  const numberOfQuestions = useRef(5);
 
   const [privateOn, setPrivateon] = useState(false);
   const [roomID, setRoomid] = useState("");
@@ -35,29 +38,35 @@ export default function Home() {
     setPassword(uuidv4);
   };
 
-  const handleCreateRoom = async () => {
+  const handleCreateRoom = async (e) => {
+    e.preventDefault();
     setLoading(true);
-    const response = await axios.post("http://localhost:4000/rooms/addRoom", {
-      roomId: roomID,
-      password: password,
-      roomType: privateOn ? "Private" : "Public",
-      host: `${user[0].handle}`,
-    });
-
     const res = await axios.get(
       "https://codeforces.com/api/problemset.problems/"
     );
     const arr = [];
-    let size = 5;
+    let size = numberOfQuestions.current.value;
     let i = 0;
     while (size > 0) {
-      if (res?.data?.result?.problems[i]?.rating === 800) {
+      if (res?.data?.result?.problems[i]?.rating >= rangeLowerLimit.current.value && res?.data?.result?.problems[i]?.rating <= rangeUpperLimit.current.value) {
         arr.push(res.data.result.problems[i]);
         size--;
       }
       i++;
     }
     console.log(arr);
+
+    const response = await axios.post("http://localhost:4000/rooms/addRoom", {
+      roomId: roomID,
+      password: password,
+      roomType: privateOn ? "Private" : "Public",
+      host: `${user[0].handle}`,
+      problems: arr,
+      range : {
+        lowerLimit : rangeLowerLimit.current.value,
+        upperLimit : rangeUpperLimit.current.value
+      }
+    });
 
     setLoading(false);
 
@@ -66,10 +75,10 @@ export default function Home() {
 
   return (
     <div className="home">
-      {loading && (<div class="center">
-        <div id="loading" class="loading1"></div>
-        <div id="loading" class="loading2"></div>
-        <div id="loading" class="loading3"></div>
+      {loading && (<div className="center">
+        <div id="loading" className="loading1"></div>
+        <div id="loading" className="loading2"></div>
+        <div id="loading" className="loading3"></div>
       </div>)}
       <div className="box1">
         <h3>Go to Lobby</h3>
@@ -95,7 +104,6 @@ export default function Home() {
             aria-describedby="button-addon2"
             placeholder="Genrate Room ID"
           />
-          {/* <input type="text" class="form-control" placeholder="generate room code" aria-label="Recipient's username with two button addons" /> */}
           <button
             className="btn btn-outline-secondary"
             type="button"
@@ -156,28 +164,29 @@ export default function Home() {
           data-bs-target="#exampleModal"
         />
 
-        <div
-          class="modal fade"
+        <form
+          className="modal fade"
           id="exampleModal"
-          tabindex="-1"
+          tabIndex="-1"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
+          onSubmit={handleCreateRoom}
         >
-          <div class="modal-dialog">
-            <div class="modal-content" style={{ backgroundColor: "#171717" }}>
-              <div class="modal-header">
-                <h1 class="modal-title fs-5" id="exampleModalLabel">
+          <div className="modal-dialog">
+            <div className="modal-content" style={{ backgroundColor: "#171717" }}>
+              <div className="modal-header">
+                <h1 className="modal-title fs-5" id="exampleModalLabel">
                   Set Room Constraits
                 </h1>
                 <button
                   type="button"
-                  class="btn-close btn-close-white"
+                  className="btn-close btn-close-white"
                   data-bs-dismiss="modal"
                   aria-label="Close"
                 ></button>
               </div>
-              <div class="modal-body" style={{ padding: 0 }}>
-                <form action="" className="homeForm">
+              <div className="modal-body" style={{ padding: 0 }}>
+                <div action="" className="homeForm">
                   <label style={{ display: "block" }}>Range: </label>
                   <input
                     type="number"
@@ -185,6 +194,7 @@ export default function Home() {
                     max="3500"
                     required
                     placeholder="lowerBound"
+                    ref={rangeLowerLimit}
                   />
                   {" - "}
                   <input
@@ -193,8 +203,9 @@ export default function Home() {
                     max="3500"
                     required
                     placeholder="upperBound"
+                    ref={ rangeUpperLimit }
                   />
-                  <label style={{ display: "block" }} for="questionNo">
+                  <label style={{ display: "block" }} htmlFor="questionNo">
                     Number of questions:
                   </label>
                   <input
@@ -203,23 +214,23 @@ export default function Home() {
                     required
                     placeholder="Questions.."
                     style={{ width: "100%" }}
+                    ref={ numberOfQuestions }
                   />
-                </form>
+                </div>
               </div>
-              <div class="modal-footer">
+              <div className="modal-footer">
                 <button
                   data-bs-dismiss="modal"
                   aria-label="Close"
-                  type="button"
-                  class="btn btn-danger"
-                  onClick={handleCreateRoom}
+                  type="submit"
+                  className="btn btn-danger"
                 >
                   Create Room
                 </button>
               </div>
             </div>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   );

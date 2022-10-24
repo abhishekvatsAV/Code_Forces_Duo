@@ -23,17 +23,17 @@ const Room = () => {
     <div className="room">
       <Navbar />
       <div
-        class="modal fade"
+        className="modal fade"
         id="staticBackdrop"
         data-bs-backdrop="static"
         data-bs-keyboard="false"
-        tabindex="-1"
+        tabIndex="-1"
         aria-labelledby="staticBackdropLabel"
         aria-hidden="true"
       >
-        <div class="modal-dialog">
+        <div className="modal-dialog">
           <div
-            class="modal-content"
+            className="modal-content"
             style={{ backgroundColor: "var(--dark-black)" }}
           >
             <div className=" modal-body invite">
@@ -48,7 +48,7 @@ const Room = () => {
                 <h3>Here's the link to your meeting</h3>
                 <button
                   type="button"
-                  class="btn-close btn-close-white"
+                  className="btn-close btn-close-white"
                   data-bs-dismiss="modal"
                   aria-label="Close"
                 ></button>
@@ -99,7 +99,7 @@ const Room = () => {
       <footer className="roomCreateFooter">
         <button
           type="button"
-          class="btn btn-danger"
+          className="btn btn-danger"
           data-bs-toggle="modal"
           data-bs-target="#staticBackdrop"
           // ref={ref}
