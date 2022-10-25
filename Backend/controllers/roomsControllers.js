@@ -1,6 +1,6 @@
 
 const competitions = require("../models/competitionsModel");
-const problems = require("../models/problemsModel");
+const problemsModel = require("../models/problemsModel");
 const room = require("../models/roomsModel");
 
 
@@ -25,12 +25,12 @@ exports.addRoom = async (req, res, next) => {
         // console.log("successs ---------------")
         let problemsData = problems
             .map(async (randomProblem) => {
-                let existingProblem = await problems.findOne({
+                let existingProblem = await problemsModel.findOne({
                     difficultyIndex: randomProblem.index,
                     contestId: randomProblem.contestId
                 });
                 if (!existingProblem) {
-                    existingProblem = new problems({
+                    existingProblem = new problemsModel({
                         link: `https://codeforces.com/problemset/problem/${randomProblem.contestId}/${randomProblem.index}`,
                         ...randomProblem,
                         difficultyIndex: randomProblem.index

@@ -20,6 +20,7 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
+  const userId = useSelector((state) => state.user.userId);
   const rangeUpperLimit = useRef(800);
   const rangeLowerLimit = useRef(800);
   const numberOfQuestions = useRef(5);
@@ -55,12 +56,12 @@ export default function Home() {
       i++;
     }
     console.log(arr);
-
+    console.log(userId);
     const response = await axios.post("http://localhost:4000/rooms/addRoom", {
       roomId: roomID,
       password: password,
       roomType: privateOn ? "Private" : "Public",
-      host: `${user[0].handle}`,
+      host: userId, // objectId of the host from the mongoose
       problems: arr,
       range : {
         lowerLimit : rangeLowerLimit.current.value,
