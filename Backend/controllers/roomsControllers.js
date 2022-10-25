@@ -107,7 +107,7 @@ exports.getAllRooms = async (req, res, next) => {
             let competitionData = await competitions.findOne({
                 roomId:room._id
             })
-            .populate("problemId");
+            .populate("problems.problemId");
             return {
                 ...room,
                 competitionData
