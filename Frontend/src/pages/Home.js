@@ -20,9 +20,9 @@ export default function Home() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  const rangeUpperLimit = useRef(800);
-  const rangeLowerLimit = useRef(800);
-  const numberOfQuestions = useRef(5);
+  const rangeUpperLimit = useRef(0);
+  const rangeLowerLimit = useRef(0);
+  const numberOfQuestions = useRef(0);
 
   const [privateOn, setPrivateon] = useState(false);
   const [roomID, setRoomid] = useState("");
@@ -48,7 +48,11 @@ export default function Home() {
     let size = numberOfQuestions.current.value;
     let i = 0;
     while (size > 0) {
-      if (res?.data?.result?.problems[i]?.rating >= rangeLowerLimit.current.value && res?.data?.result?.problems[i]?.rating <= rangeUpperLimit.current.value) {
+      if (
+        res?.data?.result?.problems[i]?.rating >=
+          rangeLowerLimit.current.value &&
+        res?.data?.result?.problems[i]?.rating <= rangeUpperLimit.current.value
+      ) {
         arr.push(res.data.result.problems[i]);
         size--;
       }
@@ -62,10 +66,10 @@ export default function Home() {
       roomType: privateOn ? "Private" : "Public",
       host: `${user[0].handle}`,
       problems: arr,
-      range : {
-        lowerLimit : rangeLowerLimit.current.value,
-        upperLimit : rangeUpperLimit.current.value
-      }
+      range: {
+        lowerLimit: rangeLowerLimit.current.value,
+        upperLimit: rangeUpperLimit.current.value,
+      },
     });
 
     setLoading(false);
@@ -75,11 +79,13 @@ export default function Home() {
 
   return (
     <div className="home">
-      {loading && (<div className="center">
-        <div id="loading" className="loading1"></div>
-        <div id="loading" className="loading2"></div>
-        <div id="loading" className="loading3"></div>
-      </div>)}
+      {loading && (
+        <div className="center">
+          <div id="loading" className="loading1"></div>
+          <div id="loading" className="loading2"></div>
+          <div id="loading" className="loading3"></div>
+        </div>
+      )}
       <div className="box1">
         <h3>Go to Lobby</h3>
         <p>
@@ -152,14 +158,16 @@ export default function Home() {
           </div>
         )}
         <FaArrowRight
-          className={`arrow ${roomID === "" && privateOn === false
+          className={`arrow ${
+            roomID === "" && privateOn === false
               ? "disabled"
-              : `${(privateOn === true && password === "") ||
-                (privateOn === true && password !== "" && roomID === "")
-                ? "disabled"
-                : ""
-              }`
-            }`}
+              : `${
+                  (privateOn === true && password === "") ||
+                  (privateOn === true && password !== "" && roomID === "")
+                    ? "disabled"
+                    : ""
+                }`
+          }`}
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
         />
@@ -173,7 +181,10 @@ export default function Home() {
           onSubmit={handleCreateRoom}
         >
           <div className="modal-dialog">
-            <div className="modal-content" style={{ backgroundColor: "#171717" }}>
+            <div
+              className="modal-content"
+              style={{ backgroundColor: "#171717" }}
+            >
               <div className="modal-header">
                 <h1 className="modal-title fs-5" id="exampleModalLabel">
                   Set Room Constraits
@@ -192,7 +203,7 @@ export default function Home() {
                     type="number"
                     min="800"
                     max="3500"
-                    required
+                    required="min 800"
                     placeholder="lowerBound"
                     ref={rangeLowerLimit}
                   />
@@ -201,9 +212,9 @@ export default function Home() {
                     type="number"
                     min="800"
                     max="3500"
-                    required
+                    required="max 3500"
                     placeholder="upperBound"
-                    ref={ rangeUpperLimit }
+                    ref={rangeUpperLimit}
                   />
                   <label style={{ display: "block" }} htmlFor="questionNo">
                     Number of questions:
@@ -211,17 +222,24 @@ export default function Home() {
                   <input
                     name="questionNo"
                     type="number"
-                    required
+                    required="min 5 questions"
                     placeholder="Questions.."
                     style={{ width: "100%" }}
-                    ref={ numberOfQuestions }
+                    ref={numberOfQuestions}
                   />
                 </div>
               </div>
               <div className="modal-footer">
+                {}
                 <button
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
+                  data-bs-dismiss={`${
+                    numberOfQuestions > 0 &&
+                    rangeLowerLimit > 0 &&
+                    rangeUpperLimit > 0 &&
+                    rangeLowerLimit < rangeUpperLimit
+                      ? "modal"
+                      : ""
+                  }`}
                   type="submit"
                   className="btn btn-danger"
                 >
