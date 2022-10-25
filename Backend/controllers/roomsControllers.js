@@ -108,7 +108,7 @@ exports.getAllRooms = async (req, res, next) => {
             })
             .populate("problems.problemId");
             newAllRooms.push({
-                ...room,
+                ...room._doc,
                 competitionData
             });
         }
