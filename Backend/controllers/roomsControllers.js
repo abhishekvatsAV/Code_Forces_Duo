@@ -23,24 +23,25 @@ exports.addRoom = async (req, res, next) => {
         });
         await roomData.save();
         // console.log("successs ---------------")
-        let problemsData = problems
-            .map(async (randomProblem) => {
-                let existingProblem = await problemsModel.findOne({
-                    difficultyIndex: randomProblem.index,
-                    contestId: randomProblem.contestId
+        let problemsData = [];
+        for (let i = 0; i < problems.length; i++) {
+            const randomProblem = problems[i];
+            let existingProblem = await problemsModel.findOne({
+                difficultyIndex: randomProblem.index,
+                contestId: randomProblem.contestId
+            });
+            if (!existingProblem) {
+                existingProblem = new problemsModel({
+                    link: `https://codeforces.com/problemset/problem/${randomProblem.contestId}/${randomProblem.index}`,
+                    ...randomProblem,
+                    difficultyIndex: randomProblem.index
                 });
-                if (!existingProblem) {
-                    existingProblem = new problemsModel({
-                        link: `https://codeforces.com/problemset/problem/${randomProblem.contestId}/${randomProblem.index}`,
-                        ...randomProblem,
-                        difficultyIndex: randomProblem.index
-                    });
-                    await existingProblem.save();
-                }
-                return {
-                    problemId:existingProblem._id
-                }
-            })
+                await existingProblem.save();
+            }
+            problemsData.push({
+                problemId:existingProblem._id
+            });
+        }
         let competitionData = new competitions({
             problems:problemsData,
             competitionName: `competition-${roomId}`,
