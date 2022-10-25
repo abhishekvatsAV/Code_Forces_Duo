@@ -21,9 +21,9 @@ export default function Home() {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
   const userId = useSelector((state) => state.user.userId);
-  const rangeUpperLimit = useRef(0);
-  const rangeLowerLimit = useRef(0);
-  const numberOfQuestions = useRef(0);
+  const rangeUpperLimit = useRef(800);
+  const rangeLowerLimit = useRef(800);
+  const numberOfQuestions = useRef(5);
 
   const [privateOn, setPrivateon] = useState(false);
   const [roomID, setRoomid] = useState("");
@@ -41,6 +41,15 @@ export default function Home() {
 
   const handleCreateRoom = async (e) => {
     e.preventDefault();
+
+    console.log(rangeLowerLimit.current.value, rangeUpperLimit.current.value);
+
+    if (rangeLowerLimit.current.value > rangeUpperLimit.current.value) {
+      console.log("error");
+      // return new Error("Please reset the range");
+      return console.error("error range must be checked again");
+    }
+
     setLoading(true);
     const res = await axios.get(
       "https://codeforces.com/api/problemset.problems/"
@@ -179,7 +188,20 @@ export default function Home() {
           tabIndex="-1"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
-          onSubmit={handleCreateRoom}
+          onSubmit={(e) => {
+            if (
+              rangeLowerLimit.current.value >= 800 &&
+              rangeLowerLimit.current.value <= 3500 &&
+              rangeUpperLimit.current.value >= 800 &&
+              rangeUpperLimit.current.value <= 3500 &&
+              rangeLowerLimit.current.value <= rangeUpperLimit.current.value &&
+              numberOfQuestions.current.value > 0
+            ) {
+              handleCreateRoom(e);
+            } else {
+              alert("set the range between 800 and 3500");
+            }
+          }}
         >
           <div className="modal-dialog">
             <div
@@ -199,12 +221,14 @@ export default function Home() {
               </div>
               <div className="modal-body" style={{ padding: 0 }}>
                 <div action="" className="homeForm">
-                  <label style={{ display: "block" }}>Range: </label>
+                  <label style={{ display: "block" }}>
+                    Range <sub>(800 - 3500)</sub> :{" "}
+                  </label>
                   <input
                     type="number"
                     min="800"
                     max="3500"
-                    required="min 800"
+                    required
                     placeholder="lowerBound"
                     ref={rangeLowerLimit}
                   />
@@ -213,7 +237,7 @@ export default function Home() {
                     type="number"
                     min="800"
                     max="3500"
-                    required="max 3500"
+                    required
                     placeholder="upperBound"
                     ref={rangeUpperLimit}
                   />
@@ -223,7 +247,9 @@ export default function Home() {
                   <input
                     name="questionNo"
                     type="number"
-                    required="min 5 questions"
+                    min="1"
+                    max="5"
+                    required="greater than 1"
                     placeholder="Questions.."
                     style={{ width: "100%" }}
                     ref={numberOfQuestions}
@@ -231,16 +257,16 @@ export default function Home() {
                 </div>
               </div>
               <div className="modal-footer">
-                {}
                 <button
                   data-bs-dismiss={`${
-                    numberOfQuestions > 0 &&
-                    rangeLowerLimit > 0 &&
-                    rangeUpperLimit > 0 &&
-                    rangeLowerLimit < rangeUpperLimit
-                      ? "modal"
-                      : ""
+                    rangeLowerLimit.current.value > 0 &&
+                    rangeUpperLimit.current.value > 0 &&
+                    rangeLowerLimit.current.value <
+                      rangeUpperLimit.current.value &&
+                    numberOfQuestions.current.value >= 1 &&
+                    "modal"
                   }`}
+                  aria-label="Close"
                   type="submit"
                   className="btn btn-danger"
                 >

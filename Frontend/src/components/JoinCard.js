@@ -12,7 +12,7 @@ socket.on("connect", () => {
 const handleClick = (roomId) => {
   console.log("clicked");
   socket.emit("joinRoom", roomId);
-}
+};
 
 const JoinCard = ({ roomId, name }) => {
   return (
@@ -42,7 +42,7 @@ const JoinCard = ({ roomId, name }) => {
           style={{ color: "black" }}
         >
           <div className="modal-content" style={{ backgroundColor: "#171717" }}>
-            <div className="modal-header" style={{borderBottom:"none"}}>
+            <div className="modal-header" style={{ borderBottom: "none" }}>
               <h1
                 className="modal-title fs-5"
                 id="exampleModalLabel"
@@ -70,7 +70,7 @@ const JoinCard = ({ roomId, name }) => {
               }}
               type="text"
             />
-            <div className="modal-footer" style={{borderTop:"none"}}>
+            <div className="modal-footer" style={{ borderTop: "none" }}>
               <button type="button" className="btn btn-light">
                 Join Room
               </button>

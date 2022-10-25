@@ -20,22 +20,18 @@ const Lobby = () => {
       const privateRooms = [];
       const publicRooms = [];
       data.allRooms.map((room) => {
-        if(room.roomType === "Public") {
+        if (room.roomType === "Public") {
           publicRooms.push(room);
-        }
-        else { 
+        } else {
           privateRooms.push(room);
         }
-      })
+      });
       console.log(publicCards, privateCards);
       setPrivateCards(privateRooms);
       setPublicCards(publicRooms);
-    }
+    };
     fetchRooms();
-    
-  }, [])
-
-  
+  }, []);
 
   return (
     <>
