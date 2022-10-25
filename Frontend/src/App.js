@@ -6,7 +6,6 @@ import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Room from "./pages/Room";
 import Lobby from "./pages/Lobby";
-import RoomOptions from "./pages/RoomOptions";
 
 function App() {
   return (
@@ -20,7 +19,6 @@ function App() {
               <Home />
             </>
           } />
-          <Route path="/roomoptions" element={<RoomOptions />} />
           <Route path="/room/:roomID" element={<Room />} />
           <Route path="/lobby" element={<Lobby />} />
         </Routes>
