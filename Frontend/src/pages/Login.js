@@ -4,7 +4,7 @@ import Bg from "../assets/login-bg.jpeg";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { login } from "../features/userSlice";
+import { login, setUserId } from "../features/userSlice";
 import { useDispatch } from "react-redux";
 import { useFetch } from "../hooks/useFetch";
 import Typewriter from "typewriter-effect";
@@ -32,6 +32,10 @@ const Login = () => {
               "Content-Type": "application/json"
             },
             userName: JSON.stringify(userName)
+          })
+          .then((res) => {
+            console.log(res.data.userData._id);
+            dispatch(setUserId(res.data.userData._id));
           })
         navigate("/home");
       })

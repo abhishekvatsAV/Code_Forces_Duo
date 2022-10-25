@@ -16,7 +16,7 @@ const Lobby = () => {
     const fetchRooms = async () => {
       const response = await fetch("http://localhost:4000/rooms/getAllRooms");
       const data = await response.json();
-      // console.log(data.allRooms);
+      console.log(data.allRooms);
       const privateRooms = [];
       const publicRooms = [];
       data.allRooms.map((room) => {

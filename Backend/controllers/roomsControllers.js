@@ -1,6 +1,6 @@
 
 const competitions = require("../models/competitionsModel");
-const problems = require("../models/problemsModel");
+const problemsModel = require("../models/problemsModel");
 const room = require("../models/roomsModel");
 
 
@@ -23,24 +23,25 @@ exports.addRoom = async (req, res, next) => {
         });
         await roomData.save();
         // console.log("successs ---------------")
-        let problemsData = problems
-            .map(async (randomProblem) => {
-                let existingProblem = await problems.findOne({
-                    difficultyIndex: randomProblem.index,
-                    contestId: randomProblem.contestId
+        let problemsData = [];
+        for (let i = 0; i < problems.length; i++) {
+            const randomProblem = problems[i];
+            let existingProblem = await problemsModel.findOne({
+                difficultyIndex: randomProblem.index,
+                contestId: randomProblem.contestId
+            });
+            if (!existingProblem) {
+                existingProblem = new problemsModel({
+                    link: `https://codeforces.com/problemset/problem/${randomProblem.contestId}/${randomProblem.index}`,
+                    ...randomProblem,
+                    difficultyIndex: randomProblem.index
                 });
-                if (!existingProblem) {
-                    existingProblem = new problems({
-                        link: `https://codeforces.com/problemset/problem/${randomProblem.contestId}/${randomProblem.index}`,
-                        ...randomProblem,
-                        difficultyIndex: randomProblem.index
-                    });
-                    await existingProblem.save();
-                }
-                return {
-                    problemId:existingProblem._id
-                }
-            })
+                await existingProblem.save();
+            }
+            problemsData.push({
+                problemId:existingProblem._id
+            });
+        }
         let competitionData = new competitions({
             problems:problemsData,
             competitionName: `competition-${roomId}`,
@@ -106,7 +107,7 @@ exports.getAllRooms = async (req, res, next) => {
             let competitionData = await competitions.findOne({
                 roomId:room._id
             })
-            .populate("problemId");
+            .populate("problems.problemId");
             return {
                 ...room,
                 competitionData
