@@ -16,6 +16,8 @@ import { changePassword } from "../features/keySlice";
 
 import axios from "axios";
 
+import codingImg from '../assets/codingImg.jpg';
+
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -41,6 +43,15 @@ export default function Home() {
 
   const handleCreateRoom = async (e) => {
     e.preventDefault();
+
+    // console.log(rangeLowerLimit.current.value, rangeUpperLimit.current.value);
+
+    // if (rangeLowerLimit.current.value > rangeUpperLimit.current.value) {
+    //   console.log("error");
+    //   // return new Error("Please reset the range");
+    //   return console.error("error range must be checked again");
+    // }
+
     setLoading(true);
     const res = await axios.get(
       "https://codeforces.com/api/problemset.problems/"
@@ -49,7 +60,11 @@ export default function Home() {
     let size = numberOfQuestions.current.value;
     let i = 0;
     while (size > 0) {
-      if (res?.data?.result?.problems[i]?.rating >= rangeLowerLimit.current.value && res?.data?.result?.problems[i]?.rating <= rangeUpperLimit.current.value) {
+      if (
+        res?.data?.result?.problems[i]?.rating >=
+          rangeLowerLimit.current.value &&
+        res?.data?.result?.problems[i]?.rating <= rangeUpperLimit.current.value
+      ) {
         arr.push(res.data.result.problems[i]);
         size--;
       }
@@ -63,10 +78,10 @@ export default function Home() {
       roomType: privateOn ? "Private" : "Public",
       host: userId, // objectId of the host from the mongoose
       problems: arr,
-      range : {
-        lowerLimit : rangeLowerLimit.current.value,
-        upperLimit : rangeUpperLimit.current.value
-      }
+      range: {
+        lowerLimit: rangeLowerLimit.current.value,
+        upperLimit: rangeUpperLimit.current.value,
+      },
     });
 
     setLoading(false);
@@ -76,11 +91,13 @@ export default function Home() {
 
   return (
     <div className="home">
-      {loading && (<div className="center">
-        <div id="loading" className="loading1"></div>
-        <div id="loading" className="loading2"></div>
-        <div id="loading" className="loading3"></div>
-      </div>)}
+      {loading && (
+        <div className="center">
+          <div id="loading" className="loading1"></div>
+          <div id="loading" className="loading2"></div>
+          <div id="loading" className="loading3"></div>
+        </div>
+      )}
       <div className="box1">
         <h3>Go to Lobby</h3>
         <p>
@@ -89,6 +106,9 @@ export default function Home() {
         </p>
         <FaArrowRight className="arrow" onClick={() => navigate("/lobby")} />
       </div>
+
+      <img src={codingImg} alt="coding-image" style={{height: "200px", width: "200px"}}  />
+
       <div className="box2">
         <h3>Create a Room</h3>
         <p>
@@ -153,28 +173,46 @@ export default function Home() {
           </div>
         )}
         <FaArrowRight
-          className={`arrow ${roomID === "" && privateOn === false
+          className={`arrow ${
+            roomID === "" && privateOn === false
               ? "disabled"
-              : `${(privateOn === true && password === "") ||
-                (privateOn === true && password !== "" && roomID === "")
-                ? "disabled"
-                : ""
-              }`
-            }`}
+              : `${
+                  (privateOn === true && password === "") ||
+                  (privateOn === true && password !== "" && roomID === "")
+                    ? "disabled"
+                    : ""
+                }`
+          }`}
           data-bs-toggle="modal"
           data-bs-target="#exampleModal"
         />
 
         <form
-          className="modal fade"
+          className="modal dont-fade"
           id="exampleModal"
           tabIndex="-1"
           aria-labelledby="exampleModalLabel"
           aria-hidden="true"
-          onSubmit={handleCreateRoom}
+          onSubmit={(e) => {
+            if (
+              rangeLowerLimit.current.value >= 800 &&
+              rangeLowerLimit.current.value <= 3500 &&
+              rangeUpperLimit.current.value >= 800 &&
+              rangeUpperLimit.current.value <= 3500 &&
+              rangeLowerLimit.current.value <= rangeUpperLimit.current.value &&
+              numberOfQuestions.current.value > 0
+            ) {
+              handleCreateRoom(e);
+            } else {
+              alert("set the range between 800 and 3500");
+            }
+          }}
         >
           <div className="modal-dialog">
-            <div className="modal-content" style={{ backgroundColor: "#171717" }}>
+            <div
+              className="modal-content"
+              style={{ backgroundColor: "#171717" }}
+            >
               <div className="modal-header">
                 <h1 className="modal-title fs-5" id="exampleModalLabel">
                   Set Room Constraits
@@ -188,7 +226,9 @@ export default function Home() {
               </div>
               <div className="modal-body" style={{ padding: 0 }}>
                 <div action="" className="homeForm">
-                  <label style={{ display: "block" }}>Range: </label>
+                  <label style={{ display: "block" }}>
+                    Range <sub>(800 - 3500)</sub> :{" "}
+                  </label>
                   <input
                     type="number"
                     min="800"
@@ -204,7 +244,7 @@ export default function Home() {
                     max="3500"
                     required
                     placeholder="upperBound"
-                    ref={ rangeUpperLimit }
+                    ref={rangeUpperLimit}
                   />
                   <label style={{ display: "block" }} htmlFor="questionNo">
                     Number of questions:
@@ -212,17 +252,27 @@ export default function Home() {
                   <input
                     name="questionNo"
                     type="number"
-                    required
+                    min="1"
+                    max="5"
+                    required="greater than 1"
                     placeholder="Questions.."
                     style={{ width: "100%" }}
-                    ref={ numberOfQuestions }
+                    ref={numberOfQuestions}
                   />
                 </div>
               </div>
               <div className="modal-footer">
                 <button
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
+                  data-bs-dismiss={`${rangeLowerLimit.current.value > 0 &&
+                    rangeUpperLimit.current.value > 0 &&
+                    rangeLowerLimit.current.value <
+                      rangeUpperLimit.current.value &&
+                    numberOfQuestions.current.value >= 1} modal`}
+                  aria-label={`${rangeLowerLimit.current.value > 0 &&
+                    rangeUpperLimit.current.value > 0 &&
+                    rangeLowerLimit.current.value <
+                      rangeUpperLimit.current.value &&
+                    numberOfQuestions.current.value >= 1} Close`}
                   type="submit"
                   className="btn btn-danger"
                 >

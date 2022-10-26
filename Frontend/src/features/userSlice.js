@@ -4,7 +4,7 @@ const UserSlice = createSlice({
   name: "User",
   initialState: {
     user : JSON.parse(localStorage.getItem("user") || '[]'),
-    userId: (localStorage.getItem("userId") || ''),
+    userId: JSON.parse(localStorage.getItem("userId") || ''),
   },
   
   reducers: {

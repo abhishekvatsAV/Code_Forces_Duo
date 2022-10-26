@@ -7,18 +7,23 @@
     background-color: var(--light_black);
 
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
     /* grid-template-rows: 1fr 1fr; */
     gap: 30px;
 }
 
 .box1 {
-    justify-self: start;
+    justify-self: end;
     align-self: start;
 }
 
+.home img {
+    justify-self: center;
+    align-self: center;
+}
+
 .box2 {
-    justify-self: end;
+    justify-self: start;
     align-self: end;
 }
 
@@ -145,6 +150,10 @@ input:checked::after {
     outline: none;
     border-radius: 5px;
 }
+
+
+
+
 
 
 /* for loading to create a room */
