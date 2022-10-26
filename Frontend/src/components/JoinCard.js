@@ -3,18 +3,23 @@ import "./JoinCard.css";
 
 import { io } from "socket.io-client";
 
+import { useSelector } from "react-redux";
+
+
 const socket = io("http://localhost:4000");
 
 socket.on("connect", () => {
   console.log("connected");
 });
 
-const handleClick = (roomId) => {
-  console.log("clicked");
-  socket.emit("joinRoom", roomId);
-}
-
 const JoinCard = ({ roomId, name }) => {
+  const user = useSelector((state) => state.user.user);
+
+  const handleClick = (roomId) => {
+    console.log("clicked");
+    socket.emit("join_room", (roomId, user.handle));
+  }
+
   return (
     <div className="joinCard">
       {/* <h3>{id}</h3> */}
@@ -30,7 +35,7 @@ const JoinCard = ({ roomId, name }) => {
       </button>
 
       {/* modal */}
-      <div
+      {/* <div
         className="modal fade"
         id="exampleModal"
         tabIndex="-1"
@@ -42,7 +47,7 @@ const JoinCard = ({ roomId, name }) => {
           style={{ color: "black" }}
         >
           <div className="modal-content" style={{ backgroundColor: "#171717" }}>
-            <div className="modal-header" style={{borderBottom:"none"}}>
+            <div className="modal-header" style={{ borderBottom: "none" }}>
               <h1
                 className="modal-title fs-5"
                 id="exampleModalLabel"
@@ -70,14 +75,14 @@ const JoinCard = ({ roomId, name }) => {
               }}
               type="text"
             />
-            <div className="modal-footer" style={{borderTop:"none"}}>
+            <div className="modal-footer" style={{ borderTop: "none" }}>
               <button type="button" className="btn btn-light">
                 Join Room
               </button>
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

@@ -20,6 +20,7 @@
 .home img {
     justify-self: center;
     align-self: center;
+    background-blend-mode: normal;
 }
 
 .box2 {

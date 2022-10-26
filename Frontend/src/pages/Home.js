@@ -195,16 +195,17 @@ export default function Home() {
           aria-hidden="true"
           onSubmit={(e) => {
             if (
-              rangeLowerLimit.current.value >= 800 &&
-              rangeLowerLimit.current.value <= 3500 &&
-              rangeUpperLimit.current.value >= 800 &&
-              rangeUpperLimit.current.value <= 3500 &&
-              rangeLowerLimit.current.value <= rangeUpperLimit.current.value &&
-              numberOfQuestions.current.value > 0
+              (rangeLowerLimit.current.value >= 800) &&
+              (rangeLowerLimit.current.value <= 3500) &&
+              (rangeUpperLimit.current.value >= 800) &&
+              (rangeUpperLimit.current.value <= 3500) &&
+              (rangeLowerLimit.current.value <= rangeUpperLimit.current.value) &&
+              (numberOfQuestions.current.value > 0)
             ) {
               handleCreateRoom(e);
             } else {
               alert("set the range between 800 and 3500");
+              alert(`${rangeLowerLimit.current.value}, ${rangeUpperLimit.current.value}, ${numberOfQuestions.current.value}`);
             }
           }}
         >
