@@ -43,7 +43,12 @@ const Lobby = () => {
             <h3>Public Rooms</h3>
             <div className="publicCards">
               {publicCards.map((card) => (
-                <JoinCard key={card.roomId} id={card.roomId} name={card.host} />
+                <JoinCard
+                  key={card.roomId}
+                  id={card.roomId}
+                  name={card.host}
+                  room="public"
+                />
               ))}
             </div>
           </div>
@@ -51,7 +56,12 @@ const Lobby = () => {
             <h3>Private Rooms</h3>
             <div className="privateCards">
               {privateCards.map((card) => (
-                <JoinCard key={card.roomId} id={card.roomId} name={card.host} />
+                <JoinCard
+                  key={card.roomId}
+                  id={card.roomId}
+                  name={card.host}
+                  room="private"
+                />
               ))}
             </div>
           </div>
