@@ -21,8 +21,9 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
 
   return (
     <div className="joinCard">
-      {/* <h3>{id}</h3> */}
-      <h3>{name}</h3>
+      <h3>Host - {name}</h3>
+      <h4> Range : {range.lowerLimit} - {range.upperLimit} </h4>
+      <p> Number of Questions : {noOfQuestions} </p>
       <button
         type="button"
         className="btn btn-danger btn-small"

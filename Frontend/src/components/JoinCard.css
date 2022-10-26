@@ -1,9 +1,9 @@
 .joinCard{
     display: grid;
-    grid-template-columns: 1fr 3fr 2fr;
+    grid-template-rows: 1fr 1fr 1fr 1fr;
     gap: 2rem;
     /* justify-content: space-around; */
-    max-height: 4rem;
+    /* max-height: 4rem; */
     background-color: var(--dark_black);
     color: var(--white);
     padding: 10px;

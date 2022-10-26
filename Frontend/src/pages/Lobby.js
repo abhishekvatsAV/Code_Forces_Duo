@@ -48,6 +48,8 @@ const Lobby = () => {
                   id={card.roomId}
                   name={JSON.parse(card.users[0].userId.userName)}
                   room="public"
+                  range= {card.competitionData.ratingRange}
+                  noOfQuestions = {card.competitionData.problems.length}
                 />
               ))}
             </div>
