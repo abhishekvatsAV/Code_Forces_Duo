@@ -11,7 +11,7 @@ socket.on("connect", () => {
   console.log("connected");
 });
 
-const JoinCard = ({ roomId, name, room }) => {
+const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
   const user = useSelector((state) => state.user.user);
 
   const handleClick = (roomId) => {

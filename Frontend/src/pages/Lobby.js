@@ -46,7 +46,7 @@ const Lobby = () => {
                 <JoinCard
                   key={card.roomId}
                   id={card.roomId}
-                  name={card.host}
+                  name={JSON.parse(card.users[0].userId.userName)}
                   room="public"
                 />
               ))}
@@ -59,7 +59,7 @@ const Lobby = () => {
                 <JoinCard
                   key={card.roomId}
                   id={card.roomId}
-                  name={card.host}
+                  name={JSON.parse(card.users[0].userId.userName)}
                   room="private"
                 />
               ))}
