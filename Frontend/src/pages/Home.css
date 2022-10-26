@@ -1,20 +1,18 @@
 .home {
     height: 100vh;
-    /* display: flex;
-    text-align: center;
-    justify-content: space-evenly; */
-    padding: 100px;
+    padding: 80px 20px 20px 10px;
     background-color: var(--light_black);
-
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    /* grid-template-rows: 1fr 1fr; */
-    gap: 30px;
+    grid-template-columns: 2fr 1fr;
+    /* gap: 30px; */
+    overflow-y: scroll;
 }
 
 .box1 {
-    justify-self: end;
-    align-self: start;
+    /* justify-self: start; */
+    /* align-self: start; */
+    /* max-width: 50%; */
+    width: 100%;
 }
 
 .home img {
@@ -24,10 +22,16 @@
 }
 
 .box2 {
-    justify-self: start;
-    align-self: end;
+    /* justify-self: end; */
+    /* align-self: end; */
+    /* max-width: 50%; */
+    width: 100%;
+
 }
 
+.home >img{
+    width: 95%;
+}
 
 .box1,
 .box2 {

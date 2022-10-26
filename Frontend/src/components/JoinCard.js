@@ -5,7 +5,6 @@ import { io } from "socket.io-client";
 
 import { useSelector } from "react-redux";
 
-
 const socket = io("http://localhost:4000");
 
 socket.on("connect", () => {
@@ -18,7 +17,7 @@ const JoinCard = ({ roomId, name }) => {
   const handleClick = (roomId) => {
     console.log("clicked");
     socket.emit("join_room", (roomId, user.handle));
-  }
+  };
 
   return (
     <div className="joinCard">

@@ -16,27 +16,23 @@ const Lobby = () => {
     const fetchRooms = async () => {
       const response = await fetch("http://localhost:4000/rooms/getAllRooms");
       const data = await response.json();
-      console.log("room data : ")
+      console.log("room data : ");
       console.log(data.allRooms);
       const privateRooms = [];
       const publicRooms = [];
       data.allRooms.map((room) => {
         if (room.roomType === "Public") {
           publicRooms.push(room);
-        }
-        else {
+        } else {
           privateRooms.push(room);
         }
-      })
+      });
       console.log(publicCards, privateCards);
       setPrivateCards(privateRooms);
       setPublicCards(publicRooms);
-    }
+    };
     fetchRooms();
-
-  }, [])
-
-
+  }, []);
 
   return (
     <>
