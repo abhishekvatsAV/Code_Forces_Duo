@@ -100,22 +100,21 @@ exports.getAllRooms = async (req, res, next) => {
         let allRooms = await room
             .find()
             .populate("users.userId","userName")
-            .sort({
-                isRoomFull: 1
-            });
-        allRooms = allRooms.map(async (room) => {
+        let newAllRooms = [];
+        for (let i = 0; i < allRooms.length; i++) {
+            const room = allRooms[i];
             let competitionData = await competitions.findOne({
                 roomId:room._id
             })
             .populate("problems.problemId");
-            return {
-                ...room,
+            newAllRooms.push({
+                ...room._doc,
                 competitionData
-            }
-        })
+            });
+        }
         return res.status(200).json({
             message: "rooms fetched successfully",
-            allRooms
+            allRooms:newAllRooms
         });
     } catch (error) {
         return res.status(200).json({

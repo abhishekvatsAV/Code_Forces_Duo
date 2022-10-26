@@ -15,6 +15,11 @@
     width: 100%;
 }
 
+.home img {
+    justify-self: center;
+    align-self: center;
+}
+
 .box2 {
     /* justify-self: end; */
     /* align-self: end; */
@@ -149,6 +154,10 @@ input:checked::after {
     outline: none;
     border-radius: 5px;
 }
+
+
+
+
 
 
 /* for loading to create a room */

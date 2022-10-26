@@ -17,6 +17,8 @@ import img from "../assets/hero-img.png";
 
 import axios from "axios";
 
+import codingImg from "../assets/codingImg.jpg";
+
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -50,6 +52,14 @@ export default function Home() {
       // return new Error("Please reset the range");
       return console.error("error range must be checked again");
     }
+
+    // console.log(rangeLowerLimit.current.value, rangeUpperLimit.current.value);
+
+    // if (rangeLowerLimit.current.value > rangeUpperLimit.current.value) {
+    //   console.log("error");
+    //   // return new Error("Please reset the range");
+    //   return console.error("error range must be checked again");
+    // }
 
     setLoading(true);
     const res = await axios.get(
