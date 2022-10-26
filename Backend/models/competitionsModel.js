@@ -30,8 +30,14 @@ const competitionSchema = new schema({
         ref: "room"
     },
     ratingRange:{
-        upperLimit:Number,
-        lowerLimit:Number
+        upperLimit:{
+            type:Number,
+            required:true
+        },
+        lowerLimit:{
+            type:Number,
+            required:true
+        }
     }
 }, {
     timestamps: true

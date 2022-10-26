@@ -46,7 +46,7 @@ exports.addRoom = async (req, res, next) => {
             problems:problemsData,
             competitionName: `competition-${roomId}`,
             roomId: roomData._id,
-            range
+            ratingRange:range
         });
         await competitionData.save();
         return res.status(200).json({
