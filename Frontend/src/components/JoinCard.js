@@ -3,18 +3,22 @@ import "./JoinCard.css";
 
 import { io } from "socket.io-client";
 
+import { useSelector } from "react-redux";
+
 const socket = io("http://localhost:4000");
 
 socket.on("connect", () => {
   console.log("connected");
 });
 
-const handleClick = (roomId) => {
-  console.log("clicked");
-  socket.emit("joinRoom", roomId);
-};
-
 const JoinCard = ({ roomId, name }) => {
+  const user = useSelector((state) => state.user.user);
+
+  const handleClick = (roomId) => {
+    console.log("clicked");
+    socket.emit("join_room", (roomId, user.handle));
+  };
+
   return (
     <div className="joinCard">
       {/* <h3>{id}</h3> */}
@@ -30,7 +34,7 @@ const JoinCard = ({ roomId, name }) => {
       </button>
 
       {/* modal */}
-      <div
+      {/* <div
         className="modal fade"
         id="exampleModal"
         tabIndex="-1"
@@ -77,7 +81,7 @@ const JoinCard = ({ roomId, name }) => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
     </div>
   );
 };

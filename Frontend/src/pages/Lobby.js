@@ -16,6 +16,7 @@ const Lobby = () => {
     const fetchRooms = async () => {
       const response = await fetch("http://localhost:4000/rooms/getAllRooms");
       const data = await response.json();
+      console.log("room data : ");
       console.log(data.allRooms);
       const privateRooms = [];
       const publicRooms = [];
@@ -40,15 +41,19 @@ const Lobby = () => {
         <div className="lobbyContent">
           <div className="publicContent">
             <h3>Public Rooms</h3>
-            {publicCards.map((card) => (
-              <JoinCard key={card.roomId} id={card.roomId} name={card.host} />
-            ))}
+            <div className="publicCards">
+              {publicCards.map((card) => (
+                <JoinCard key={card.roomId} id={card.roomId} name={card.host} />
+              ))}
+            </div>
           </div>
           <div className="privateContent">
             <h3>Private Rooms</h3>
-            {privateCards.map((card) => (
-              <JoinCard key={card.roomId} id={card.roomId} name={card.host} />
-            ))}
+            <div className="privateCards">
+              {privateCards.map((card) => (
+                <JoinCard key={card.roomId} id={card.roomId} name={card.host} />
+              ))}
+            </div>
           </div>
         </div>
       </div>

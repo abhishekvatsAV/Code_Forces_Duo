@@ -45,22 +45,6 @@ export default function Home() {
   const handleCreateRoom = async (e) => {
     e.preventDefault();
 
-    console.log(rangeLowerLimit.current.value, rangeUpperLimit.current.value);
-
-    if (rangeLowerLimit.current.value > rangeUpperLimit.current.value) {
-      console.log("error");
-      // return new Error("Please reset the range");
-      return console.error("error range must be checked again");
-    }
-
-    // console.log(rangeLowerLimit.current.value, rangeUpperLimit.current.value);
-
-    // if (rangeLowerLimit.current.value > rangeUpperLimit.current.value) {
-    //   console.log("error");
-    //   // return new Error("Please reset the range");
-    //   return console.error("error range must be checked again");
-    // }
-
     setLoading(true);
     const res = await axios.get(
       "https://codeforces.com/api/problemset.problems/"
@@ -195,27 +179,14 @@ export default function Home() {
             data-bs-target="#exampleModal"
           />
 
+          {/*  modal here */}
           <form
-            className=" modal"
+            className="modal"
             id="exampleModal"
             tabIndex="-1"
             aria-labelledby="exampleModalLabel"
             aria-hidden="true"
-            onSubmit={(e) => {
-              if (
-                rangeLowerLimit.current.value >= 800 &&
-                rangeLowerLimit.current.value <= 3500 &&
-                rangeUpperLimit.current.value >= 800 &&
-                rangeUpperLimit.current.value <= 3500 &&
-                rangeLowerLimit.current.value <=
-                  rangeUpperLimit.current.value &&
-                numberOfQuestions.current.value > 0
-              ) {
-                handleCreateRoom(e);
-              } else {
-                alert("set the range between 800 and 3500");
-              }
-            }}
+            onSubmit={handleCreateRoom}
           >
             <div className="modal-dialog">
               <div
@@ -233,7 +204,7 @@ export default function Home() {
                     aria-label="Close"
                   ></button>
                 </div>
-                <div className="modal-body hide" style={{ padding: 0 }}>
+                <div className="modal-body" style={{ padding: 0 }}>
                   <div action="" className="homeForm">
                     <label style={{ display: "block" }}>
                       Range <sub>(800 - 3500)</sub> :{" "}
@@ -242,7 +213,7 @@ export default function Home() {
                       type="number"
                       min="800"
                       max="3500"
-                      required
+                      required="greater than 800"
                       placeholder="lowerBound"
                       ref={rangeLowerLimit}
                     />
@@ -251,7 +222,7 @@ export default function Home() {
                       type="number"
                       min="800"
                       max="3500"
-                      required
+                      required="greater than 800"
                       placeholder="upperBound"
                       ref={rangeUpperLimit}
                     />
@@ -272,22 +243,8 @@ export default function Home() {
                 </div>
                 <div className="modal-footer">
                   <button
-                    data-bs-dismiss={`${
-                      rangeLowerLimit.current.value > 0 &&
-                      rangeUpperLimit.current.value > 0 &&
-                      rangeLowerLimit.current.value <
-                        rangeUpperLimit.current.value &&
-                      numberOfQuestions.current.value >= 1 &&
-                      "modal"
-                    }`}
-                    aria-label={`${
-                      rangeLowerLimit.current.value > 0 &&
-                      rangeUpperLimit.current.value > 0 &&
-                      rangeLowerLimit.current.value <
-                        rangeUpperLimit.current.value &&
-                      numberOfQuestions.current.value >= 1 &&
-                      "close"
-                    }`}
+                    data-bs-dismiss="modal"
+                    aria-label="close"
                     type="submit"
                     className="btn btn-danger"
                   >
