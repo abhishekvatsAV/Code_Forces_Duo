@@ -49,7 +49,7 @@ mongoose.connect(process.env.MONGO_URI)
 			// socket join room event
 			socket.on("join_room",(roomId,userName) => {
 				socket.join(roomId);
-				socket.to(roomId).broadcast({
+				socket.to(roomId).broadcast.emit({
 					message:"a new user join the room!",
 					userName	
 				})
@@ -57,7 +57,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 			socket.on("leave_room",(roomId,userName) => {
 				socket.leave(roomId);
-				socket.to(roomId).broadcast({
+				socket.to(roomId).broadcast.emit({
 					message:`${userName} left the room`,
 					userName	
 				})
@@ -67,7 +67,7 @@ mongoose.connect(process.env.MONGO_URI)
 				let { roomId,userId } = data;
 				let userData = await getUserData(userId);
 				markProblemAsSolved(data);
-				socket.to(roomId).broadcast({
+				socket.to(roomId).broadcast.emit({
 					message:`${userData.userName} solved a problem!`,
 					userName:userData.userName	
 				})
