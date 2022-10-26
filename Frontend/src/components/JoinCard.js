@@ -11,7 +11,7 @@ socket.on("connect", () => {
   console.log("connected");
 });
 
-const JoinCard = ({ roomId, name }) => {
+const JoinCard = ({ roomId, name, room }) => {
   const user = useSelector((state) => state.user.user);
 
   const handleClick = (roomId) => {
@@ -26,7 +26,7 @@ const JoinCard = ({ roomId, name }) => {
       <button
         type="button"
         className="btn btn-danger btn-small"
-        data-bs-toggle="modal"
+        data-bs-toggle={`${room === "private" && "modal"}`}
         data-bs-target="#exampleModal"
         onClick={() => handleClick(roomId)}
       >
@@ -34,7 +34,7 @@ const JoinCard = ({ roomId, name }) => {
       </button>
 
       {/* modal */}
-      {/* <div
+      <div
         className="modal fade"
         id="exampleModal"
         tabIndex="-1"
@@ -81,7 +81,7 @@ const JoinCard = ({ roomId, name }) => {
             </div>
           </div>
         </div>
-      </div> */}
+      </div>
     </div>
   );
 };

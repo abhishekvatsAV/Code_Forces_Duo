@@ -27,6 +27,7 @@ export default function Home() {
   const rangeUpperLimit = useRef(800);
   const rangeLowerLimit = useRef(800);
   const numberOfQuestions = useRef(5);
+  const buttonRef = useRef(null);
 
   const [privateOn, setPrivateon] = useState(false);
   const [roomID, setRoomid] = useState("");
@@ -45,41 +46,62 @@ export default function Home() {
   const handleCreateRoom = async (e) => {
     e.preventDefault();
 
-    setLoading(true);
-    const res = await axios.get(
-      "https://codeforces.com/api/problemset.problems/"
-    );
-    const arr = [];
-    let size = numberOfQuestions.current.value;
-    let i = 0;
-    while (size > 0) {
-      if (
-        res?.data?.result?.problems[i]?.rating >=
-          rangeLowerLimit.current.value &&
-        res?.data?.result?.problems[i]?.rating <= rangeUpperLimit.current.value
-      ) {
-        arr.push(res.data.result.problems[i]);
-        size--;
+    if (
+      parseInt(rangeLowerLimit.current.value) >= 800 &&
+      parseInt(rangeLowerLimit.current.value) <= 3500 &&
+      parseInt(rangeUpperLimit.current.value) >= 800 &&
+      parseInt(rangeUpperLimit.current.value) <= 3500 &&
+      parseInt(rangeLowerLimit.current.value) <=
+        parseInt(rangeUpperLimit.current.value) &&
+      parseInt(numberOfQuestions.current.value) > 0
+    ) {
+      // buttonRef.current.ariaLabel = "close";
+      // buttonRef.current.dataBsDismiss = "modal";
+
+      setLoading(true);
+      const res = await axios.get(
+        "https://codeforces.com/api/problemset.problems/"
+      );
+      const arr = [];
+      let size = numberOfQuestions.current.value;
+      let i = 0;
+      while (size > 0) {
+        if (
+          res?.data?.result?.problems[i]?.rating >=
+            rangeLowerLimit.current.value &&
+          res?.data?.result?.problems[i]?.rating <=
+            rangeUpperLimit.current.value
+        ) {
+          arr.push(res.data.result.problems[i]);
+          size--;
+        }
+        i++;
       }
-      i++;
+      console.log(arr);
+      console.log(userId);
+      const response = await axios.post("http://localhost:4000/rooms/addRoom", {
+        roomId: roomID,
+        password: password,
+        roomType: privateOn ? "Private" : "Public",
+        host: userId, // objectId of the host from the mongoose
+        problems: arr,
+        range: {
+          lowerLimit: rangeLowerLimit.current.value,
+          upperLimit: rangeUpperLimit.current.value,
+        },
+      });
+
+      setLoading(false);
+
+      navigate(`/room/${roomID}`);
+    } else {
+      alert(
+        "set the range between 800 and 3500 and lowerLimit must be smaller and equal to upperLimit"
+      );
+      alert(
+        `${rangeLowerLimit.current.value}, ${rangeUpperLimit.current.value}, ${numberOfQuestions.current.value}`
+      );
     }
-    console.log(arr);
-    console.log(userId);
-    const response = await axios.post("http://localhost:4000/rooms/addRoom", {
-      roomId: roomID,
-      password: password,
-      roomType: privateOn ? "Private" : "Public",
-      host: userId, // objectId of the host from the mongoose
-      problems: arr,
-      range: {
-        lowerLimit: rangeLowerLimit.current.value,
-        upperLimit: rangeUpperLimit.current.value,
-      },
-    });
-
-    setLoading(false);
-
-    navigate(`/room/${roomID}`);
   };
 
   return (
@@ -243,8 +265,9 @@ export default function Home() {
                 </div>
                 <div className="modal-footer">
                   <button
-                    data-bs-dismiss="modal"
-                    aria-label="close"
+                    ref={buttonRef}
+                    // data-bs-dismiss="modal"
+                    // aria-label="close"
                     type="submit"
                     className="btn btn-danger"
                   >
