@@ -1,7 +1,6 @@
 //styles
 import "./Home.css";
 
-import { VscDebugStart } from "react-icons/vsc";
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
 

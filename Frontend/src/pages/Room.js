@@ -6,11 +6,23 @@ import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { changePassword } from "../features/keySlice";
+import { useEffect } from "react";
+import axios from "axios";
 
 const Room = () => {
   const { roomID } = useParams();
   const { pswd } = useSelector((state) => state.password);
   const user = useSelector((state) => state.user.user);
+
+  useEffect(() => {
+    const roomData = async () => {
+      const data = await axios.get("http://localhost:4000/rooms/getRoomById", {
+        roomId: roomID
+      })
+      console.log(data);
+    }
+    roomData();
+  }, [])
 
   return (
     <div className="room">
@@ -89,6 +101,8 @@ const Room = () => {
           </div>
         </div>
       </div>
+
+
       <div className="hostBox">
         <img src={user.titlePhoto} />
         <h3>{user.handle}</h3>
