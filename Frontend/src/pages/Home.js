@@ -17,28 +17,25 @@ import img from "../assets/hero-img.png";
 
 import axios from "axios";
 
-
 //socket io
 import { io } from "socket.io-client";
-
 const socket = io("http://localhost:4000");
-
 socket.on("connect", () => {
   console.log("connected");
 });
 
-
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.user);
   const userId = useSelector((state) => state.user.userId);
   const rangeUpperLimit = useRef(800);
   const rangeLowerLimit = useRef(800);
   const numberOfQuestions = useRef(5);
   const buttonRef = useRef(null);
-
   const [privateOn, setPrivateon] = useState(false);
+  const [modalDismiss, setModalDismiss] = useState(false);
+
   const [roomID, setRoomid] = useState("");
   const handleClick = () => {
     setRoomid(uuidv4);
@@ -52,6 +49,10 @@ export default function Home() {
     setPassword(uuidv4);
   };
 
+  socket.on("user_join", (data) => {
+    console.log("user get joined : ", data);
+  });
+
   const handleCreateRoom = async (e) => {
     e.preventDefault();
 
@@ -64,9 +65,6 @@ export default function Home() {
         parseInt(rangeUpperLimit.current.value) &&
       parseInt(numberOfQuestions.current.value) > 0
     ) {
-      // buttonRef.current.ariaLabel = "close";
-      // buttonRef.current.dataBsDismiss = "modal";
-
       setLoading(true);
       const res = await axios.get(
         "https://codeforces.com/api/problemset.problems/"
@@ -100,8 +98,8 @@ export default function Home() {
         },
       });
 
-      console.log("roomId" + roomID, "user " +user.user.handle);
-      socket.emit("join_room", roomID, user.user.handle);
+      // console.log("roomId" + roomID, "user " +user.user.handle);
+      socket.emit("join_room", roomID, user.handle);
 
       setLoading(false);
 
@@ -278,10 +276,11 @@ export default function Home() {
                 <div className="modal-footer">
                   <button
                     ref={buttonRef}
-                    // data-bs-dismiss="modal"
-                    // aria-label="close"
+                    data-bs-dismiss={modalDismiss ? "modal" : ""}
+                    aria-label={modalDismiss ? "close" : ""}
                     type="submit"
-                    className="btn btn-danger"
+                    className="btn btn-success"
+                    onClick={() => setModalDismiss(true)}
                   >
                     Create Room
                   </button>

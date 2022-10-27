@@ -1,7 +1,7 @@
 .home {
     height: 100vh;
     padding: 80px 20px 20px 10px;
-    background-color: var(--light_black);
+    background-color: var(--bg_color);
     display: grid;
     grid-template-columns: 2fr 1fr;
     /* gap: 30px; */
@@ -36,20 +36,20 @@
 .box1,
 .box2 {
     max-height: 400px;
-    background: var(--dark_black);
+    background: var(--primary_color);
     padding: 20px;
     margin-top: 20px;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     /* border-radius: 40% 20% 40% 20%; */
     transition: 0.4s;
-    color: var(--red);
+    color: var(--head_color);
 }
 
 
 .home p {
     margin: 20px 0;
-    color: var(--white);
+    color: var(--text_color);
 }
 
 .box1 p {
@@ -94,7 +94,7 @@ input::after {
 }
 
 input:checked {
-    background: var(--red);
+    background: var(--head_color);
 }
 
 input:checked::after {
@@ -123,7 +123,7 @@ input:checked::after {
 
 .invite h5 {
     padding: 0;
-    color: var(--red);
+    color: var(--head_color);
 }
 
 .arrow {
@@ -131,7 +131,7 @@ input:checked::after {
     height: 20px;
     /* border-left: 20px solid transparent;
     border-right: 20px solid transparent;
-    border-top: 20px solid var(--red); */
+    border-top: 20px solid var(--head_color); */
     margin: 0 auto;
     margin-top: 20px;
     bottom: 0px;
@@ -140,8 +140,8 @@ input:checked::after {
 
 .homeForm {
     width: 100%;
-    background-color: var(--dark_black);
-    color: var(--white);
+    background-color: var(--primary_color);
+    color: var(--text_color);
     padding: 10px;
 }
 
@@ -189,7 +189,7 @@ input:checked::after {
 
 #loading {
     position: absolute;
-    background-color: var(--red);
+    background-color: var(--head_color);
     height: 50px;
     width: 15px;
     animation-name: loading;
