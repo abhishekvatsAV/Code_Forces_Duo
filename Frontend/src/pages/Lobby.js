@@ -48,8 +48,8 @@ const Lobby = () => {
                   roomId={card.roomId}
                   name={JSON.parse(card.users[0].userId.userName)}
                   room="public"
-                  range= {card.competitionData.ratingRange}
-                  noOfQuestions = {card.competitionData.problems.length}
+                  range={card.competitionData.ratingRange}
+                  noOfQuestions={card.competitionData.problems.length}
                 />
               ))}
             </div>
@@ -63,8 +63,8 @@ const Lobby = () => {
                   roomId={card.roomId}
                   name={JSON.parse(card.users[0].userId.userName)}
                   room="private"
-                  range= {card.competitionData.ratingRange}
-                  noOfQuestions = {card.competitionData.problems.length}
+                  range={card.competitionData.ratingRange}
+                  noOfQuestions={card.competitionData.problems.length}
                 />
               ))}
             </div>

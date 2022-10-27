@@ -17,7 +17,6 @@ import img from "../assets/hero-img.png";
 
 import axios from "axios";
 
-
 //socket io
 import { io } from "socket.io-client";
 const socket = io("http://localhost:4000");
@@ -25,6 +24,20 @@ socket.on("connect", () => {
   console.log("connected");
 });
 
+const modalDismiss = (x, y, n) => {
+  if (
+    parseInt(x) >= 800 &&
+    parseInt(x) <= 3500 &&
+    parseInt(y) >= 800 &&
+    parseInt(y) <= 3500 &&
+    parseInt(x) <= parseInt(y) &&
+    parseInt(n) > 0
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+};
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -276,10 +289,26 @@ export default function Home() {
                 <div className="modal-footer">
                   <button
                     ref={buttonRef}
-                    // data-bs-dismiss="modal"
-                    // aria-label="close"
+                    data-bs-dismiss={`${
+                      modalDismiss(
+                        rangeLowerLimit.current.value,
+                        rangeUpperLimit.current.value,
+                        numberOfQuestions.current.value
+                      )
+                        ? "modal"
+                        : null
+                    }`}
+                    aria-label={`${
+                      modalDismiss(
+                        rangeLowerLimit.current.value,
+                        rangeUpperLimit.current.value,
+                        numberOfQuestions.current.value
+                      )
+                        ? "close"
+                        : null
+                    }`}
                     type="submit"
-                    className="btn btn-danger"
+                    className="btn btn-success"
                   >
                     Create Room
                   </button>

@@ -2,7 +2,7 @@
 import "./JoinCard.css";
 
 import { useSelector } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
@@ -13,7 +13,6 @@ socket.on("connect", () => {
   console.log("connected");
 });
 
-
 const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
   const user = useSelector((state) => state.user.user);
   const userId = useSelector((state) => state.user.userId);
@@ -21,7 +20,7 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
 
   socket.on("user_join", (data) => {
     console.log("user get joined", data);
-  })
+  });
 
   const handleClick = async (roomId) => {
     console.log("clicked");
@@ -31,25 +30,61 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
     const url = "http://localhost:4000/rooms/joinRoom";
     const response = await axios.post(url, {
       roomId: roomId,
-      userId: userId
+      userId: userId,
     });
-
 
     socket.emit("join_room", roomId, user.handle);
     // console.log("roomId - " + roomId,"user - " + user.handle );
-    navigate(`/room/${roomId}`)
+    navigate(`/room/${roomId}`);
   };
 
   return (
     <div className="joinCard">
-      <h3>Host - {name}</h3>
-      <h4> Range : {range.lowerLimit} - {range.upperLimit} </h4>
-      <p> Number of Questions : {noOfQuestions} </p>
+      <h3>
+        {" "}
+        <span
+          style={{
+            display: "block",
+            fontSize: "1rem",
+            paddingBottom: "5px",
+            color: "gray",
+          }}
+        >
+          Host
+        </span>{" "}
+        {name}
+      </h3>
+      <h4>
+        <span
+          style={{
+            display: "block",
+            fontSize: "1rem",
+            paddingBottom: "5px",
+            color: "gray",
+          }}
+        >
+          Range :
+        </span>{" "}
+        {range.lowerLimit} - {range.upperLimit}{" "}
+      </h4>
+      <p>
+        {" "}
+        <span
+          style={{
+            fontSize: "1rem",
+            paddingBottom: "5px",
+            color: "gray",
+          }}
+        >
+          Number of Questions :
+        </span>{" "}
+        {noOfQuestions}{" "}
+      </p>
       <button
         type="button"
-        className="btn btn-danger btn-small"
+        className="btn btn-outline-success btn-small"
         data-bs-toggle={`${room === "private" && "modal"}`}
-        data-bs-target="#exampleModal"
+        data-bs-target={`${room === "private" && "#exampleModal"}`}
         onClick={() => handleClick(roomId)}
       >
         join room

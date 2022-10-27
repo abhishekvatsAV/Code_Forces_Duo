@@ -3,8 +3,9 @@
     align-items: center;
     justify-content: center;
     height: 100%;
-    background: var(--light_black);
+    background: var(--bg_color);
     padding: 20px;
+    overflow-y: scroll;
 }
 
 .lobbyContent {
@@ -15,7 +16,6 @@
     height: 100vh;
     width: 100vw;
     padding-top: 1rem;
-    overflow: scroll;
     padding-bottom: 30px;
 }
 
@@ -23,8 +23,11 @@
 .publicContent>h3,
 .privateContent>h3 {
     margin-top: 90px;
-    border-radius: 0px 20px 20px 0px;
-    width: 50%;
-    background-color: var(--white);
+    border-radius: 20px;
+    width: 100%;
+    background-color: var(--primary_color);
+    color: var(--head_color);
+    padding: 8px 0px;
     margin-bottom: 40px;
+    padding-left: 20px;
 }
