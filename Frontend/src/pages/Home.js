@@ -31,7 +31,7 @@ socket.on("connect", () => {
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const user = useSelector((state) => state.user);
+  const user = useSelector((state) => state.user.user);
   const userId = useSelector((state) => state.user.userId);
   const rangeUpperLimit = useRef(800);
   const rangeLowerLimit = useRef(800);
@@ -51,6 +51,11 @@ export default function Home() {
   const handleClick2 = () => {
     setPassword(uuidv4);
   };
+
+  socket.on("user_join", (data) => {
+    console.log("user get joined : ", data);
+  })
+  
 
   const handleCreateRoom = async (e) => {
     e.preventDefault();
@@ -99,8 +104,8 @@ export default function Home() {
           upperLimit: rangeUpperLimit.current.value,
         },
       });
-
-      socket.emit("join_room", (roomID, user.user.handle));
+      // console.log(roomID, user.handle);
+      socket.emit("join_room", (roomID, user.handle));
 
       setLoading(false);
 

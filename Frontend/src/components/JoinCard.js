@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 
 import { io } from "socket.io-client";
+import axios from "axios";
 
 const socket = io("http://localhost:4000");
 
@@ -18,12 +19,21 @@ socket.on("user_join", (data) => {
 
 const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
   const user = useSelector((state) => state.user.user);
+  const userId = useSelector((state) => state.user.userId);
   const navigate = useNavigate();
 
-  const handleClick = (roomId) => {
+  const handleClick = async (roomId) => {
     console.log("clicked");
     socket.emit("join_room", (roomId, user.handle));
-    console.log(roomId);
+    // console.log(roomId);
+
+    const url = "http://localhost:4000/rooms/joinRoom";
+    const response = await axios.post(url, {
+      roomId: roomId,
+      userId: userId
+    });
+
+
     navigate(`/room/${roomId}`)
   };
 
