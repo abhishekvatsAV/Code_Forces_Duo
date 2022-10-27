@@ -24,21 +24,6 @@ socket.on("connect", () => {
   console.log("connected");
 });
 
-const modalDismiss = (x, y, n) => {
-  if (
-    parseInt(x) >= 800 &&
-    parseInt(x) <= 3500 &&
-    parseInt(y) >= 800 &&
-    parseInt(y) <= 3500 &&
-    parseInt(x) <= parseInt(y) &&
-    parseInt(n) > 0
-  ) {
-    return true;
-  } else {
-    return false;
-  }
-};
-
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -49,6 +34,7 @@ export default function Home() {
   const numberOfQuestions = useRef(5);
   const buttonRef = useRef(null);
   const [privateOn, setPrivateon] = useState(false);
+  const [modalDismiss, setModalDismiss] = useState(false);
 
   const [roomID, setRoomid] = useState("");
   const handleClick = () => {
@@ -289,26 +275,11 @@ export default function Home() {
                 <div className="modal-footer">
                   <button
                     ref={buttonRef}
-                    data-bs-dismiss={`${
-                      modalDismiss(
-                        rangeLowerLimit.current.value,
-                        rangeUpperLimit.current.value,
-                        numberOfQuestions.current.value
-                      )
-                        ? "modal"
-                        : null
-                    }`}
-                    aria-label={`${
-                      modalDismiss(
-                        rangeLowerLimit.current.value,
-                        rangeUpperLimit.current.value,
-                        numberOfQuestions.current.value
-                      )
-                        ? "close"
-                        : null
-                    }`}
+                    data-bs-dismiss={modalDismiss ? "modal" : ""}
+                    aria-label={modalDismiss ? "close" : ""}
                     type="submit"
                     className="btn btn-success"
+                    onClick={() => setModalDismiss(true)}
                   >
                     Create Room
                   </button>
