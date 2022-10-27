@@ -20,9 +20,7 @@ import axios from "axios";
 
 //socket io
 import { io } from "socket.io-client";
-
 const socket = io("http://localhost:4000");
-
 socket.on("connect", () => {
   console.log("connected");
 });
@@ -37,8 +35,8 @@ export default function Home() {
   const rangeLowerLimit = useRef(800);
   const numberOfQuestions = useRef(5);
   const buttonRef = useRef(null);
-
   const [privateOn, setPrivateon] = useState(false);
+
   const [roomID, setRoomid] = useState("");
   const handleClick = () => {
     setRoomid(uuidv4);
@@ -106,7 +104,7 @@ export default function Home() {
       });
 
       // console.log("roomId" + roomID, "user " +user.user.handle);
-      socket.emit("join_room", roomID, user.user.handle);
+      socket.emit("join_room", roomID, user.handle);
 
       setLoading(false);
 

@@ -4,23 +4,24 @@ import "./JoinCard.css";
 import { useSelector } from "react-redux";
 import { Navigate, useNavigate } from "react-router-dom";
 
-import { io } from "socket.io-client";
 import axios from "axios";
 
+import { io } from "socket.io-client";
 const socket = io("http://localhost:4000");
 
 socket.on("connect", () => {
   console.log("connected");
 });
 
-socket.on("user_join", (data) => {
-  console.log("user get joined", data);
-})
 
 const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
   const user = useSelector((state) => state.user.user);
   const userId = useSelector((state) => state.user.userId);
   const navigate = useNavigate();
+
+  socket.on("user_join", (data) => {
+    console.log("user get joined", data);
+  })
 
   const handleClick = async (roomId) => {
     console.log("clicked");

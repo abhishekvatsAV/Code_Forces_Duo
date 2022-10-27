@@ -7,6 +7,13 @@ import Navbar from "./components/Navbar";
 import Room from "./pages/Room";
 import Lobby from "./pages/Lobby";
 
+import { io } from "socket.io-client";
+const socket = io("http://localhost:4000");
+socket.on("connect", () => {
+  console.log("connected");
+});
+
+
 function App() {
   return (
     <div className="App">
