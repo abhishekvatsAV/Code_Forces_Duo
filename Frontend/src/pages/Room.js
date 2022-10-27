@@ -4,20 +4,13 @@ import "./Room.css";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
-import { MdContentCopy } from "react-icons/md";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { changePassword } from "../features/keySlice";
-import axios from "axios";
-import { useRef, useEffect } from "react";
 
 const Room = () => {
   const { roomID } = useParams();
-  // const ref = useRef(false);
-
   const { pswd } = useSelector((state) => state.password);
-  // useEffect(() => {
-  //   ref.current.click();
-  // });
+  const user = useSelector((state) => state.user.user);
 
   return (
     <div className="room">
@@ -96,6 +89,11 @@ const Room = () => {
           </div>
         </div>
       </div>
+      <div className="hostBox">
+        <img src={user.titlePhoto} />
+        <h3>{user.handle}</h3>
+      </div>
+
       <footer className="roomCreateFooter">
         <button
           type="button"

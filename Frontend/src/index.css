@@ -1,12 +1,15 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;800&family=VT323&display=swap');
+
 * {
   margin: 0%;
   padding: 0%;
   box-sizing: border-box;
+  font-family: "Poppins";
 }
 
 :root {
-  --dark_black: #171717;
-  --light_black: #444444;
-  --red: #DA0037;
-  --white : #EDEDED;
+  --primary_color: #141414;
+  --bg_color: #212121;
+  --head_color: #14FFEC;
+  --text_color : #EEEEEE;
 }

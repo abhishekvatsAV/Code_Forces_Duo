@@ -22,21 +22,22 @@ const Login = () => {
         // handle success
         console.log(response);
         dispatch(login(response.data.result[0]));
-        return { userName: username }
+        return { userName: username };
       })
-      .then(({ userName }) => { // storing the user in db
+      .then(({ userName }) => {
+        // storing the user in db
         axios
-          .post('http://localhost:4000/users/registerUser', {
+          .post("http://localhost:4000/users/registerUser", {
             method: "POST",
             headers: {
-              "Content-Type": "application/json"
+              "Content-Type": "application/json",
             },
-            userName: JSON.stringify(userName)
+            userName: JSON.stringify(userName),
           })
           .then((res) => {
             console.log(res.data.userData._id);
             dispatch(setUserId(res.data.userData._id));
-          })
+          });
         navigate("/home");
       })
       .catch(function (error) {
@@ -56,156 +57,155 @@ const Login = () => {
       });
   };
 
-
   return (
     <div className="login">
       {/* <img src={Bg} alt="login-bg" /> */}
       {/* below div for background */}
-      <div className='wrap'>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
-        <div className='c'></div>
+      <div className="wrap">
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
+        <div className="c"></div>
       </div>
 
       <div className="userHandle">
@@ -217,8 +217,7 @@ const Login = () => {
               delay: 75,
               cursor: null,
             }}
-          />
-          {" "}
+          />{" "}
           <input
             type="text"
             placeholder=""
@@ -228,7 +227,9 @@ const Login = () => {
         </label>
         <br />
         {Err && <p className="error">invalid username</p>}
-        <button onClick={handleUsername}>Go</button>
+        <button className="btn btn-outline-success" onClick={handleUsername}>
+          Go
+        </button>
       </div>
     </div>
   );

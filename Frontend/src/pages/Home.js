@@ -17,7 +17,6 @@ import img from "../assets/hero-img.png";
 
 import axios from "axios";
 
-
 //socket io
 import { io } from "socket.io-client";
 
@@ -26,7 +25,6 @@ const socket = io("http://localhost:4000");
 socket.on("connect", () => {
   console.log("connected");
 });
-
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -64,9 +62,6 @@ export default function Home() {
         parseInt(rangeUpperLimit.current.value) &&
       parseInt(numberOfQuestions.current.value) > 0
     ) {
-      // buttonRef.current.ariaLabel = "close";
-      // buttonRef.current.dataBsDismiss = "modal";
-
       setLoading(true);
       const res = await axios.get(
         "https://codeforces.com/api/problemset.problems/"
@@ -277,10 +272,10 @@ export default function Home() {
                 <div className="modal-footer">
                   <button
                     ref={buttonRef}
-                    // data-bs-dismiss="modal"
-                    // aria-label="close"
+                    data-bs-dismiss="modal"
+                    aria-label="close"
                     type="submit"
-                    className="btn btn-danger"
+                    className="btn btn-success"
                   >
                     Create Room
                   </button>
