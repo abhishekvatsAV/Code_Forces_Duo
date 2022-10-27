@@ -100,7 +100,8 @@ export default function Home() {
         },
       });
 
-      socket.emit("join_room", (roomID, user.user.handle));
+      console.log("roomId" + roomID, "user " +user.user.handle);
+      socket.emit("join_room", roomID, user.user.handle);
 
       setLoading(false);
 

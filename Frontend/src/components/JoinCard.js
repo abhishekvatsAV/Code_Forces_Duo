@@ -22,8 +22,8 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
 
   const handleClick = (roomId) => {
     console.log("clicked");
-    socket.emit("join_room", (roomId, user.handle));
-    console.log(roomId);
+    socket.emit("join_room", roomId, user.handle);
+    console.log("roomId - " + roomId,"user - " + user.handle );
     navigate(`/room/${roomId}`)
   };
 
