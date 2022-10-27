@@ -67,7 +67,8 @@ exports.joinRoom = async (req, res, next) => {
         let { roomId, userId } = req.body;
         let roomData = await room.findOne({
             roomId
-        });
+        })
+        .populate("users.userId","userName");
         if (!roomData) {
             return res.status(404).json({
                 message: "room not found"
@@ -84,7 +85,8 @@ exports.joinRoom = async (req, res, next) => {
         await roomData.save();
 
         return res.status(200).json({
-            message: "room joined successfully"
+            message: "room joined successfully",
+            roomData
         })
     } catch (error) {
         return res.status(500).json({
@@ -99,7 +101,7 @@ exports.getAllRooms = async (req, res, next) => {
     try {
         let allRooms = await room
             .find()
-            .populate("users.userId","userName")
+            .populate("users.userId","userName profile")
         let newAllRooms = [];
         for (let i = 0; i < allRooms.length; i++) {
             const room = allRooms[i];

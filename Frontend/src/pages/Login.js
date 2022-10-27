@@ -15,7 +15,8 @@ const Login = () => {
   const [Err, setError] = useState(false);
   const dispatch = useDispatch();
 
-  const handleUsername = () => {
+  const handleUsername = (e) => {
+    e.preventDefault();
     axios
       .get(`https://codeforces.com/api/user.info?handles=${username}`)
       .then(function (response) {
@@ -208,7 +209,7 @@ const Login = () => {
         <div className="c"></div>
       </div>
 
-      <div className="userHandle">
+      <form className="userHandle">
         <label htmlFor="">
           <Typewriter
             options={{
@@ -227,10 +228,14 @@ const Login = () => {
         </label>
         <br />
         {Err && <p className="error">invalid username</p>}
-        <button className="btn btn-outline-success" onClick={handleUsername}>
+        <button
+          type="submit"
+          className="btn btn-outline-success"
+          onClick={handleUsername}
+        >
           Go
         </button>
-      </div>
+      </form>
     </div>
   );
 };

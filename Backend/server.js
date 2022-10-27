@@ -38,6 +38,7 @@ mongoose.connect(process.env.MONGO_URI)
 	.then(() => {
 		const PORT = process.env.PORT || 4000;
 		const server = app.listen(PORT);
+		console.log("db connected")
 		const io = createSocketConnection(server, {
 			cors: {
 				origin: "*"
@@ -48,6 +49,7 @@ mongoose.connect(process.env.MONGO_URI)
 
 			// socket join room event
 			socket.on("join_room",(roomId,userName) => {
+				console.log(roomId,userName);
 				socket.join(roomId);
 				socket.broadcast.to(roomId).emit("user_join",{
 					message:"a new user join the room!",

@@ -4,26 +4,37 @@ import "./JoinCard.css";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import { io } from "socket.io-client";
+import axios from "axios";
 
+import { io } from "socket.io-client";
 const socket = io("http://localhost:4000");
 
 socket.on("connect", () => {
   console.log("connected");
 });
 
-socket.on("user_join", (data) => {
-  console.log("user get joined", data);
-});
-
 const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
   const user = useSelector((state) => state.user.user);
+  const userId = useSelector((state) => state.user.userId);
   const navigate = useNavigate();
 
-  const handleClick = (roomId) => {
+  socket.on("user_join", (data) => {
+    console.log("user get joined", data);
+  });
+
+  const handleClick = async (roomId) => {
     console.log("clicked");
-    socket.emit("join_room", (roomId, user.handle));
-    console.log(roomId);
+    socket.emit("join_room", roomId, user.handle);
+    // console.log(roomId);
+
+    const url = "http://localhost:4000/rooms/joinRoom";
+    const response = await axios.post(url, {
+      roomId: roomId,
+      userId: userId,
+    });
+
+    socket.emit("join_room", roomId, user.handle);
+    // console.log("roomId - " + roomId,"user - " + user.handle );
     navigate(`/room/${roomId}`);
   };
 

@@ -15,6 +15,8 @@ const Room = () => {
   return (
     <div className="room">
       <Navbar />
+
+      {/* modal */}
       <div
         className="modal fade"
         id="staticBackdrop"
@@ -46,7 +48,6 @@ const Room = () => {
                   aria-label="Close"
                 ></button>
               </div>
-
               <p>
                 Copy the link and send it to people you want to compete with.
               </p>
@@ -67,7 +68,6 @@ const Room = () => {
               {pswd !== "" && (
                 <>
                   <h5>Password:</h5>
-
                   <div className="input-group mb-3 inputLink">
                     <input
                       type="text"
