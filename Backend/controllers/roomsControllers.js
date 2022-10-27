@@ -149,3 +149,26 @@ exports.leaveRoom = async (req, res, next) => {
         })
     }
 }
+
+exports.getRoomById = async (req,res,next) => {
+    try {
+        let { roomId } = req.query;
+        let roomData = await room.findOne({
+            roomId
+        })
+        .populate("users.userId");
+        let competitionData = await competitions.findOne({
+            roomId
+        })
+        .populate("problems.problemId");
+        return res.status(200).json({
+            message:"success",
+            roomData,
+            competitionData
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message
+        })
+    }
+}
