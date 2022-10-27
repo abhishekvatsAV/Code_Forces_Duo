@@ -45,7 +45,7 @@ const Lobby = () => {
               {publicCards.map((card) => (
                 <JoinCard
                   key={card.roomId}
-                  id={card.roomId}
+                  roomId={card.roomId}
                   name={JSON.parse(card.users[0].userId.userName)}
                   room="public"
                   range= {card.competitionData.ratingRange}
@@ -60,7 +60,7 @@ const Lobby = () => {
               {privateCards.map((card) => (
                 <JoinCard
                   key={card.roomId}
-                  id={card.roomId}
+                  roomId={card.roomId}
                   name={JSON.parse(card.users[0].userId.userName)}
                   room="private"
                 />

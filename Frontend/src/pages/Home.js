@@ -17,7 +17,16 @@ import img from "../assets/hero-img.png";
 
 import axios from "axios";
 
-import codingImg from "../assets/codingImg.jpg";
+
+//socket io
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:4000");
+
+socket.on("connect", () => {
+  console.log("connected");
+});
+
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -90,6 +99,8 @@ export default function Home() {
           upperLimit: rangeUpperLimit.current.value,
         },
       });
+
+      socket.emit("join_room", (roomID, user.user.handle));
 
       setLoading(false);
 
