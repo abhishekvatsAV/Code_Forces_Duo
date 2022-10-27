@@ -24,7 +24,7 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
 
   const handleClick = async (roomId) => {
     console.log("clicked");
-    socket.emit("join_room", (roomId, user.handle));
+    socket.emit("join_room", roomId, user.handle);
     // console.log(roomId);
 
     const url = "http://localhost:4000/rooms/joinRoom";
@@ -34,6 +34,8 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
     });
 
 
+    socket.emit("join_room", roomId, user.handle);
+    // console.log("roomId - " + roomId,"user - " + user.handle );
     navigate(`/room/${roomId}`)
   };
 

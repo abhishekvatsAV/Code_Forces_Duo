@@ -104,8 +104,9 @@ export default function Home() {
           upperLimit: rangeUpperLimit.current.value,
         },
       });
-      // console.log(roomID, user.handle);
-      socket.emit("join_room", (roomID, user.handle));
+
+      // console.log("roomId" + roomID, "user " +user.user.handle);
+      socket.emit("join_room", roomID, user.user.handle);
 
       setLoading(false);
 
