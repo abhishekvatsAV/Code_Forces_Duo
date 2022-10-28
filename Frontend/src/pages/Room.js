@@ -45,17 +45,21 @@ const Room = () => {
       {/* modal */}
       <RoomModal />
       <div className="roomContent">
+        <div className="aliceBox">
+          <Player user={users[0]} />
+        </div>
         <div className="problemBox" style={{ color: "white" }}>
           {problems.map((problem, i) => (
             <a href={problem.problemId.link} target="_blank">
-              Q {problem.problemId.name}
+              {i + 1}. {problem.problemId.name}
             </a>
           ))}
         </div>
-        <div className="profileBox">
-          {users.map((user, i) => (
-            <Player key={i} user={user} />
-          ))}
+        <div className="bobBox">
+          {/* {users.map((user, i) => ( */}
+          <Player user={users[1]} />
+          {/* ))} */}
+          VirusBox
         </div>
       </div>
       <footer className="roomCreateFooter">
