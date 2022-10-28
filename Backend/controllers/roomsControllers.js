@@ -158,7 +158,7 @@ exports.getRoomById = async (req, res, next) => {
 		})
 			.populate("users.userId");
 		let competitionData = await competitions.findOne({
-			roomId
+			roomId: roomData._id
 		})
 			.populate("problems.problemId");
 		return res.status(200).json({
@@ -167,6 +167,7 @@ exports.getRoomById = async (req, res, next) => {
 			competitionData
 		})
 	} catch (error) {
+		console.log(error);
 		return res.status(500).json({
 			message: error.message
 		})

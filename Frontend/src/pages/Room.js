@@ -16,9 +16,7 @@ const Room = () => {
 
   useEffect(() => {
     const roomData = async () => {
-      const data = await axios.get("http://localhost:4000/rooms/getRoomById", {
-        roomId: roomID
-      })
+      const data = await axios.get(`http://localhost:4000/rooms/getRoomById?roomId=${roomID}`)
       console.log(data);
     }
     roomData();
