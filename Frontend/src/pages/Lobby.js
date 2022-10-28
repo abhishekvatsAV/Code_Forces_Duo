@@ -34,6 +34,7 @@ const Lobby = () => {
     fetchRooms();
   }, []);
 
+  
   return (
     <>
       <Navbar />
