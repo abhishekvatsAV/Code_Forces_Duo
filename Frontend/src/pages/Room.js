@@ -6,6 +6,9 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Player from "../components/Player";
+import RoomModal from "../components/RoomModal";
+import { useSelector } from "react-redux";
+
 let problems = [];
 
 const Room = () => {
