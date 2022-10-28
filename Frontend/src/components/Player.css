@@ -1,0 +1,18 @@
+.hostBox{
+    background-color: var(--primary_color);
+    padding: 30px;
+    text-align: center;
+    border-radius: 20px;
+    border: 1px solid gray;
+}
+
+.hostBox img{
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+    object-fit:contain;
+    margin-bottom: 30px;
+}
+.hostBox h3{
+    color: var(--head_color);
+}   

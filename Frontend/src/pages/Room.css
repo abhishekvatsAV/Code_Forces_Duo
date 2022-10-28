@@ -76,24 +76,26 @@
     width: 100%;
 }
 
-.hostBox{
+
+.roomContent{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.problemBox{
+    display: flex;
+    flex-direction: column;
+}
+.problemBox a{
     background-color: var(--primary_color);
-    padding: 30px;
-    text-align: center;
-    border-radius: 20px;
-    border: 1px solid gray;
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0px;
+    color: var(--text_color);
 }
-
-.hostBox img{
-    border-radius: 50%;
-    object-fit:contain;
-    width: 200px;
-    margin-bottom: 30px;
+.profileBox{
+    display: flex;
 }
-.hostBox h3{
-    color: var(--head_color);
-}   
-
 /* range */
 
 .roomCreateFooter{
