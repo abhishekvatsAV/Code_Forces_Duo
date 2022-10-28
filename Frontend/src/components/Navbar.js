@@ -1,5 +1,6 @@
 //styles
 import "./Navbar.css";
+
 import { useSelector } from "react-redux";
 
 const Navbar = () => {

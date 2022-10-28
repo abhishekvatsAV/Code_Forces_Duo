@@ -6,18 +6,26 @@ import Navbar from "../components/Navbar";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { changePassword } from "../features/keySlice";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import axios from "axios";
+import Player from "../components/Player";
 
 const Room = () => {
   const { roomID } = useParams();
   const { pswd } = useSelector((state) => state.password);
   const user = useSelector((state) => state.user.user);
+  let problems = [];
+  const [users, setUsers] = useState([]);
 
   useEffect(() => {
     const roomData = async () => {
       const data = await axios.get(`http://localhost:4000/rooms/getRoomById?roomId=${roomID}`)
       console.log(data);
+      problems = data.data.competitionData.problems;
+      setUsers(data.data.roomData.users);
+      console.log("problems : ", problems);
+      console.log("users: ", users);
+
     }
     roomData();
   }, [])
@@ -101,10 +109,12 @@ const Room = () => {
       </div>
 
 
-      <div className="hostBox">
-        <img src={user.titlePhoto} />
-        <h3>{user.handle}</h3>
-      </div>
+
+      {users.map((user) =>
+        <Player user={user} />
+      )}
+
+
 
       <footer className="roomCreateFooter">
         <button
