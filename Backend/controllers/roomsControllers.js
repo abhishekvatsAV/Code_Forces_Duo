@@ -140,6 +140,11 @@ exports.leaveRoom = async (req, res, next) => {
         }
         roomData.users.splice(userInRoomIndex,1);
         await roomData.save();
+        if(roomData.users.length === 0){
+            await room.findOneAndDelete({
+                _id:roomData._id
+            });
+        }
         return res.status(200).json({
             message: "room left successfully"
         })
