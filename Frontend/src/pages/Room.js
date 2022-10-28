@@ -9,14 +9,25 @@ import { changePassword } from "../features/keySlice";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Player from "../components/Player";
+let problems = [];
+
 
 const Room = () => {
   const { roomID } = useParams();
   const { pswd } = useSelector((state) => state.password);
-  const user = useSelector((state) => state.user.user);
-  let problems = [];
+  const userId = useSelector((state) => state.user.userId);
   const [users, setUsers] = useState([]);
 
+  // browser back button handling i.e leaving the room 
+  useEffect(() => {
+    window.onpopstate = () => {
+      axios.post("http://localhost:4000/rooms/leaveRoom", {
+        userId: userId,
+        roomId: roomID
+      })
+    }
+  })
+  
   useEffect(() => {
     const roomData = async () => {
       const data = await axios.get(`http://localhost:4000/rooms/getRoomById?roomId=${roomID}`)
@@ -25,7 +36,6 @@ const Room = () => {
       setUsers(data.data.roomData.users);
       console.log("problems : ", problems);
       console.log("users: ", users);
-
     }
     roomData();
   }, [])

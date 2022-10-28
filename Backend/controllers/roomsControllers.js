@@ -140,10 +140,14 @@ exports.leaveRoom = async (req, res, next) => {
 		}
 		roomData.users.splice(userInRoomIndex, 1);
 		await roomData.save();
+		
+		console.log("room left successfully");
+
 		return res.status(200).json({
 			message: "room left successfully"
 		})
 	} catch (error) {
+		console.log("error in leaving the room : " , error )
 		return res.status(500).json({
 			message: error.message
 		})
