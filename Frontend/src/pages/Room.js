@@ -6,13 +6,21 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Player from "../components/Player";
-import RoomModal from "../components/RoomModal";
-
 let problems = [];
+
 const Room = () => {
   const { roomID } = useParams();
+  const { pswd } = useSelector((state) => state.password);
+  const userId = useSelector((state) => state.user.userId);
   const [users, setUsers] = useState([]);
-  // const [problemsLink , ]
+
+  // browser back button handling i.e leaving the room
+  window.onpopstate = () => {
+    axios.post("http://localhost:4000/rooms/leaveRoom", {
+      userId: userId,
+      roomId: roomID,
+    });
+  };
 
   useEffect(() => {
     const roomData = async () => {
