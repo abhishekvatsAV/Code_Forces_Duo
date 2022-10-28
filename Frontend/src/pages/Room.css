@@ -77,6 +77,25 @@
 }
 
 
+.roomContent{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+.problemBox{
+    display: flex;
+    flex-direction: column;
+}
+.problemBox a{
+    background-color: var(--primary_color);
+    border-radius: 10px;
+    padding: 10px;
+    margin: 10px 0px;
+    color: var(--text_color);
+}
+.profileBox{
+    display: flex;
+}
 /* range */
 
 .roomCreateFooter{
