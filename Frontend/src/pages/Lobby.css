@@ -17,12 +17,12 @@
     width: 100vw;
     padding-top: 1rem;
     padding-bottom: 30px;
+    overflow-y: scroll;
 }
 
 
 .publicContent>h3,
 .privateContent>h3 {
-    margin-top: 90px;
     border-radius: 20px;
     width: 100%;
     background-color: var(--primary_color);

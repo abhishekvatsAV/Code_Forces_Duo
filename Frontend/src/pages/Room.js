@@ -6,8 +6,9 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Player from "../components/Player";
+import RoomModal from "../components/RoomModal";
 import { useSelector } from "react-redux";
-import RoomModal from '../components/RoomModal';
+import { useNavigate } from 'react-router-dom';
 
 let problems = [];
 
@@ -16,6 +17,7 @@ const Room = () => {
   const { pswd } = useSelector((state) => state.password);
   const userId = useSelector((state) => state.user.userId);
   const [users, setUsers] = useState([]);
+  const navigate = useNavigate();
 
   // browser back button handling i.e leaving the room 
   window.onpopstate = () => {
@@ -23,6 +25,14 @@ const Room = () => {
       userId: userId,
       roomId: roomID
     })
+  }
+
+  const handleLeaveRoom = async () => {
+    await axios.post("http://localhost:4000/rooms/leaveRoom", {
+      userId: userId,
+      roomId: roomID
+    })
+    navigate('/home');
   }
 
 
@@ -43,22 +53,32 @@ const Room = () => {
     <div className="room">
       <Navbar />
 
-      {/* modal */}
       <RoomModal />
-      <div className="roomContent">
+      {users.length === 0 && <h1 style={{color: "red"}}>Loading...</h1>}
+      {users.length === 1 &&   <>
+        <div className="aliceBox">
+          <Player user={users[0]} />
+        </div>
+      </>     }
+      {users.length === 2 && <>
+        <div className="roomContent">
+        <div className="aliceBox">
+          <Player user={users[0]} />
+        </div>
         <div className="problemBox" style={{ color: "white" }}>
           {problems.map((problem, i) => (
             <a href={problem.problemId.link} target="_blank">
-              Q {problem.problemId.name}
+              {i + 1}. {problem.problemId.name}
             </a>
           ))}
         </div>
-        <div className="profileBox">
-          {users.map((user, i) => (
-            <Player key={i} user={user} />
-          ))}
+        <div className="bobBox">
+          <Player user={users[1]} />
         </div>
       </div>
+      </>}
+
+
       <footer className="roomCreateFooter">
         <button
           type="button"
@@ -69,6 +89,7 @@ const Room = () => {
         >
           Details
         </button>
+        <button onClick={handleLeaveRoom}>Leave Room</button>
       </footer>
     </div>
   );

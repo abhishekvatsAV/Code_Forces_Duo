@@ -127,31 +127,32 @@ exports.getAllRooms = async (req, res, next) => {
 }
 
 exports.leaveRoom = async (req, res, next) => {
-	try {
-		let { userId, roomId } = req.body;
-		let roomData = await room.findOne({
-			roomId
-		});
-		let userInRoomIndex = roomData.users.findIndex(user => user.userId.toString() === userId.toString())
-		if (userInRoomIndex === -1) {
-			return res.status(404).json({
-				message: "user already left or haven't joined the room"
-			})
-		}
-		roomData.users.splice(userInRoomIndex, 1);
-		await roomData.save();
-		
-		console.log("room left successfully");
-
-		return res.status(200).json({
-			message: "room left successfully"
-		})
-	} catch (error) {
-		console.log("error in leaving the room : " , error )
-		return res.status(500).json({
-			message: error.message
-		})
-	}
+    try {
+        let { userId, roomId } = req.body;
+        let roomData = await room.findOne({
+            roomId
+        });
+        let userInRoomIndex = roomData.users.findIndex(user => user.userId.toString() === userId.toString())
+        if(userInRoomIndex === -1){
+            return res.status(404).json({
+                message:"user already left or haven't joined the room"
+            })
+        }
+        roomData.users.splice(userInRoomIndex,1);
+        await roomData.save();
+        if(roomData.users.length === 0){
+            await room.findOneAndDelete({
+                _id:roomData._id
+            });
+        }
+        return res.status(200).json({
+            message: "room left successfully"
+        })
+    } catch (error) {
+        return res.status(500).json({
+            message: error.message
+        })
+    }
 }
 
 exports.getRoomById = async (req, res, next) => {

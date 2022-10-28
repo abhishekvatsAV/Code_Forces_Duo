@@ -6,9 +6,6 @@ import JoinCard from "../components/JoinCard";
 import "./Lobby.css";
 
 const Lobby = () => {
-  // just a dummy data
-  // TODO: fetch data from server
-
   const [privateCards, setPrivateCards] = React.useState([]);
   const [publicCards, setPublicCards] = React.useState([]);
 
