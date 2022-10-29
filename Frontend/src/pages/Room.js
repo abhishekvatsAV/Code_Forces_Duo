@@ -8,10 +8,11 @@ import axios from "axios";
 import Player from "../components/Player";
 import RoomModal from "../components/RoomModal";
 import { useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 //socket
 import { io } from "socket.io-client";
+import Clock from "../components/Clock";
 const socket = io("http://localhost:4000");
 
 let problems = [];
@@ -26,21 +27,21 @@ const Room = () => {
   const [userAdded, setUserAdded] = useState(false);
   const [score , setScore] = useState(0);
 
-  // browser back button handling i.e leaving the room 
+  // browser back button handling i.e leaving the room
   window.onpopstate = () => {
     axios.post("http://localhost:4000/rooms/leaveRoom", {
       userId: userId,
-      roomId: roomID
-    })
-  }
+      roomId: roomID,
+    });
+  };
 
   const handleLeaveRoom = async () => {
     await axios.post("http://localhost:4000/rooms/leaveRoom", {
       userId: userId,
-      roomId: roomID
-    })
-    navigate('/home');
-  }
+      roomId: roomID,
+    });
+    navigate("/home");
+  };
 
   socket.on("user_join", (data) => {
     console.log("user get joined : ", data);
@@ -77,42 +78,47 @@ const Room = () => {
   }, []);
 
   const updateScore = () => {
-    // write her to update score 
-    
-  }
+    // write her to update score
+  };
 
   return (
     <div className="room">
       <Navbar />
 
       <RoomModal />
-      {users.length === 0 && <h1 style={{color: "red"}}>Loading...</h1>}
-      {users.length === 1 &&   <>
-        <div className="aliceBox">
-          <Player user={users[0]} />
-        </div>
-      </>     }
-      {users.length === 2 && <>
-        <div className="roomContent">
-        <div className="aliceBox">
-          <Player user={users[0]} />
-        </div>
-        <div className="problemBox" style={{ color: "white" }}>
-          {problems.map((problem, i) => (
-            <a href={problem.problemId.link} target="_blank">
-              {i + 1}. {problem.problemId.name}
-            </a>
-          ))}
-        </div>
-        <div className="bobBox">
-          <Player user={users[1]} score={score}  />
-        </div>
-      </div>
-      </>}
-
+      {users.length === 0 && <h1 style={{ color: "red" }}>Loading...</h1>}
+      {users.length === 1 && (
+        <>
+          <div className="aliceBox">
+            <Player user={users[0]} />
+          </div>
+        </>
+      )}
+      {users.length === 2 && (
+        <>
+          <div className="roomContent">
+            <div className="aliceBox">
+              <Player user={users[0]} />
+            </div>
+            <div className="problemBox" style={{ color: "white" }}>
+              <div className="problemContent">
+                {problems.map((problem, i) => (
+                  <a href={problem.problemId.link} target="_blank">
+                    {i + 1}. {problem.problemId.name}
+                  </a>
+                ))}
+              </div>
+              <Clock />
+            </div>
+            <div className="bobBox">
+              <Player user={users[1]} />
+            </div>
+          </div>
+        </>
+      )}
 
       <footer className="roomCreateFooter">
-      <div>
+        <div>
           <button
             type="button"
             className="btn btn-danger"

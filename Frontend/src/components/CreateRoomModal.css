@@ -51,12 +51,11 @@
 }
 .modalHead > button{
     width: 50px;
-    background:var(--bg_color);
+    background:rgba(0, 0, 0,0.4);
     color: #fff;
     font-size: 1.3rem;
     border: none;
-    outline: none;
-    
+    outline: none;    
 }
 .modalRanges{
     margin-bottom: 20px;
@@ -64,4 +63,14 @@
 }
 .modalRanges input{
     margin-right: 10px;
+}
+
+.modalContainer {
+    top: -200px;
+    animation: drop 0.5s ease forwards;
+}
+@keyframes drop {
+    0%{opacity: 0;}
+    70%{transform: translateY(300px);}
+    100%{ transform: translateY(250px); opacity: 1; }
 }
