@@ -15,6 +15,7 @@ import { io } from "socket.io-client";
 const socket = io("http://localhost:4000");
 
 let problems = [];
+let competitionId;
 
 const Room = () => {
   const { roomID } = useParams();
@@ -45,21 +46,32 @@ const Room = () => {
     setUserAdded(true);
   })
 
+  socket.on("total_score", (data) => {
+    console.log(": ", data);
+    // setUserAdded(true);
+  })
+
   useEffect(() => {
     const roomData = async () => {
       const data = await axios.get(
         `http://localhost:4000/rooms/getRoomById?roomId=${roomID}`
       );
       problems = data.data.competitionData.problems;
+      competitionId = data.data.competitionData._id;
       setUsers(data.data.roomData.users);
       console.log("problems : ", problems);
       console.log("users: ", users);
     };
     roomData();
-    socket.emit('problem_solved', {
-      userId: users[0], 
-      // write here bhanu
-    })
+    setInterval(() => {
+      console.log("go to hell")
+      socket.emit('problem_solved', {
+        userId: userId,
+        roomId:roomID,
+        problems,
+        competitionId
+      })
+    },10000)
   }, []);
 
   return (
