@@ -12,7 +12,7 @@ export function CreateRoomModal({ rangeUpperLimit, rangeLowerLimit, numberOfQues
               <button onClick={() => showModal(false)}> X </button>
             </div>
             <div className="modalRanges">
-              <p>range between (800 -3500)</p>
+              <p>range between (800 -3500) : </p>
               <input
                 id="lowerLimit"
                 type="number"

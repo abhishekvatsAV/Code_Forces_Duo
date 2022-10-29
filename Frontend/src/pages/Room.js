@@ -63,6 +63,10 @@ const Room = () => {
     // })
   }, []);
 
+  const updateScore = () => {
+    // write her to update score
+  };
+
   return (
     <div className="room">
       <Navbar />
@@ -113,6 +117,7 @@ const Room = () => {
           <button
             className="btn btn-primary mx-4"
             style={{ height: "50%", marginLeft: "1rem" }}
+            onClick={updateScore}
           >
             update score
           </button>
