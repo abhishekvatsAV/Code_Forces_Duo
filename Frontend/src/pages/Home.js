@@ -50,8 +50,7 @@ export default function Home() {
 
   socket.on("user_join", (data) => {
     console.log("user get joined : ", data);
-  })
-
+  });
 
   const handleCreateRoom = async (e) => {
     e.preventDefault();
@@ -62,7 +61,7 @@ export default function Home() {
       parseInt(rangeUpperLimit.current.value) >= 800 &&
       parseInt(rangeUpperLimit.current.value) <= 3500 &&
       parseInt(rangeLowerLimit.current.value) <=
-      parseInt(rangeUpperLimit.current.value) &&
+        parseInt(rangeUpperLimit.current.value) &&
       parseInt(numberOfQuestions.current.value) > 0
     ) {
       setLoading(true);
@@ -75,9 +74,9 @@ export default function Home() {
       while (size > 0) {
         if (
           res?.data?.result?.problems[i]?.rating >=
-          rangeLowerLimit.current.value &&
+            rangeLowerLimit.current.value &&
           res?.data?.result?.problems[i]?.rating <=
-          rangeUpperLimit.current.value
+            rangeUpperLimit.current.value
         ) {
           arr.push(res.data.result.problems[i]);
           size--;
@@ -116,6 +115,11 @@ export default function Home() {
 
   return (
     <div className="home">
+      {/* <div
+        className="backgroundGradient"
+        // style={{ display: loading ? "block" : "none" }}
+      ></div> */}
+
       {loading && (
         <div className="center">
           <div id="loading" className="loading1"></div>
@@ -197,14 +201,16 @@ export default function Home() {
             </div>
           )}
           <FaArrowRight
-            className={`arrow ${roomID === "" && privateOn === false
-              ? "disabled"
-              : `${(privateOn === true && password === "") ||
-                (privateOn === true && password !== "" && roomID === "")
+            className={`arrow ${
+              roomID === "" && privateOn === false
                 ? "disabled"
-                : ""
-              }`
-              }`}
+                : `${
+                    (privateOn === true && password === "") ||
+                    (privateOn === true && password !== "" && roomID === "")
+                      ? "disabled"
+                      : ""
+                  }`
+            }`}
             data-bs-toggle="modal"
             data-bs-target="#exampleModal"
           />
