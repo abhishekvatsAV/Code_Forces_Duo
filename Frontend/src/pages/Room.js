@@ -10,6 +10,10 @@ import RoomModal from "../components/RoomModal";
 import { useSelector } from "react-redux";
 import { useNavigate } from 'react-router-dom';
 
+//socket
+import { io } from "socket.io-client";
+const socket = io("http://localhost:4000");
+
 let problems = [];
 
 const Room = () => {
@@ -18,6 +22,7 @@ const Room = () => {
   const userId = useSelector((state) => state.user.userId);
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
+  const [userAdded, setUserAdded] = useState(false);
 
   // browser back button handling i.e leaving the room 
   window.onpopstate = () => {
@@ -35,6 +40,10 @@ const Room = () => {
     navigate('/home');
   }
 
+  socket.on("user_join", (data) => {
+    console.log("user get joined : ", data);
+    setUserAdded(true);
+  })
 
   useEffect(() => {
     const roomData = async () => {
@@ -47,6 +56,10 @@ const Room = () => {
       console.log("users: ", users);
     };
     roomData();
+    socket.emit('problem_solved', {
+      userId: users[0], 
+      // write here bhanu
+    })
   }, []);
 
   return (

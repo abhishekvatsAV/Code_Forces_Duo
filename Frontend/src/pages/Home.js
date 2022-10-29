@@ -3,6 +3,7 @@ import "./Home.css";
 
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
+import { CreateRoomModal } from "../components/CreateRoomModal";
 
 //third party
 import { v4 as uuidv4 } from "uuid";
@@ -23,6 +24,7 @@ socket.on("connect", () => {
   console.log("connected");
 });
 
+
 export default function Home() {
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
@@ -31,9 +33,8 @@ export default function Home() {
   const rangeUpperLimit = useRef(800);
   const rangeLowerLimit = useRef(800);
   const numberOfQuestions = useRef(5);
-  const buttonRef = useRef(null);
   const [privateOn, setPrivateon] = useState(false);
-  const [modalDismiss, setModalDismiss] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const [roomID, setRoomid] = useState("");
   const handleClick = () => {
@@ -48,14 +49,12 @@ export default function Home() {
     setPassword(uuidv4);
   };
 
-  socket.on("user_join", (data) => {
-    console.log("user get joined : ", data);
-  })
+  
 
 
   const handleCreateRoom = async (e) => {
     e.preventDefault();
-
+    
     if (
       parseInt(rangeLowerLimit.current.value) >= 800 &&
       parseInt(rangeLowerLimit.current.value) <= 3500 &&
@@ -102,6 +101,7 @@ export default function Home() {
       socket.emit("join_room", roomID, user.handle);
 
       setLoading(false);
+      setShowModal(false);
 
       navigate(`/room/${roomID}`);
     } else {
@@ -117,7 +117,7 @@ export default function Home() {
   return (
     <div className="home">
       {loading && (
-        <div className="center">
+        <div className="center" style={{zIndex: "5"}}>
           <div id="loading" className="loading1"></div>
           <div id="loading" className="loading2"></div>
           <div id="loading" className="loading3"></div>
@@ -205,87 +205,44 @@ export default function Home() {
                 : ""
               }`
               }`}
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
+            // data-bs-toggle="modal"
+            // data-bs-target="#exampleModal"
+            onClick = {() => setShowModal(true)}
           />
 
+
+
+
+
+
+
+
+
+
+
           {/*  modal here */}
-          <form
-            className="modal"
-            id="exampleModal"
-            tabIndex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-            onSubmit={handleCreateRoom}
-          >
-            <div className="modal-dialog">
-              <div
-                className="modal-content"
-                style={{ backgroundColor: "#171717" }}
-              >
-                <div className="modal-header">
-                  <h1 className="modal-title fs-5" id="exampleModalLabel">
-                    Set Room Constraits
-                  </h1>
-                  <button
-                    type="button"
-                    className="btn-close btn-close-white"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div className="modal-body" style={{ padding: 0 }}>
-                  <div action="" className="homeForm">
-                    <label style={{ display: "block" }}>
-                      Range <sub>(800 - 3500)</sub> :{" "}
-                    </label>
-                    <input
-                      type="number"
-                      min="800"
-                      max="3500"
-                      required="greater than 800"
-                      placeholder="lowerBound"
-                      ref={rangeLowerLimit}
-                    />
-                    {" - "}
-                    <input
-                      type="number"
-                      min="800"
-                      max="3500"
-                      required="greater than 800"
-                      placeholder="upperBound"
-                      ref={rangeUpperLimit}
-                    />
-                    <label style={{ display: "block" }} htmlFor="questionNo">
-                      Number of questions:
-                    </label>
-                    <input
-                      name="questionNo"
-                      type="number"
-                      min="1"
-                      max="5"
-                      required="greater than 1"
-                      placeholder="Questions.."
-                      style={{ width: "100%" }}
-                      ref={numberOfQuestions}
-                    />
-                  </div>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    ref={buttonRef}
-                    data-bs-dismiss={modalDismiss ? "modal" : ""}
-                    aria-label={modalDismiss ? "close" : ""}
-                    type="submit"
-                    className="btn btn-success"
-                    onClick={() => setModalDismiss(true)}
-                  >
-                    Create Room
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
+          { showModal && <CreateRoomModal
+            rangeUpperLimit={rangeUpperLimit} 
+            rangeLowerLimit={rangeLowerLimit} 
+            numberOfQuestions={numberOfQuestions}
+            handleCreateRoom={handleCreateRoom}
+            showModal= {setShowModal}/> }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         </div>
       </div>
     </div>

@@ -1,0 +1,41 @@
+.modalbackground {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    position: absolute;
+    top:0;
+    left: 0;
+    opacity: 0.8;
+    display: flex;
+    justify-content: center;
+}
+.gridContainer{
+    width: 700px;
+}
+.modalForm{
+    display: flex;
+    flex-direction: column;
+    width:500px
+}
+
+.modalForm >div>input{
+    width: 47%;
+    height: 30px;
+    margin: 15px 0 30px 0;
+    cursor: text;
+    padding-left: 20px;
+    border: none;
+    outline: none;
+    border-radius: 5px; 
+}
+
+.gridContainer input {
+    width: 47%;
+    height: 30px;
+    margin: 15px 0 30px 0;
+    cursor: text;
+    padding-left: 20px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
