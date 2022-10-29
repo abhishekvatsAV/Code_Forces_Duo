@@ -1,7 +1,8 @@
 // styles
 import "./Player.css";
 
-const Player = (user) => {
+const Player = (user, score) => {
+  console.log(score);
   console.log("user : ", user);
   return (
     <div className="hostBox">
@@ -11,7 +12,7 @@ const Player = (user) => {
         <p>{user.user.userId.profile.rating}</p>
       </div>
       <div style={{ textAlign: "left" }}>
-        <p>score :</p>
+        <p>score : {score}</p>
       </div>
     </div>
   );

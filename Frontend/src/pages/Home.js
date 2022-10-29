@@ -9,6 +9,8 @@ import { CreateRoomModal } from "../components/CreateRoomModal";
 import { v4 as uuidv4 } from "uuid";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { FaArrowRight } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -23,7 +25,6 @@ const socket = io("http://localhost:4000");
 socket.on("connect", () => {
   console.log("connected");
 });
-
 
 export default function Home() {
   const [loading, setLoading] = useState(false);
@@ -44,24 +45,24 @@ export default function Home() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   dispatch(changePassword(password));
-
   const handleClick2 = () => {
     setPassword(uuidv4);
   };
 
-  
-
+  const notify = () => {
+    toast("Copied!");
+  };
 
   const handleCreateRoom = async (e) => {
     e.preventDefault();
-    
+
     if (
       parseInt(rangeLowerLimit.current.value) >= 800 &&
       parseInt(rangeLowerLimit.current.value) <= 3500 &&
       parseInt(rangeUpperLimit.current.value) >= 800 &&
       parseInt(rangeUpperLimit.current.value) <= 3500 &&
       parseInt(rangeLowerLimit.current.value) <=
-      parseInt(rangeUpperLimit.current.value) &&
+        parseInt(rangeUpperLimit.current.value) &&
       parseInt(numberOfQuestions.current.value) > 0
     ) {
       setLoading(true);
@@ -74,9 +75,9 @@ export default function Home() {
       while (size > 0) {
         if (
           res?.data?.result?.problems[i]?.rating >=
-          rangeLowerLimit.current.value &&
+            rangeLowerLimit.current.value &&
           res?.data?.result?.problems[i]?.rating <=
-          rangeUpperLimit.current.value
+            rangeUpperLimit.current.value
         ) {
           arr.push(res.data.result.problems[i]);
           size--;
@@ -116,8 +117,13 @@ export default function Home() {
 
   return (
     <div className="home">
+      {/* <div
+        className="backgroundGradient"
+        // style={{ display: loading ? "block" : "none" }}
+      ></div> */}
+
       {loading && (
-        <div className="center" style={{zIndex: "5"}}>
+        <div className="center" style={{ zIndex: "5" }}>
           <div id="loading" className="loading1"></div>
           <div id="loading" className="loading2"></div>
           <div id="loading" className="loading3"></div>
@@ -156,7 +162,7 @@ export default function Home() {
             >
               generate
             </button>
-            <CopyToClipboard text={roomID} onCopy={() => alert("Copied")}>
+            <CopyToClipboard text={roomID} onCopy={notify}>
               <button className="btn btn-outline-secondary" type="button">
                 copy
               </button>
@@ -189,7 +195,7 @@ export default function Home() {
               >
                 generate
               </button>
-              <CopyToClipboard text={password} onCopy={() => alert("Copied")}>
+              <CopyToClipboard text={password} onCopy={notify}>
                 <button className="btn btn-outline-secondary" type="button">
                   copy
                 </button>
@@ -197,53 +203,44 @@ export default function Home() {
             </div>
           )}
           <FaArrowRight
-            className={`arrow ${roomID === "" && privateOn === false
-              ? "disabled"
-              : `${(privateOn === true && password === "") ||
-                (privateOn === true && password !== "" && roomID === "")
+            className={`arrow ${
+              roomID === "" && privateOn === false
                 ? "disabled"
-                : ""
-              }`
-              }`}
+                : `${
+                    (privateOn === true && password === "") ||
+                    (privateOn === true && password !== "" && roomID === "")
+                      ? "disabled"
+                      : ""
+                  }`
+            }`}
             // data-bs-toggle="modal"
             // data-bs-target="#exampleModal"
-            onClick = {() => setShowModal(true)}
+            onClick={() => setShowModal(true)}
           />
 
-
-
-
-
-
-
-
-
-
-
           {/*  modal here */}
-          { showModal && <CreateRoomModal
-            rangeUpperLimit={rangeUpperLimit} 
-            rangeLowerLimit={rangeLowerLimit} 
-            numberOfQuestions={numberOfQuestions}
-            handleCreateRoom={handleCreateRoom}
-            showModal= {setShowModal}/> }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+          {showModal && (
+            <CreateRoomModal
+              rangeUpperLimit={rangeUpperLimit}
+              rangeLowerLimit={rangeLowerLimit}
+              numberOfQuestions={numberOfQuestions}
+              handleCreateRoom={handleCreateRoom}
+              showModal={setShowModal}
+            />
+          )}
         </div>
+        <ToastContainer
+          position="bottom-left"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
       </div>
     </div>
   );

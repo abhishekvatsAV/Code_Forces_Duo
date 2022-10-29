@@ -24,6 +24,7 @@ const Room = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
   const [userAdded, setUserAdded] = useState(false);
+  const [score , setScore] = useState(0);
 
   // browser back button handling i.e leaving the room 
   window.onpopstate = () => {
@@ -48,6 +49,7 @@ const Room = () => {
 
   socket.on("total_score", (data) => {
     console.log(": ", data);
+    setScore(data.totalScore);
     // setUserAdded(true);
   })
 
@@ -71,8 +73,13 @@ const Room = () => {
         problems,
         competitionId
       })
-    },10000)
+    },500000)
   }, []);
+
+  const updateScore = () => {
+    // write her to update score 
+    
+  }
 
   return (
     <div className="room">
@@ -98,23 +105,37 @@ const Room = () => {
           ))}
         </div>
         <div className="bobBox">
-          <Player user={users[1]} />
+          <Player user={users[1]} score={score}  />
         </div>
       </div>
       </>}
 
 
       <footer className="roomCreateFooter">
+      <div>
+          <button
+            type="button"
+            className="btn btn-danger"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            style={{ width: "8rem", height: "50%", marginLeft: "1rem" }}
+          >
+            Details
+          </button>
+          <button
+            className="btn btn-primary mx-4"
+            style={{ height: "50%", marginLeft: "1rem" }}
+            onClick={updateScore}
+          >
+            update score
+          </button>
+        </div>
         <button
-          type="button"
-          className="btn btn-danger"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
-          style={{ width: "8rem", height: "50%", marginLeft: "1rem" }}
+          className="btn btn-danger btn-lg mx-4"
+          onClick={handleLeaveRoom}
         >
-          Details
+          Leave Room
         </button>
-        <button onClick={handleLeaveRoom}>Leave Room</button>
       </footer>
     </div>
   );
