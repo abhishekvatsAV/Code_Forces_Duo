@@ -1,0 +1,67 @@
+.modalbackground {
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    position: absolute;
+    top:0;
+    left: 0;
+    opacity: 0.8;
+    display: flex;
+    justify-content: center;
+    color: var(--text_color);
+    z-index: 3;
+}
+.modalContainer{
+    width: 700px;
+    padding: 30px; 
+}
+.modalForm{
+    display: flex;
+    flex-direction: column;
+    width:500px;
+    background-color: rgba(0, 0, 0,0.5);
+    border: 1px solid white;
+    padding: 20px;
+    border-radius:10px ;
+}
+
+.modalContainer input {
+    width: 47%;
+    height: 30px;
+    margin: 15px 0 30px 0;
+    cursor: text;
+    padding-left: 20px;
+    border: none;
+    outline: none;
+    border-radius: 5px;
+}
+
+.modalForm > button{
+    width:150px ;
+    align-self: end;
+}
+
+.modalHead{
+    display: flex;
+    justify-content: space-between;
+    padding-right: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid var(--text_color);
+}
+.modalHead > button{
+    width: 50px;
+    background:var(--bg_color);
+    color: #fff;
+    font-size: 1.3rem;
+    border: none;
+    outline: none;
+    
+}
+.modalRanges{
+    margin-bottom: 20px;
+    border-bottom: 1px solid var(--text_color);
+}
+.modalRanges input{
+    margin-right: 10px;
+}

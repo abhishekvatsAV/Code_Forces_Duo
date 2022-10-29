@@ -3,11 +3,14 @@ import "./Home.css";
 
 import { useNavigate } from "react-router-dom";
 import { useRef, useState } from "react";
+import { CreateRoomModal } from "../components/CreateRoomModal";
 
 //third party
 import { v4 as uuidv4 } from "uuid";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { FaArrowRight } from "react-icons/fa";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -31,9 +34,8 @@ export default function Home() {
   const rangeUpperLimit = useRef(800);
   const rangeLowerLimit = useRef(800);
   const numberOfQuestions = useRef(5);
-  const buttonRef = useRef(null);
   const [privateOn, setPrivateon] = useState(false);
-  const [modalDismiss, setModalDismiss] = useState(false);
+  const [showModal, setShowModal] = useState(false);
 
   const [roomID, setRoomid] = useState("");
   const handleClick = () => {
@@ -43,14 +45,13 @@ export default function Home() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   dispatch(changePassword(password));
-
   const handleClick2 = () => {
     setPassword(uuidv4);
   };
 
-  socket.on("user_join", (data) => {
-    console.log("user get joined : ", data);
-  });
+  const notify = () => {
+    toast("Copied!");
+  };
 
   const handleCreateRoom = async (e) => {
     e.preventDefault();
@@ -101,6 +102,7 @@ export default function Home() {
       socket.emit("join_room", roomID, user.handle);
 
       setLoading(false);
+      setShowModal(false);
 
       navigate(`/room/${roomID}`);
     } else {
@@ -121,7 +123,7 @@ export default function Home() {
       ></div> */}
 
       {loading && (
-        <div className="center">
+        <div className="center" style={{ zIndex: "5" }}>
           <div id="loading" className="loading1"></div>
           <div id="loading" className="loading2"></div>
           <div id="loading" className="loading3"></div>
@@ -160,7 +162,7 @@ export default function Home() {
             >
               generate
             </button>
-            <CopyToClipboard text={roomID} onCopy={() => alert("Copied")}>
+            <CopyToClipboard text={roomID} onCopy={notify}>
               <button className="btn btn-outline-secondary" type="button">
                 copy
               </button>
@@ -193,7 +195,7 @@ export default function Home() {
               >
                 generate
               </button>
-              <CopyToClipboard text={password} onCopy={() => alert("Copied")}>
+              <CopyToClipboard text={password} onCopy={notify}>
                 <button className="btn btn-outline-secondary" type="button">
                   copy
                 </button>
@@ -211,88 +213,34 @@ export default function Home() {
                       : ""
                   }`
             }`}
-            data-bs-toggle="modal"
-            data-bs-target="#exampleModal"
+            // data-bs-toggle="modal"
+            // data-bs-target="#exampleModal"
+            onClick={() => setShowModal(true)}
           />
 
           {/*  modal here */}
-          <form
-            className="modal"
-            id="exampleModal"
-            tabIndex="-1"
-            aria-labelledby="exampleModalLabel"
-            aria-hidden="true"
-            onSubmit={handleCreateRoom}
-          >
-            <div className="modal-dialog">
-              <div
-                className="modal-content"
-                style={{ backgroundColor: "#171717" }}
-              >
-                <div className="modal-header">
-                  <h1 className="modal-title fs-5" id="exampleModalLabel">
-                    Set Room Constraits
-                  </h1>
-                  <button
-                    type="button"
-                    className="btn-close btn-close-white"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div className="modal-body" style={{ padding: 0 }}>
-                  <div action="" className="homeForm">
-                    <label style={{ display: "block" }}>
-                      Range <sub>(800 - 3500)</sub> :{" "}
-                    </label>
-                    <input
-                      type="number"
-                      min="800"
-                      max="3500"
-                      required="greater than 800"
-                      placeholder="lowerBound"
-                      ref={rangeLowerLimit}
-                    />
-                    {" - "}
-                    <input
-                      type="number"
-                      min="800"
-                      max="3500"
-                      required="greater than 800"
-                      placeholder="upperBound"
-                      ref={rangeUpperLimit}
-                    />
-                    <label style={{ display: "block" }} htmlFor="questionNo">
-                      Number of questions:
-                    </label>
-                    <input
-                      name="questionNo"
-                      type="number"
-                      min="1"
-                      max="5"
-                      required="greater than 1"
-                      placeholder="Questions.."
-                      style={{ width: "100%" }}
-                      ref={numberOfQuestions}
-                    />
-                  </div>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    ref={buttonRef}
-                    data-bs-dismiss={modalDismiss ? "modal" : ""}
-                    aria-label={modalDismiss ? "close" : ""}
-                    type="submit"
-                    className="btn btn-success"
-                    onClick={() => setModalDismiss(true)}
-                  >
-                    Create Room
-                  </button>
-                </div>
-              </div>
-            </div>
-          </form>
+          {showModal && (
+            <CreateRoomModal
+              rangeUpperLimit={rangeUpperLimit}
+              rangeLowerLimit={rangeLowerLimit}
+              numberOfQuestions={numberOfQuestions}
+              handleCreateRoom={handleCreateRoom}
+              showModal={setShowModal}
+            />
+          )}
         </div>
+        <ToastContainer
+          position="bottom-left"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
       </div>
     </div>
   );
