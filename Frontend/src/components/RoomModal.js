@@ -3,9 +3,16 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 function RoomModal() {
   const { roomID } = useParams();
   const { pswd } = useSelector((state) => state.password);
+
+  const notify = () => {
+    toast("Copied!");
+  };
 
   return (
     <div
@@ -50,7 +57,7 @@ function RoomModal() {
                 aria-label="Recipient's username"
                 aria-describedby="button-addon2"
               />
-              <CopyToClipboard text={roomID} onCopy={() => alert("Copied")}>
+              <CopyToClipboard text={roomID} onCopy={notify}>
                 <button className="btn btn-outline-secondary">copy</button>
               </CopyToClipboard>
             </div>
@@ -66,7 +73,7 @@ function RoomModal() {
                     aria-label="Recipient's username"
                     aria-describedby="button-addon2"
                   />
-                  <CopyToClipboard text={pswd} onCopy={() => alert("Copied")}>
+                  <CopyToClipboard text={pswd} onCopy={notify}>
                     <button className="btn btn-outline-secondary">copy</button>
                   </CopyToClipboard>
                 </div>
@@ -75,6 +82,18 @@ function RoomModal() {
           </div>
         </div>
       </div>
+      <ToastContainer
+          position="bottom-left"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
     </div>
   );
 }

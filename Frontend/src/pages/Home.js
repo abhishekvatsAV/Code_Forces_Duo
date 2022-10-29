@@ -9,6 +9,8 @@ import { CreateRoomModal } from "../components/CreateRoomModal";
 import { v4 as uuidv4 } from "uuid";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { FaArrowRight } from "react-icons/fa";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 //redux
 import { useDispatch, useSelector } from "react-redux";
@@ -44,17 +46,17 @@ export default function Home() {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   dispatch(changePassword(password));
-
   const handleClick2 = () => {
     setPassword(uuidv4);
   };
 
-  
-
+  const notify = () => {
+    toast("Copied!");
+  };
 
   const handleCreateRoom = async (e) => {
     e.preventDefault();
-    
+
     if (
       parseInt(rangeLowerLimit.current.value) >= 800 &&
       parseInt(rangeLowerLimit.current.value) <= 3500 &&
@@ -117,7 +119,7 @@ export default function Home() {
   return (
     <div className="home">
       {loading && (
-        <div className="center" style={{zIndex: "5"}}>
+        <div className="center" style={{ zIndex: "5" }}>
           <div id="loading" className="loading1"></div>
           <div id="loading" className="loading2"></div>
           <div id="loading" className="loading3"></div>
@@ -156,7 +158,7 @@ export default function Home() {
             >
               generate
             </button>
-            <CopyToClipboard text={roomID} onCopy={() => alert("Copied")}>
+            <CopyToClipboard text={roomID} onCopy={notify}>
               <button className="btn btn-outline-secondary" type="button">
                 copy
               </button>
@@ -189,7 +191,7 @@ export default function Home() {
               >
                 generate
               </button>
-              <CopyToClipboard text={password} onCopy={() => alert("Copied")}>
+              <CopyToClipboard text={password} onCopy={notify}>
                 <button className="btn btn-outline-secondary" type="button">
                   copy
                 </button>
@@ -207,7 +209,7 @@ export default function Home() {
               }`}
             // data-bs-toggle="modal"
             // data-bs-target="#exampleModal"
-            onClick = {() => setShowModal(true)}
+            onClick={() => setShowModal(true)}
           />
 
 
@@ -221,12 +223,12 @@ export default function Home() {
 
 
           {/*  modal here */}
-          { showModal && <CreateRoomModal
-            rangeUpperLimit={rangeUpperLimit} 
-            rangeLowerLimit={rangeLowerLimit} 
+          {showModal && <CreateRoomModal
+            rangeUpperLimit={rangeUpperLimit}
+            rangeLowerLimit={rangeLowerLimit}
             numberOfQuestions={numberOfQuestions}
             handleCreateRoom={handleCreateRoom}
-            showModal= {setShowModal}/> }
+            showModal={setShowModal} />}
 
 
 
@@ -244,6 +246,18 @@ export default function Home() {
 
 
         </div>
+        <ToastContainer
+          position="bottom-left"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
       </div>
     </div>
   );

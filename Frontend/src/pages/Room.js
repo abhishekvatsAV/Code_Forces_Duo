@@ -40,10 +40,10 @@ const Room = () => {
     navigate('/home');
   }
 
-  socket.on("user_join", (data) => {
-    console.log("user get joined : ", data);
-    setUserAdded(true);
-  })
+  // socket.on("user_join", (data) => {
+  //   console.log("user get joined : ", data);
+  //   setUserAdded(true);
+  // })
 
   useEffect(() => {
     const roomData = async () => {
@@ -56,10 +56,10 @@ const Room = () => {
       console.log("users: ", users);
     };
     roomData();
-    socket.emit('problem_solved', {
-      userId: users[0], 
-      // write here bhanu
-    })
+    // socket.emit('problem_solved', {
+    //   userId: users[0], 
+    //   // write here bhanu
+    // })
   }, []);
 
   return (
