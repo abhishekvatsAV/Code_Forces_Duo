@@ -72,36 +72,30 @@ const Room = () => {
       <Navbar />
 
       <RoomModal />
-      {users.length === 0 && <h1 style={{ color: "red" }}>Loading...</h1>}
-      {users.length === 1 && (
-        <>
-          <div className="aliceBox">
-            <Player user={users[0]} />
-          </div>
-        </>
-      )}
-      {users.length === 2 && (
-        <>
-          <div className="roomContent">
-            <div className="aliceBox">
-              <Player user={users[0]} />
-            </div>
-            <div className="problemBox" style={{ color: "white" }}>
-              <div className="problemContent">
-                {problems.map((problem, i) => (
-                  <a href={problem.problemId.link} target="_blank">
-                    {i + 1}. {problem.problemId.name}
-                  </a>
-                ))}
-              </div>
-              <Clock />
-            </div>
-            <div className="bobBox">
-              <Player user={users[1]} />
-            </div>
-          </div>
-        </>
-      )}
+      {users.length === 0 && <h1 style={{color: "red"}}>Loading...</h1>}
+      {users.length === 1 &&   <>
+        <div className="aliceBox">
+          <Player user={users[0]} />
+        </div>
+      </>     }
+      {users.length === 2 && <>
+        <div className="roomContent">
+        <div className="aliceBox">
+          <Player user={users[0]} />
+        </div>
+        <div className="problemBox" style={{ color: "white" }}>
+          {problems.map((problem, i) => (
+            <a href={problem.problemId.link} target="_blank">
+              {i + 1}. {problem.problemId.name}
+            </a>
+          ))}
+        </div>
+        <div className="bobBox">
+          <Player user={users[1]} />
+        </div>
+      </div>
+      </>}
+
 
       <footer className="roomCreateFooter">
         <div>
