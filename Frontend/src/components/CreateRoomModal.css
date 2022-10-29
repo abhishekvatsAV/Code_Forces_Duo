@@ -51,12 +51,11 @@
 }
 .modalHead > button{
     width: 50px;
-    background:var(--bg_color);
-    color: #fff;
+    background:rgba(0,0,0,0.4);
     font-size: 1.3rem;
     border: none;
     outline: none;
-    
+    color: #fff;
 }
 .modalRanges{
     margin-bottom: 20px;

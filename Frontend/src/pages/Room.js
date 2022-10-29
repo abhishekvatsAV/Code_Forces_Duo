@@ -8,10 +8,11 @@ import axios from "axios";
 import Player from "../components/Player";
 import RoomModal from "../components/RoomModal";
 import { useSelector } from "react-redux";
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 //socket
 import { io } from "socket.io-client";
+import Clock from "../components/Clock";
 const socket = io("http://localhost:4000");
 
 let problems = [];
@@ -24,21 +25,21 @@ const Room = () => {
   const navigate = useNavigate();
   const [userAdded, setUserAdded] = useState(false);
 
-  // browser back button handling i.e leaving the room 
+  // browser back button handling i.e leaving the room
   window.onpopstate = () => {
     axios.post("http://localhost:4000/rooms/leaveRoom", {
       userId: userId,
-      roomId: roomID
-    })
-  }
+      roomId: roomID,
+    });
+  };
 
   const handleLeaveRoom = async () => {
     await axios.post("http://localhost:4000/rooms/leaveRoom", {
       userId: userId,
-      roomId: roomID
-    })
-    navigate('/home');
-  }
+      roomId: roomID,
+    });
+    navigate("/home");
+  };
 
   // socket.on("user_join", (data) => {
   //   console.log("user get joined : ", data);
@@ -57,7 +58,7 @@ const Room = () => {
     };
     roomData();
     // socket.emit('problem_solved', {
-    //   userId: users[0], 
+    //   userId: users[0],
     //   // write here bhanu
     // })
   }, []);
@@ -67,42 +68,61 @@ const Room = () => {
       <Navbar />
 
       <RoomModal />
-      {users.length === 0 && <h1 style={{color: "red"}}>Loading...</h1>}
-      {users.length === 1 &&   <>
-        <div className="aliceBox">
-          <Player user={users[0]} />
-        </div>
-      </>     }
-      {users.length === 2 && <>
-        <div className="roomContent">
-        <div className="aliceBox">
-          <Player user={users[0]} />
-        </div>
-        <div className="problemBox" style={{ color: "white" }}>
-          {problems.map((problem, i) => (
-            <a href={problem.problemId.link} target="_blank">
-              {i + 1}. {problem.problemId.name}
-            </a>
-          ))}
-        </div>
-        <div className="bobBox">
-          <Player user={users[1]} />
-        </div>
-      </div>
-      </>}
-
+      {users.length === 0 && <h1 style={{ color: "red" }}>Loading...</h1>}
+      {users.length === 1 && (
+        <>
+          <div className="aliceBox">
+            <Player user={users[0]} />
+          </div>
+        </>
+      )}
+      {users.length === 2 && (
+        <>
+          <div className="roomContent">
+            <div className="aliceBox">
+              <Player user={users[0]} />
+            </div>
+            <div className="problemBox" style={{ color: "white" }}>
+              <div className="problemContent">
+                {problems.map((problem, i) => (
+                  <a href={problem.problemId.link} target="_blank">
+                    {i + 1}. {problem.problemId.name}
+                  </a>
+                ))}
+              </div>
+              <Clock />
+            </div>
+            <div className="bobBox">
+              <Player user={users[1]} />
+            </div>
+          </div>
+        </>
+      )}
 
       <footer className="roomCreateFooter">
+        <div>
+          <button
+            type="button"
+            className="btn btn-danger"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            style={{ width: "8rem", height: "50%", marginLeft: "1rem" }}
+          >
+            Details
+          </button>
+          <button
+            className="btn btn-primary mx-4"
+            style={{ height: "50%", marginLeft: "1rem" }}
+          >
+            update score
+          </button>
+        </div>
         <button
-          type="button"
-          className="btn btn-danger"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
-          style={{ width: "8rem", height: "50%", marginLeft: "1rem" }}
+          className="btn btn-danger btn-lg mx-4"
+          onClick={handleLeaveRoom}
         >
-          Details
+          Leave Room
         </button>
-        <button onClick={handleLeaveRoom}>Leave Room</button>
       </footer>
     </div>
   );
