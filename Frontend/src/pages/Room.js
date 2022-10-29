@@ -62,6 +62,11 @@ const Room = () => {
     // })
   }, []);
 
+  const updateScore = () => {
+    // write her to update score 
+    
+  }
+
   return (
     <div className="room">
       <Navbar />
@@ -93,16 +98,30 @@ const Room = () => {
 
 
       <footer className="roomCreateFooter">
+      <div>
+          <button
+            type="button"
+            className="btn btn-danger"
+            data-bs-toggle="modal"
+            data-bs-target="#staticBackdrop"
+            style={{ width: "8rem", height: "50%", marginLeft: "1rem" }}
+          >
+            Details
+          </button>
+          <button
+            className="btn btn-primary mx-4"
+            style={{ height: "50%", marginLeft: "1rem" }}
+            onClick={updateScore}
+          >
+            update score
+          </button>
+        </div>
         <button
-          type="button"
-          className="btn btn-danger"
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
-          style={{ width: "8rem", height: "50%", marginLeft: "1rem" }}
+          className="btn btn-danger btn-lg mx-4"
+          onClick={handleLeaveRoom}
         >
-          Details
+          Leave Room
         </button>
-        <button className="btn btn-danger btn-lg mx-4" onClick={handleLeaveRoom}>Leave Room</button>
       </footer>
     </div>
   );
