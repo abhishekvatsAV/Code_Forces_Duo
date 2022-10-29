@@ -7,7 +7,7 @@ exports.registerUser = async (req,res,next) => {
             userName
         });
         if(!userData){
-            let profile = await axios.get(`https://codeforces.com/api/user.info?handles=${JSON.parse(userName)}`);
+            let profile = await axios.get(`https://codeforces.com/api/user.info?handles=${userName}`);
             if(profile?.data?.result.length === 0){
                 return res.status(404).json({
                     message:"no profile found for this handle"

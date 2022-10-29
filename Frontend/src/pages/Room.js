@@ -16,7 +16,6 @@ import Clock from "../components/Clock";
 const socket = io("http://localhost:4000");
 
 let problems = [];
-let competitionId;
 
 const Room = () => {
   const { roomID } = useParams();
@@ -25,7 +24,6 @@ const Room = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
   const [userAdded, setUserAdded] = useState(false);
-  const [score , setScore] = useState(0);
 
   // browser back button handling i.e leaving the room
   window.onpopstate = () => {
@@ -43,16 +41,10 @@ const Room = () => {
     navigate("/home");
   };
 
-  socket.on("user_join", (data) => {
-    console.log("user get joined : ", data);
-    setUserAdded(true);
-  })
-
-  socket.on("total_score", (data) => {
-    console.log(": ", data);
-    setScore(data.totalScore);
-    // setUserAdded(true);
-  })
+  // socket.on("user_join", (data) => {
+  //   console.log("user get joined : ", data);
+  //   setUserAdded(true);
+  // })
 
   useEffect(() => {
     const roomData = async () => {
@@ -60,21 +52,15 @@ const Room = () => {
         `http://localhost:4000/rooms/getRoomById?roomId=${roomID}`
       );
       problems = data.data.competitionData.problems;
-      competitionId = data.data.competitionData._id;
       setUsers(data.data.roomData.users);
       console.log("problems : ", problems);
       console.log("users: ", users);
     };
     roomData();
-    setInterval(() => {
-      console.log("go to hell")
-      socket.emit('problem_solved', {
-        userId: userId,
-        roomId:roomID,
-        problems,
-        competitionId
-      })
-    },500000)
+    // socket.emit('problem_solved', {
+    //   userId: users[0],
+    //   // write here bhanu
+    // })
   }, []);
 
   const updateScore = () => {

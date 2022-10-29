@@ -69,7 +69,6 @@ mongoose.connect(process.env.MONGO_URI)
 
 			socket.on("problem_solved",async (data) => {
 				let { roomId,userId } = data;
-				console.log(data);
 				let userData = await getUserData(userId);
 				markProblemAsSolved(data,socket,userData);
 			})
