@@ -31,7 +31,7 @@ const Lobby = () => {
     fetchRooms();
   }, []);
 
-  
+
   return (
     <>
       <Navbar />
@@ -41,14 +41,16 @@ const Lobby = () => {
             <h3>Public Rooms</h3>
             <div className="publicCards">
               {publicCards.map((card) => (
-                <JoinCard
-                  key={card.roomId}
-                  roomId={card.roomId}
-                  name={JSON.parse(card.users[0].userId.userName)}
-                  room="public"
-                  range={card.competitionData.ratingRange}
-                  noOfQuestions={card.competitionData.problems.length}
-                />
+                <>
+                  {card.users.length === 1 && <JoinCard
+                    key={card.roomId}
+                    roomId={card.roomId}
+                    name={JSON.parse(card.users[0].userId.userName)}
+                    room="public"
+                    range={card.competitionData.ratingRange}
+                    noOfQuestions={card.competitionData.problems.length}
+                  />}
+                </>
               ))}
             </div>
           </div>
@@ -56,14 +58,16 @@ const Lobby = () => {
             <h3>Private Rooms</h3>
             <div className="privateCards">
               {privateCards.map((card) => (
-                <JoinCard
-                  key={card.roomId}
-                  roomId={card.roomId}
-                  name={JSON.parse(card.users[0].userId.userName)}
-                  room="private"
-                  range={card.competitionData.ratingRange}
-                  noOfQuestions={card.competitionData.problems.length}
-                />
+                <>
+                  {card.users.length === 1 && <JoinCard
+                    key={card.roomId}
+                    roomId={card.roomId}
+                    name={JSON.parse(card.users[0].userId.userName)}
+                    room="private"
+                    range={card.competitionData.ratingRange}
+                    noOfQuestions={card.competitionData.problems.length}
+                  />}
+                </>
               ))}
             </div>
           </div>

@@ -102,7 +102,7 @@ const Room = () => {
         >
           Details
         </button>
-        <button onClick={handleLeaveRoom}>Leave Room</button>
+        <button className="btn btn-danger btn-lg mx-4" onClick={handleLeaveRoom}>Leave Room</button>
       </footer>
     </div>
   );
