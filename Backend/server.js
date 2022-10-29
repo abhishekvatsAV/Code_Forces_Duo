@@ -33,6 +33,8 @@ app.use("/rooms", require("./routes/rooms"));
 
 app.use("/users", require("./routes/users"));
 
+app.use("/competitions", require("./routes/competitions"));
+
 // listen for requests and connect to database
 mongoose.connect(process.env.MONGO_URI)
 	.then(() => {
@@ -68,11 +70,7 @@ mongoose.connect(process.env.MONGO_URI)
 			socket.on("problem_solved",async (data) => {
 				let { roomId,userId } = data;
 				let userData = await getUserData(userId);
-				markProblemAsSolved(data);
-				socket.broadcast.to(roomId).emit("solved_a_problem",{
-					message:`${userData.userName} solved a problem!`,
-					userName:userData.userName	
-				})
+				markProblemAsSolved(data,socket,userData);
 			})
 		})
 	})
