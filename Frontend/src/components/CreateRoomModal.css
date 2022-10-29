@@ -51,19 +51,11 @@
 }
 .modalHead > button{
     width: 50px;
-<<<<<<< HEAD
-    background:rgba(0,0,0,0.4);
-    font-size: 1.3rem;
-    border: none;
-    outline: none;
-    color: #fff;
-=======
     background:rgba(0, 0, 0,0.4);
     color: #fff;
     font-size: 1.3rem;
     border: none;
     outline: none;    
->>>>>>> 78b5d9c786fb77a28f9847bf8a209dfd3112a1bf
 }
 .modalRanges{
     margin-bottom: 20px;
