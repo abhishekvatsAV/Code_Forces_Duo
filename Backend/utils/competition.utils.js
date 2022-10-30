@@ -22,7 +22,7 @@ exports.getTotalScore = async (userId,competitionId) => {
 											{
 												$subtract:["$problemRating",799]
 											},
-											450
+											200
 										]
 									}
 								},

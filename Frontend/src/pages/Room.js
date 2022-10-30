@@ -19,13 +19,45 @@ import { getSocket } from "../utils/io.connection";
 let problems = [];
 let competitionId;
 
-const Room = () => {
+const Room = ({users, setUsers}) => {
   const socket = getSocket();
   const { roomID } = useParams();
   const userId = useSelector((state) => state.user.userId);
-  const [users, setUsers] = useState([]);
+  const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
   const [psswd, setpsswd] = useState("");
+  console.log(users);
+  socket.on("user_left",(data) => {
+    console.log(data.message);
+    setUsers((prev) => {
+      let curr = prev.filter((user) => user.userId._id.toString() !== data.userData.userId.toString());
+      return curr;
+    })
+  })
+  socket.off("user_join");
+  socket.on("user_join", (data) => {
+    console.log("user get joined", data);
+    let user = data.userData;
+    setUsers((prev) => {
+      let userIndex = prev.findIndex(userData => userData.userId._id.toString() === user.userId.toString());
+      if(userIndex !== -1){
+        return prev;
+      }
+      console.log(userIndex);
+      let curr = [...prev,{
+        userId:{
+          profile:{
+            ...user
+          },
+          score:0,
+          _id:user.userId,
+          userName:user.handle
+        }
+      }];
+      console.log("curr",curr);
+      return curr;
+    })
+  });
 
   // browser back button handling i.e leaving the room
   window.onpopstate = () => {
@@ -33,6 +65,10 @@ const Room = () => {
       userId: userId,
       roomId: roomID,
     });
+    socket.emit("leave_room",roomID,{
+      userId,
+      userName:user.handle
+    })
   };
 
   const handleLeaveRoom = async () => {
@@ -40,13 +76,12 @@ const Room = () => {
       userId: userId,
       roomId: roomID,
     });
+    socket.emit("leave_room",roomID,{
+      userId,
+      userName:user.handle
+    })
     navigate("/home");
   };
-
-  socket.on("user_join", (data) => {
-    console.log("user get joined : ", data);
-    setUserAdded(true);
-  })
 
   useEffect(() => {
     const roomData = async () => {
@@ -128,7 +163,7 @@ const Room = () => {
                   </a>
                 ))}
               </div>
-              <Timer />
+              <Timer users={users}/>
             </div>
             <div className="bobBox">
               <Player user={users[1]} score={users[1].score} />
