@@ -19,12 +19,10 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range, password, setUsers
 
   const handleClick = async (roomId) => {
     console.log("clicked");
-    // user.userId = userId;
     socket.emit("join_room", roomId, {
       ...user,
       userId
     });
-    // console.log(roomId);
 
     const url = "http://localhost:4000/rooms/joinRoom";
     const response = await axios.post(url, {

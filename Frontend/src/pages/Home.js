@@ -116,7 +116,6 @@ export default function Home() {
   };
 
   const privateOnOff = () => {
-    // setPrivateon(privateOn ? false : true)
     if (privateOn) {
       setPassword("");
       setPrivateon(false);

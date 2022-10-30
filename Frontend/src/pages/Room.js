@@ -11,8 +11,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Timer from "../components/Timer";
 
-//
-
 //socket
 import { getSocket } from "../utils/io.connection";
 
@@ -122,7 +120,6 @@ const Room = ({users, setUsers}) => {
       }
       users[userIndex].score = data.totalScore;
       setUsers(users);
-      // setUserAdded(true);
     })
   
   }, []);
