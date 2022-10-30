@@ -1,19 +1,24 @@
 //styles
 import "./Login.css";
-import Bg from "../assets/login-bg.jpeg";
 import axios from "axios";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { useNavigate } from "react-router-dom";
 import { login, setUserId } from "../features/userSlice";
 import { useDispatch } from "react-redux";
-import { useFetch } from "../hooks/useFetch";
 import Typewriter from "typewriter-effect";
+import particlesOptions from "../assets/particles.json";
+import Particles from "react-particles";
+import { loadFull } from "tsparticles";
 
 const Login = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [Err, setError] = useState(false);
   const dispatch = useDispatch();
+
+  const particlesInit = useCallback((main) => {
+    loadFull(main);
+  }, []);
 
   const handleUsername = (e) => {
     e.preventDefault();
@@ -60,155 +65,7 @@ const Login = () => {
 
   return (
     <div className="login">
-      {/* <img src={Bg} alt="login-bg" /> */}
-      {/* below div for background */}
-      <div className="wrap">
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-      </div>
-
+      <Particles options={particlesOptions} init={particlesInit} />
       <form className="userHandle">
         <label htmlFor="">
           <Typewriter

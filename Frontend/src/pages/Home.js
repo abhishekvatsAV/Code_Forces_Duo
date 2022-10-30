@@ -112,13 +112,18 @@ export default function Home() {
     }
   };
 
+  const privateOnOff = () => {
+    // setPrivateon(privateOn ? false : true)
+    if (privateOn) {
+      setPassword("");
+      setPrivateon(false);
+    } else {
+      setPrivateon(true);
+    }
+  };
+
   return (
     <div className="home">
-      {/* <div
-        className="backgroundGradient"
-        // style={{ display: loading ? "block" : "none" }}
-      ></div> */}
-
       {loading && (
         <div className="center" style={{ zIndex: "5" }}>
           <div id="loading" className="loading1"></div>
@@ -126,7 +131,7 @@ export default function Home() {
           <div id="loading" className="loading3"></div>
         </div>
       )}
-      <img src={img} alt="adfdsf" />
+      {/* <img src={img} alt="adfdsf" /> */}
       <div className="homeContent">
         <div className="box1">
           <h3>Go to Lobby</h3>
@@ -168,10 +173,7 @@ export default function Home() {
 
           <div className="container">
             <p>Private Room</p>
-            <input
-              type="checkbox"
-              onClick={() => setPrivateon(privateOn ? false : true)}
-            />
+            <input type="checkbox" onClick={privateOnOff} />
           </div>
 
           {privateOn && (
@@ -210,8 +212,6 @@ export default function Home() {
                       : ""
                   }`
             }`}
-            // data-bs-toggle="modal"
-            // data-bs-target="#exampleModal"
             onClick={() => setShowModal(true)}
           />
 
