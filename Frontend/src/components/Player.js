@@ -2,8 +2,6 @@
 import "./Player.css";
 
 const Player = ({user,score}) => {
-  // console.log("user : ", user);
-  // console.log(score);
   return (
     <div className="hostBox">
       <div style={{ marginBottom: "20px", borderBottom: "1px solid gray" }}>

@@ -23,7 +23,6 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range, password }) => {
   const handleClick = async (roomId) => {
     console.log("clicked");
     socket.emit("join_room", roomId, user.handle);
-    // console.log(roomId);
 
     const url = "http://localhost:4000/rooms/joinRoom";
     const response = await axios.post(url, {
@@ -32,14 +31,12 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range, password }) => {
     });
 
     socket.emit("join_room", roomId, user.handle);
-    // console.log("roomId - " + roomId,"user - " + user.handle );
     navigate(`/room/${roomId}`);
   };
 
   const handlePrivateRoom = async ({ roomId }) => {
     if (password === psswd) {
       socket.emit("join_room", roomId, user.handle);
-      // console.log(roomId);
 
       const url = "http://localhost:4000/rooms/joinRoom";
       const response = await axios.post(url, {
@@ -48,7 +45,6 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range, password }) => {
       });
 
       socket.emit("join_room", roomId, user.handle);
-      // console.log("roomId - " + roomId,"user - " + user.handle );
       navigate(`/room/${roomId}`);
     } else {
       console.log("incorrect password!", psswd, password);

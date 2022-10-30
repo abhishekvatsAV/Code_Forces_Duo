@@ -11,8 +11,6 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Timer from "../components/Timer";
 
-//
-
 //socket
 import { getSocket } from "../utils/io.connection";
 
@@ -45,7 +43,6 @@ const Room = () => {
 
   socket.on("user_join", (data) => {
     console.log("user get joined : ", data);
-    setUserAdded(true);
   })
 
   useEffect(() => {
@@ -87,7 +84,6 @@ const Room = () => {
       }
       users[userIndex].score = data.totalScore;
       setUsers(users);
-      // setUserAdded(true);
     })
   
   }, []);
