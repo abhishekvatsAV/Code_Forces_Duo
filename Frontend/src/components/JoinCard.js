@@ -6,15 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
-import { io } from "socket.io-client";
+import { getSocket } from "../utils/io.connection";
 import { useState } from "react";
-const socket = io("http://localhost:4000");
-
-socket.on("connect", () => {
-  console.log("connected");
-});
 
 const JoinCard = ({ roomId, name, room, noOfQuestions, range, password }) => {
+  const socket = getSocket();
   const user = useSelector((state) => state.user.user);
   const userId = useSelector((state) => state.user.userId);
   const [psswd, setpsswd] = useState("");

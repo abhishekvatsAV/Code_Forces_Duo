@@ -8,11 +8,8 @@ import Room from "./pages/Room";
 import Lobby from "./pages/Lobby";
 
 import { io } from "socket.io-client";
-const socket = io("http://localhost:4000");
-socket.on("connect", () => {
-  console.log("connected");
-});
-
+import connectToSocket from "./utils/io.connection";
+const socket = connectToSocket();
 
 function App() {
   return (

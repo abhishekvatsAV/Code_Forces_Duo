@@ -20,13 +20,10 @@ import img from "../assets/hero-img.png";
 import axios from "axios";
 
 //socket io
-import { io } from "socket.io-client";
-const socket = io("http://localhost:4000");
-socket.on("connect", () => {
-  console.log("connected");
-});
+import { getSocket } from "../utils/io.connection";
 
 export default function Home() {
+  const socket = getSocket();
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const user = useSelector((state) => state.user.user);
