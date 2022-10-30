@@ -1,15 +1,16 @@
-const { default: axios } = require("axios");
+const axios = require("axios");
 const problemsModel = require("../models/problemsModel");
 const solvedProblem = require("../models/solvedProblems");
 const { getTotalScore } = require("./competition.utils");
 
-exports.markProblemAsSolved = async (data,socket,userData) => {
+exports.markProblemAsSolved = async (data,socket,userData,io) => {
     try {
         let { problems : competitionProblems, competitionId, userId, roomId} = data;
+        console.log(data);
         for(let i = 0;i<competitionProblems.length;i++){
             let problemId = competitionProblems[i].problemId._id;
             let problemData = competitionProblems[i].problemId;
-            let problems = (await axios.get(`https://codeforces.com/api/user.status?handle=${userData.userName}&from=1&count=${competitionProblems.length * 10}`)).data.result;
+            let problems = (await axios.get(`https://codeforces.com/api/user.status?handle=${JSON.parse(userData.userName)}&from=1&count=${competitionProblems.length * 10}`)).data.result;
             let doesProblemExists = problems.find(problem => {
                 return (problem.problem.contestId === problemData.contestId && problem.problem.index === problemData.difficultyIndex && problem.verdict === "OK");
             })
@@ -34,8 +35,10 @@ exports.markProblemAsSolved = async (data,socket,userData) => {
             })
         }
         let totalScore = await getTotalScore(userId,competitionId);
-        socket.to(roomId).emit("total_score",{
-            totalScore
+        console.log(totalScore);
+        io.in(roomId).emit("total_score",{
+            totalScore,
+            userId
         })
     } catch (error) {
         console.log(error);
