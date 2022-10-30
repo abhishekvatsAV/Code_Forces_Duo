@@ -134,7 +134,7 @@ export default function Home() {
           <div id="loading" className="loading3"></div>
         </div>
       )}
-      {/* <img src={img} alt="adfdsf" /> */}
+      <img src={img} alt="adfdsf" />
       <div className="homeContent">
         <div className="box1">
           <h3>Go to Lobby</h3>

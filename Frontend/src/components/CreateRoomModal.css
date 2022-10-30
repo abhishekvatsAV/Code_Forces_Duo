@@ -12,14 +12,14 @@
     z-index: 3;
 }
 .modalContainer{
-    width: 700px;
-    padding: 30px; 
+    /* width: 700px; */
+    /* padding: 30px;  */
+    height: 10vh;
 }
 .modalForm{
     display: flex;
     flex-direction: column;
     width:500px;
-    background-color: rgba(0, 0, 0,0.5);
     border: 1px solid white;
     padding: 20px;
     border-radius:10px ;
