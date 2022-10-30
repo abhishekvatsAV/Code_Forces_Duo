@@ -62,11 +62,14 @@ const Room = ({users, setUsers}) => {
     console.log("data: ", data);
     let userId = data.userId;
     let userIndex = users.findIndex(user => user.userId._id.toString() === userId.toString());
+    console.log(userIndex);
     if(userIndex === -1){
       return ;
     }
     users[userIndex].score = data.totalScore;
-    setUsers(users);
+    console.log(userId);
+    let newUsers = [...users];
+    setUsers(newUsers);
   })
 
   // browser back button handling i.e leaving the room
