@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "react-tsparticles": "^2.3.3",
     "socket.io": "^4.5.3"
   }
 }

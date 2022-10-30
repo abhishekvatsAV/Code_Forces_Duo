@@ -13,7 +13,8 @@
     align-self: center;
     background-blend-mode: normal;
 }
-.home >img{
+
+.home>img {
     width: 95%;
 }
 
@@ -30,7 +31,7 @@
     width: 100%;
 }
 
-.backgroundGradient{
+.backgroundGradient {
     height: 100vh;
     width: 100vw;
     z-index: 5;
@@ -208,5 +209,3 @@ input:checked::after {
 
 
 /* new  modal--------------------------------------  */
-
-

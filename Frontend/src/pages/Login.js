@@ -1,12 +1,10 @@
 //styles
 import "./Login.css";
-import Bg from "../assets/login-bg.jpeg";
 import axios from "axios";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { login, setUserId } from "../features/userSlice";
 import { useDispatch } from "react-redux";
-import { useFetch } from "../hooks/useFetch";
 import Typewriter from "typewriter-effect";
 
 const Login = () => {
@@ -59,184 +57,38 @@ const Login = () => {
   };
 
   return (
-    <div className="login">
-      {/* <img src={Bg} alt="login-bg" /> */}
-      {/* below div for background */}
-      <div className="wrap">
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
-        <div className="c"></div>
+    <>
+      <div className="login">
+        <form className="userHandle">
+          <label htmlFor="">
+            <Typewriter
+              options={{
+                strings: "Enter Your CodeForces Handle",
+                autoStart: true,
+                delay: 75,
+                cursor: null,
+              }}
+            />{" "}
+            <input
+              type="text"
+              placeholder=""
+              value={username}
+              onChange={(e) => setUsername(e.target.value)}
+            />
+          </label>
+          <br />
+          {Err && <p className="error">invalid username</p>}
+          <button
+            type="submit"
+            className="btn btn-outline-success"
+            onClick={handleUsername}
+          >
+            Go
+          </button>
+        </form>
       </div>
 
-      <form className="userHandle">
-        <label htmlFor="">
-          <Typewriter
-            options={{
-              strings: "Enter Your CodeForces Handle",
-              autoStart: true,
-              delay: 75,
-              cursor: null,
-            }}
-          />{" "}
-          <input
-            type="text"
-            placeholder=""
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </label>
-        <br />
-        {Err && <p className="error">invalid username</p>}
-        <button
-          type="submit"
-          className="btn btn-outline-success"
-          onClick={handleUsername}
-        >
-          Go
-        </button>
-      </form>
-    </div>
+    </>
   );
 };
 
