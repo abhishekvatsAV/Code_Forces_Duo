@@ -2,10 +2,12 @@ const axios = require("axios");
 const problemsModel = require("../models/problemsModel");
 const solvedProblem = require("../models/solvedProblems");
 const { getTotalScore } = require("./competition.utils");
-
+const ObjectId = require("mongoose").Types.ObjectId;
 exports.markProblemAsSolved = async (data,socket,userData,io) => {
     try {
         let { problems : competitionProblems, competitionId, userId, roomId} = data;
+        competitionId = ObjectId(competitionId);
+        userId = ObjectId(userId);
         console.log(data);
         for(let i = 0;i<competitionProblems.length;i++){
             let problemId = competitionProblems[i].problemId._id;
