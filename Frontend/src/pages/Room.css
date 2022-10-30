@@ -86,8 +86,7 @@
 .problemBox{
     display: flex;
     flex-direction: column;
-    border-left: 1px solid gray;
-    border-right: 1px solid gray;
+   
     justify-content: space-between;
 }
 .problemBox a{
@@ -102,6 +101,15 @@
     flex-direction: column;
     align-items: center;
 }
+
+.centerBox{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-left: 1px solid gray;
+    border-right: 1px solid gray;
+}
+
 /* range */
 
 .roomCreateFooter{

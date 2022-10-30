@@ -9,10 +9,12 @@ import Player from "../components/Player";
 import RoomModal from "../components/RoomModal";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import Timer from "../components/Timer";
+
+//
 
 //socket
 import { io } from "socket.io-client";
-import Clock from "../components/Clock";
 const socket = io("http://localhost:4000");
 
 let problems = [];
@@ -72,30 +74,36 @@ const Room = () => {
       <Navbar />
 
       <RoomModal />
-      {users.length === 0 && <h1 style={{color: "red"}}>Loading...</h1>}
-      {users.length === 1 &&   <>
-        <div className="aliceBox">
-          <Player user={users[0]} />
-        </div>
-      </>     }
-      {users.length === 2 && <>
-        <div className="roomContent">
-        <div className="aliceBox">
-          <Player user={users[0]} />
-        </div>
-        <div className="problemBox" style={{ color: "white" }}>
-          {problems.map((problem, i) => (
-            <a href={problem.problemId.link} target="_blank">
-              {i + 1}. {problem.problemId.name}
-            </a>
-          ))}
-        </div>
-        <div className="bobBox">
-          <Player user={users[1]} />
-        </div>
-      </div>
-      </>}
-
+      {users.length === 0 && <h1 style={{ color: "red" }}>Loading...</h1>}
+      {users.length === 1 && (
+        <>
+          <div className="aliceBox">
+            <Player user={users[0]} />
+          </div>
+        </>
+      )}
+      {users.length === 2 && (
+        <>
+          <div className="roomContent">
+            <div className="aliceBox">
+              <Player user={users[0]} />
+            </div>
+            <div className="centerBox">
+              <div className="problemBox" style={{ color: "white" }}>
+                {problems.map((problem, i) => (
+                  <a href={problem.problemId.link} target="_blank">
+                    {i + 1}. {problem.problemId.name}
+                  </a>
+                ))}
+              </div>
+              <Timer />
+            </div>
+            <div className="bobBox">
+              <Player user={users[1]} />
+            </div>
+          </div>
+        </>
+      )}
 
       <footer className="roomCreateFooter">
         <div>
