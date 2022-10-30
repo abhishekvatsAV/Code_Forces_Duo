@@ -47,15 +47,27 @@ const Room = ({users, setUsers}) => {
           profile:{
             ...user
           },
-          score:0,
           _id:user.userId,
           userName:user.handle
-        }
+        },
+        score:0,
       }];
       console.log("curr",curr);
       return curr;
     })
   });
+
+  socket.on("total_score", (data) => {
+    console.log("here3");
+    console.log("data: ", data);
+    let userId = data.userId;
+    let userIndex = users.findIndex(user => user.userId._id.toString() === userId.toString());
+    if(userIndex === -1){
+      return ;
+    }
+    users[userIndex].score = data.totalScore;
+    setUsers(users);
+  })
 
   // browser back button handling i.e leaving the room
   window.onpopstate = () => {
@@ -110,17 +122,6 @@ const Room = ({users, setUsers}) => {
       })
     },500000)
     console.log("run",socket);
-    socket.on("total_score", (data) => {
-      console.log("here3");
-      console.log("data: ", data);
-      let userId = data.userId;
-      let userIndex = users.findIndex(user => user.userId._id.toString() === userId.toString());
-      if(userIndex === -1){
-        return ;
-      }
-      users[userIndex].score = data.totalScore;
-      setUsers(users);
-    })
   
   }, []);
 
