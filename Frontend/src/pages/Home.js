@@ -115,6 +115,16 @@ export default function Home() {
     }
   };
 
+  const privateOnOff = () => {
+    // setPrivateon(privateOn ? false : true)
+    if (privateOn) {
+      setPassword("");
+      setPrivateon(false);
+    } else {
+      setPrivateon(true);
+    }
+  };
+
   return (
     <div className="home">
       {loading && (
@@ -166,10 +176,7 @@ export default function Home() {
 
           <div className="container">
             <p>Private Room</p>
-            <input
-              type="checkbox"
-              onClick={() => setPrivateon(privateOn ? false : true)}
-            />
+            <input type="checkbox" onClick={privateOnOff} />
           </div>
 
           {privateOn && (

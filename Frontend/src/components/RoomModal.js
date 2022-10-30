@@ -3,13 +3,11 @@ import { CopyToClipboard } from "react-copy-to-clipboard";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-function RoomModal() {
+function RoomModal({ password }) {
   const { roomID } = useParams();
-  const { pswd } = useSelector((state) => state.password);
-
   const notify = () => {
     toast("Copied!");
   };
@@ -61,19 +59,22 @@ function RoomModal() {
                 <button className="btn btn-outline-secondary">copy</button>
               </CopyToClipboard>
             </div>
-            {pswd !== "" && (
+            {password !== "" && (
               <>
                 <h5>Password:</h5>
-                <div className="input-group mb-3 inputLink">
+                <div
+                  className="input-group mb-3 inputLink"
+                  hidden={password !== "" ? false : true}
+                >
                   <input
                     type="text"
-                    value={pswd}
+                    value={password}
                     readOnly
                     className="form-control"
                     aria-label="Recipient's username"
                     aria-describedby="button-addon2"
                   />
-                  <CopyToClipboard text={pswd} onCopy={notify}>
+                  <CopyToClipboard text={password} onCopy={notify}>
                     <button className="btn btn-outline-secondary">copy</button>
                   </CopyToClipboard>
                 </div>
@@ -83,17 +84,17 @@ function RoomModal() {
         </div>
       </div>
       <ToastContainer
-          position="bottom-left"
-          autoClose={5000}
-          hideProgressBar={false}
-          newestOnTop={false}
-          closeOnClick
-          rtl={false}
-          pauseOnFocusLoss
-          draggable
-          pauseOnHover
-          theme="dark"
-        />
+        position="bottom-left"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
     </div>
   );
 }

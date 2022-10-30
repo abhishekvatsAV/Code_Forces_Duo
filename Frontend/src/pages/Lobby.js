@@ -31,7 +31,6 @@ const Lobby = () => {
     fetchRooms();
   }, []);
 
-
   return (
     <>
       <Navbar />
@@ -42,14 +41,18 @@ const Lobby = () => {
             <div className="publicCards">
               {publicCards.map((card) => (
                 <>
-                  {card.users.length === 1 && <JoinCard
-                    key={card.roomId}
-                    roomId={card.roomId}
-                    name={JSON.parse(card.users[0].userId.userName)}
-                    room="public"
-                    range={card.competitionData.ratingRange}
-                    noOfQuestions={card.competitionData.problems.length}
-                  />}
+                  {/* {console.log("public room : ", card)} */}
+                  {card.users.length === 1 && (
+                    <JoinCard
+                      key={card.roomId}
+                      roomId={card.roomId}
+                      name={JSON.parse(card.users[0].userId.userName)}
+                      room="public"
+                      range={card.competitionData.ratingRange}
+                      noOfQuestions={card.competitionData.problems.length}
+                      password={""}
+                    />
+                  )}
                 </>
               ))}
             </div>
@@ -59,14 +62,19 @@ const Lobby = () => {
             <div className="privateCards">
               {privateCards.map((card) => (
                 <>
-                  {card.users.length === 1 && <JoinCard
-                    key={card.roomId}
-                    roomId={card.roomId}
-                    name={JSON.parse(card.users[0].userId.userName)}
-                    room="private"
-                    range={card.competitionData.ratingRange}
-                    noOfQuestions={card.competitionData.problems.length}
-                  />}
+                  {/* {console.log("private room : ", card)} */}
+
+                  {card.users.length === 1 && (
+                    <JoinCard
+                      key={card.roomId}
+                      roomId={card.roomId}
+                      name={JSON.parse(card.users[0].userId.userName)}
+                      room="private"
+                      range={card.competitionData.ratingRange}
+                      noOfQuestions={card.competitionData.problems.length}
+                      password={card.password}
+                    />
+                  )}
                 </>
               ))}
             </div>
