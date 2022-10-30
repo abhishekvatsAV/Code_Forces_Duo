@@ -9,20 +9,20 @@ import axios from "axios";
 import { getSocket } from "../utils/io.connection";
 import { useState } from "react";
 
-const JoinCard = ({ roomId, name, room, noOfQuestions, range, password }) => {
+const JoinCard = ({ roomId, name, room, noOfQuestions, range, password, setUsers }) => {
   const socket = getSocket();
   const user = useSelector((state) => state.user.user);
   const userId = useSelector((state) => state.user.userId);
   const [psswd, setpsswd] = useState("");
   const navigate = useNavigate();
-
-  socket.on("user_join", (data) => {
-    console.log("user get joined", data);
-  });
+  // socket.off("user_join");
 
   const handleClick = async (roomId) => {
     console.log("clicked");
-    socket.emit("join_room", roomId, user.handle);
+    socket.emit("join_room", roomId, {
+      ...user,
+      userId
+    });
 
     const url = "http://localhost:4000/rooms/joinRoom";
     const response = await axios.post(url, {
@@ -30,13 +30,21 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range, password }) => {
       userId: userId,
     });
 
-    socket.emit("join_room", roomId, user.handle);
+    socket.emit("join_room", roomId, {
+      ...user,
+      userId
+    });
+    // console.log("roomId - " + roomId,"user - " + user.handle );
     navigate(`/room/${roomId}`);
   };
 
   const handlePrivateRoom = async ({ roomId }) => {
     if (password === psswd) {
-      socket.emit("join_room", roomId, user.handle);
+      socket.emit("join_room", roomId, {
+        ...user,
+        userId
+      });
+      // console.log(roomId);
 
       const url = "http://localhost:4000/rooms/joinRoom";
       const response = await axios.post(url, {
@@ -44,7 +52,11 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range, password }) => {
         userId: userId,
       });
 
-      socket.emit("join_room", roomId, user.handle);
+      socket.emit("join_room", roomId, {
+        ...user,
+        userId
+      });
+      // console.log("roomId - " + roomId,"user - " + user.handle );
       navigate(`/room/${roomId}`);
     } else {
       console.log("incorrect password!", psswd, password);
