@@ -7,15 +7,17 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { io } from "socket.io-client";
+import { useState } from "react";
 const socket = io("http://localhost:4000");
 
 socket.on("connect", () => {
   console.log("connected");
 });
 
-const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
+const JoinCard = ({ roomId, name, room, noOfQuestions, range, password }) => {
   const user = useSelector((state) => state.user.user);
   const userId = useSelector((state) => state.user.userId);
+  const [psswd, setpsswd] = useState("");
   const navigate = useNavigate();
 
   socket.on("user_join", (data) => {
@@ -36,6 +38,25 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
     socket.emit("join_room", roomId, user.handle);
     // console.log("roomId - " + roomId,"user - " + user.handle );
     navigate(`/room/${roomId}`);
+  };
+
+  const handlePrivateRoom = async ({ roomId }) => {
+    if (password === psswd) {
+      socket.emit("join_room", roomId, user.handle);
+      // console.log(roomId);
+
+      const url = "http://localhost:4000/rooms/joinRoom";
+      const response = await axios.post(url, {
+        roomId: roomId,
+        userId: userId,
+      });
+
+      socket.emit("join_room", roomId, user.handle);
+      // console.log("roomId - " + roomId,"user - " + user.handle );
+      navigate(`/room/${roomId}`);
+    } else {
+      console.log("incorrect password!", psswd, password);
+    }
   };
 
   return (
@@ -85,7 +106,9 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
         className="btn btn-outline-success btn-small"
         data-bs-toggle={`${room === "private" && "modal"}`}
         data-bs-target={`${room === "private" && "#exampleModal"}`}
-        onClick={() => handleClick(roomId)}
+        onClick={() => {
+          room === "public" && handleClick(roomId);
+        }}
       >
         join room
       </button>
@@ -121,6 +144,8 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
             </div>{" "}
             <input
               className="modal-body modalInput"
+              onChange={(e) => setpsswd(e.target.value)}
+              value={psswd}
               style={{
                 width: "100%",
                 border: "none",
@@ -132,7 +157,11 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
               type="text"
             />
             <div className="modal-footer" style={{ borderTop: "none" }}>
-              <button type="button" className="btn btn-light">
+              <button
+                onClick={() => handlePrivateRoom(roomId)}
+                type="button"
+                className="btn btn-light"
+              >
                 Join Room
               </button>
             </div>

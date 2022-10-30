@@ -21,11 +21,10 @@ let problems = [];
 
 const Room = () => {
   const { roomID } = useParams();
-  const { pswd } = useSelector((state) => state.password);
   const userId = useSelector((state) => state.user.userId);
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
-  const [userAdded, setUserAdded] = useState(false);
+  const [psswd, setpsswd] = useState("");
 
   // browser back button handling i.e leaving the room
   window.onpopstate = () => {
@@ -55,8 +54,11 @@ const Room = () => {
       );
       problems = data.data.competitionData.problems;
       setUsers(data.data.roomData.users);
+      console.log("roomData in room.js data: ", data);
       console.log("problems : ", problems);
       console.log("users: ", users);
+      console.log(data.data.roomData.password);
+      setpsswd(data.data.roomData.password);
     };
     roomData();
     // socket.emit('problem_solved', {
@@ -73,7 +75,7 @@ const Room = () => {
     <div className="room">
       <Navbar />
 
-      <RoomModal />
+      <RoomModal password={psswd} />
       {users.length === 0 && <h1 style={{ color: "red" }}>Loading...</h1>}
       {users.length === 1 && (
         <>
