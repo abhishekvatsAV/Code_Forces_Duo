@@ -25,12 +25,7 @@ const Room = () => {
   const userId = useSelector((state) => state.user.userId);
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
-<<<<<<< HEAD
-  const [userAdded, setUserAdded] = useState(false);
-  const [score,setScore] = useState(0);
-=======
   const [psswd, setpsswd] = useState("");
->>>>>>> 6ef44f0f5baf0c5b689f8696d85ac797c470c188
 
   // browser back button handling i.e leaving the room
   window.onpopstate = () => {
@@ -59,7 +54,6 @@ const Room = () => {
         `http://localhost:4000/rooms/getRoomById?roomId=${roomID}`
       );
       problems = data.data.competitionData.problems;
-<<<<<<< HEAD
       competitionId = data.data.competitionData._id;
       setUsers((prev) => {
         return data.data.roomData.users.map((user) => {
@@ -67,10 +61,6 @@ const Room = () => {
           return user;
         })
       });
-=======
-      setUsers(data.data.roomData.users);
-      console.log("roomData in room.js data: ", data);
->>>>>>> 6ef44f0f5baf0c5b689f8696d85ac797c470c188
       console.log("problems : ", problems);
       console.log("users: ", users);
       console.log(data.data.roomData.password);
