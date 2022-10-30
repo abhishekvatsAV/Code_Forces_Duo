@@ -1,19 +1,33 @@
+body{
+    background-color: var(--bg_color);
+}
 .home {
-    height: 100vh;
+    height: 100%;
     padding: 80px 20px 20px 10px;
     background-color: var(--bg_color);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
     display: flex;
     justify-content:right;
-    background-image:url("../assets/background-hoa-la_120720601.webp") ;
-    background-size: cover;
-    background-repeat: no-repeat;
+    /* align-items: center; */
+
     margin: auto;
 
+}
+
+.home img {
+    justify-self: center;
+    align-self: center;
+    background-blend-mode: normal;
+    width: 55%;
+    height: 100%;
+    object-fit: contain;
 }
 
 .homeContent{
     width: 50%;
     align-self: right;
+    
 }
 
 .box1,
