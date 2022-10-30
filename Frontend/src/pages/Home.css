@@ -2,24 +2,35 @@
     height: 100vh;
     padding: 80px 20px 20px 10px;
     background-color: var(--bg_color);
-    display: grid;
-    grid-template-columns: 2fr 1fr;
-    /* gap: 30px; */
-    overflow-y: scroll;
+    /* display: grid;
+    grid-template-columns: 2fr 1fr; */
+    display: flex;
+    justify-content:right;
+    /* align-items: center; */
+    background-image:url("../assets/background-hoa-la_120720601.webp") ;
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin: auto;
+
 }
 
-.home img {
+/* .home img {
     justify-self: center;
     align-self: center;
     background-blend-mode: normal;
 }
 .home >img{
     width: 95%;
+} */
+.homeContent{
+    width: 50%;
+    align-self: right;
 }
 
 .box1,
 .box2 {
-    max-height: 400px;
+    width: 100%;
+    max-height:400px;
     background: var(--primary_color);
     padding: 20px;
     margin-top: 20px;
@@ -27,19 +38,7 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     transition: 0.4s;
     color: var(--head_color);
-    width: 100%;
 }
-
-.backgroundGradient{
-    height: 100vh;
-    width: 100vw;
-    z-index: 5;
-    position: absolute;
-    background: rgba(204, 204, 204, 0.3);
-    top: 0;
-    left: 0;
-}
-
 
 .home p {
     margin: 20px 0;
