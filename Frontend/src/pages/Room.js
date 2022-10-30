@@ -24,6 +24,7 @@ const Room = () => {
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
   const [psswd, setpsswd] = useState("");
+  const [gameOver, setGameOver] = useState(false);
 
   // browser back button handling i.e leaving the room
   window.onpopstate = () => {
@@ -45,12 +46,24 @@ const Room = () => {
     console.log("user get joined : ", data);
   })
 
+  const maxScore = (problems) => {
+    let mxScr = 0;
+    // console.log("fjageriutsbjln : ", problems);
+    problems.map((problem, i) => {
+      console.log(problem);
+      mxScr += problem.problemId.rating/100;
+    })
+    console.log(mxScr);
+    return mxScr;
+  }
+
   useEffect(() => {
     const roomData = async () => {
       const data = await axios.get(
         `http://localhost:4000/rooms/getRoomById?roomId=${roomID}`
       );
       problems = data.data.competitionData.problems;
+      // maxScore(problems);
       competitionId = data.data.competitionData._id;
       setUsers((prev) => {
         return data.data.roomData.users.map((user) => {
@@ -83,6 +96,10 @@ const Room = () => {
         return ;
       }
       users[userIndex].score = data.totalScore;
+      const totalScore = maxScore(problems);
+      if(users[userIndex].score === totalScore) {
+        setGameOver(true);
+      }
       setUsers(users);
     })
   
@@ -100,7 +117,7 @@ const Room = () => {
   return (
     <div className="room">
       <Navbar />
-
+      {gameOver && <h1>Game Over</h1>}
       <RoomModal password={psswd} />
       {users.length === 0 && <h1 style={{ color: "red" }}>Loading...</h1>}
       {users.length === 1 && (
