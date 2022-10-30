@@ -6,14 +6,11 @@ import { useNavigate } from "react-router-dom";
 
 import axios from "axios";
 
-import { io } from "socket.io-client";
-const socket = io("http://localhost:4000");
+import { getSocket } from "../utils/io.connection";
 
-socket.on("connect", () => {
-  console.log("connected");
-});
 
 const JoinCard = ({ roomId, name, room, noOfQuestions, range }) => {
+  const socket = getSocket();
   const user = useSelector((state) => state.user.user);
   const userId = useSelector((state) => state.user.userId);
   const navigate = useNavigate();

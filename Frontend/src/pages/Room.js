@@ -14,18 +14,20 @@ import Timer from "../components/Timer";
 //
 
 //socket
-import { io } from "socket.io-client";
-const socket = io("http://localhost:4000");
+import { getSocket } from "../utils/io.connection";
 
 let problems = [];
+let competitionId;
 
 const Room = () => {
+  const socket = getSocket();
   const { roomID } = useParams();
   const { pswd } = useSelector((state) => state.password);
   const userId = useSelector((state) => state.user.userId);
   const [users, setUsers] = useState([]);
   const navigate = useNavigate();
   const [userAdded, setUserAdded] = useState(false);
+  const [score,setScore] = useState(0);
 
   // browser back button handling i.e leaving the room
   window.onpopstate = () => {
@@ -43,10 +45,10 @@ const Room = () => {
     navigate("/home");
   };
 
-  // socket.on("user_join", (data) => {
-  //   console.log("user get joined : ", data);
-  //   setUserAdded(true);
-  // })
+  socket.on("user_join", (data) => {
+    console.log("user get joined : ", data);
+    setUserAdded(true);
+  })
 
   useEffect(() => {
     const roomData = async () => {
@@ -54,19 +56,49 @@ const Room = () => {
         `http://localhost:4000/rooms/getRoomById?roomId=${roomID}`
       );
       problems = data.data.competitionData.problems;
-      setUsers(data.data.roomData.users);
+      competitionId = data.data.competitionData._id;
+      setUsers((prev) => {
+        return data.data.roomData.users.map((user) => {
+          user.score = 0;
+          return user;
+        })
+      });
       console.log("problems : ", problems);
       console.log("users: ", users);
     };
     roomData();
-    // socket.emit('problem_solved', {
-    //   userId: users[0],
-    //   // write here bhanu
-    // })
+    setInterval(() => {
+      console.log("go to hell")
+      socket.emit('problem_solved', {
+        userId: userId,
+        roomId:roomID,
+        problems,
+        competitionId
+      })
+    },500000)
+    console.log("run",socket);
+    socket.on("total_score", (data) => {
+      console.log("here3");
+      console.log("data: ", data);
+      let userId = data.userId;
+      let userIndex = users.findIndex(user => user.userId._id.toString() === userId.toString());
+      if(userIndex === -1){
+        return ;
+      }
+      users[userIndex].score = data.totalScore;
+      setUsers(users);
+      // setUserAdded(true);
+    })
+  
   }, []);
 
   const updateScore = () => {
-    // write her to update score
+    socket.emit('problem_solved', {
+      userId: userId,
+      roomId:roomID,
+      problems,
+      competitionId
+    })
   };
 
   return (
@@ -78,7 +110,7 @@ const Room = () => {
       {users.length === 1 && (
         <>
           <div className="aliceBox">
-            <Player user={users[0]} />
+            <Player user={users[0]} score={users[0].score} />
           </div>
         </>
       )}
@@ -86,7 +118,7 @@ const Room = () => {
         <>
           <div className="roomContent">
             <div className="aliceBox">
-              <Player user={users[0]} />
+              <Player user={users[0]} score={users[0].score} />
             </div>
             <div className="centerBox">
               <div className="problemBox" style={{ color: "white" }}>
@@ -99,7 +131,7 @@ const Room = () => {
               <Timer />
             </div>
             <div className="bobBox">
-              <Player user={users[1]} />
+              <Player user={users[1]} score={users[1].score} />
             </div>
           </div>
         </>
