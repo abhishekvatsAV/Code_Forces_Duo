@@ -15,17 +15,8 @@ exports.getTotalScore = async (userId,competitionId) => {
 					_id: null,
 					totalScore: {
 						$sum: {
-							$multiply:[
-								{
-									$ceil:{
-										$divide:[
-											{
-												$subtract:["$problemRating",799]
-											},
-											450
-										]
-									}
-								},
+							$divide:[
+								"$problemRating",
 								100
 							]
 						}
@@ -33,7 +24,8 @@ exports.getTotalScore = async (userId,competitionId) => {
 				}
 			}
 		]);
-		totalScore = totalScore.totalScore ? totalScore.totalScore : 0;
+		console.log(totalScore);
+		totalScore = totalScore[0] ? totalScore[0].totalScore : 0;
         return totalScore;
     } catch (error) {
         console.log(error);

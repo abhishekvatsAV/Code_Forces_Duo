@@ -50,27 +50,30 @@ mongoose.connect(process.env.MONGO_URI)
 			console.log("socket connected for -" + socket.id);
 
 			// socket join room event
-			socket.on("join_room",(roomId,userName) => {
-				console.log(roomId,userName);
+			socket.on("join_room",(roomId,userData) => {
+				console.log(roomId);
 				socket.join(roomId);
+				console.log(io.sockets.adapter.rooms);
 				socket.broadcast.to(roomId).emit("user_join",{
 					message:"a new user join the room!",
-					userName	
+					userData
 				})
 			});
 
-			socket.on("leave_room",(roomId,userName) => {
+			socket.on("leave_room",(roomId,userData) => {
 				socket.leave(roomId);
+				let userName = userData.userName;
 				socket.broadcast.to(roomId).emit("user_left",{
 					message:`${userName} left the room`,
-					userName	
+					userData
 				})
 			});
 
 			socket.on("problem_solved",async (data) => {
 				let { roomId,userId } = data;
 				let userData = await getUserData(userId);
-				markProblemAsSolved(data,socket,userData);
+				console.log(io.sockets.adapter.rooms);
+				markProblemAsSolved(data,socket,userData,io);
 			})
 		})
 	})

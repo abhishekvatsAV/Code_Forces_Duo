@@ -5,7 +5,7 @@ import JoinCard from "../components/JoinCard";
 //styles
 import "./Lobby.css";
 
-const Lobby = () => {
+const Lobby = ({ setUsers }) => {
   const [privateCards, setPrivateCards] = React.useState([]);
   const [publicCards, setPublicCards] = React.useState([]);
 
@@ -51,6 +51,7 @@ const Lobby = () => {
                       range={card.competitionData.ratingRange}
                       noOfQuestions={card.competitionData.problems.length}
                       password={""}
+                      setUsers={setUsers}
                     />
                   )}
                 </>
@@ -73,6 +74,7 @@ const Lobby = () => {
                       range={card.competitionData.ratingRange}
                       noOfQuestions={card.competitionData.problems.length}
                       password={card.password}
+                      setUsers={setUsers}
                     />
                   )}
                 </>

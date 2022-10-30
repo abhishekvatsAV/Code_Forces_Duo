@@ -11,20 +11,63 @@ import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import Timer from "../components/Timer";
 
-//
-
 //socket
-import { io } from "socket.io-client";
-const socket = io("http://localhost:4000");
+import { getSocket } from "../utils/io.connection";
 
 let problems = [];
+let competitionId;
 
-const Room = () => {
+const Room = ({users, setUsers}) => {
+  const socket = getSocket();
   const { roomID } = useParams();
   const userId = useSelector((state) => state.user.userId);
-  const [users, setUsers] = useState([]);
+  const user = useSelector((state) => state.user.user);
   const navigate = useNavigate();
   const [psswd, setpsswd] = useState("");
+  console.log(users);
+  socket.on("user_left",(data) => {
+    console.log(data.message);
+    setUsers((prev) => {
+      let curr = prev.filter((user) => user.userId._id.toString() !== data.userData.userId.toString());
+      return curr;
+    })
+  })
+  socket.off("user_join");
+  socket.on("user_join", (data) => {
+    console.log("user get joined", data);
+    let user = data.userData;
+    setUsers((prev) => {
+      let userIndex = prev.findIndex(userData => userData.userId._id.toString() === user.userId.toString());
+      if(userIndex !== -1){
+        return prev;
+      }
+      console.log(userIndex);
+      let curr = [...prev,{
+        userId:{
+          profile:{
+            ...user
+          },
+          _id:user.userId,
+          userName:user.handle
+        },
+        score:0,
+      }];
+      console.log("curr",curr);
+      return curr;
+    })
+  });
+
+  socket.on("total_score", (data) => {
+    console.log("here3");
+    console.log("data: ", data);
+    let userId = data.userId;
+    let userIndex = users.findIndex(user => user.userId._id.toString() === userId.toString());
+    if(userIndex === -1){
+      return ;
+    }
+    users[userIndex].score = data.totalScore;
+    setUsers(users);
+  })
 
   // browser back button handling i.e leaving the room
   window.onpopstate = () => {
@@ -32,6 +75,10 @@ const Room = () => {
       userId: userId,
       roomId: roomID,
     });
+    socket.emit("leave_room",roomID,{
+      userId,
+      userName:user.handle
+    })
   };
 
   const handleLeaveRoom = async () => {
@@ -39,13 +86,12 @@ const Room = () => {
       userId: userId,
       roomId: roomID,
     });
+    socket.emit("leave_room",roomID,{
+      userId,
+      userName:user.handle
+    })
     navigate("/home");
   };
-
-  // socket.on("user_join", (data) => {
-  //   console.log("user get joined : ", data);
-  //   setUserAdded(true);
-  // })
 
   useEffect(() => {
     const roomData = async () => {
@@ -53,22 +99,39 @@ const Room = () => {
         `http://localhost:4000/rooms/getRoomById?roomId=${roomID}`
       );
       problems = data.data.competitionData.problems;
-      setUsers(data.data.roomData.users);
-      console.log("roomData in room.js data: ", data);
+      competitionId = data.data.competitionData._id;
+      setUsers((prev) => {
+        return data.data.roomData.users.map((user) => {
+          user.score = 0;
+          return user;
+        })
+      });
       console.log("problems : ", problems);
       console.log("users: ", users);
       console.log(data.data.roomData.password);
       setpsswd(data.data.roomData.password);
     };
     roomData();
-    // socket.emit('problem_solved', {
-    //   userId: users[0],
-    //   // write here bhanu
-    // })
+    setInterval(() => {
+      console.log("go to hell")
+      socket.emit('problem_solved', {
+        userId: userId,
+        roomId:roomID,
+        problems,
+        competitionId
+      })
+    },500000)
+    console.log("run",socket);
+  
   }, []);
 
   const updateScore = () => {
-    // write her to update score
+    socket.emit('problem_solved', {
+      userId: userId,
+      roomId:roomID,
+      problems,
+      competitionId
+    })
   };
 
   return (
@@ -80,7 +143,7 @@ const Room = () => {
       {users.length === 1 && (
         <>
           <div className="aliceBox">
-            <Player user={users[0]} />
+            <Player user={users[0]} score={users[0].score} />
           </div>
         </>
       )}
@@ -88,7 +151,7 @@ const Room = () => {
         <>
           <div className="roomContent">
             <div className="aliceBox">
-              <Player user={users[0]} />
+              <Player user={users[0]} score={users[0].score} />
             </div>
             <div className="centerBox">
               <div className="problemBox" style={{ color: "white" }}>
@@ -98,10 +161,10 @@ const Room = () => {
                   </a>
                 ))}
               </div>
-              <Timer />
+              <Timer users={users}/>
             </div>
             <div className="bobBox">
-              <Player user={users[1]} />
+              <Player user={users[1]} score={users[1].score} />
             </div>
           </div>
         </>
