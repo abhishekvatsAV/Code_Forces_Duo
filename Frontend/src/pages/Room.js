@@ -13,11 +13,12 @@ import Timer from "../components/Timer";
 
 //socket
 import { getSocket } from "../utils/io.connection";
+import Messages from "../components/Messages";
 
 let problems = [];
 let competitionId;
 
-const Room = ({users, setUsers}) => {
+const Room = ({ users, setUsers }) => {
   const socket = getSocket();
   const { roomID } = useParams();
   const userId = useSelector((state) => state.user.userId);
@@ -25,53 +26,62 @@ const Room = ({users, setUsers}) => {
   const navigate = useNavigate();
   const [psswd, setpsswd] = useState("");
   const [gameOver, setGameOver] = useState(false);
-  console.log(users);
-  socket.on("user_left",(data) => {
-    console.log(data.message);
+  // console.log(users);
+  socket.on("user_left", (data) => {
+    // console.log(data.message);
     setUsers((prev) => {
-      let curr = prev.filter((user) => user.userId._id.toString() !== data.userData.userId.toString());
+      let curr = prev.filter(
+        (user) => user.userId._id.toString() !== data.userData.userId.toString()
+      );
       return curr;
-    })
-  })
+    });
+  });
   socket.off("user_join");
   socket.on("user_join", (data) => {
-    console.log("user get joined", data);
+    // console.log("user get joined", data);
     let user = data.userData;
     setUsers((prev) => {
-      let userIndex = prev.findIndex(userData => userData.userId._id.toString() === user.userId.toString());
-      if(userIndex !== -1){
+      let userIndex = prev.findIndex(
+        (userData) => userData.userId._id.toString() === user.userId.toString()
+      );
+      if (userIndex !== -1) {
         return prev;
       }
-      console.log(userIndex);
-      let curr = [...prev,{
-        userId:{
-          profile:{
-            ...user
+      // console.log(userIndex);
+      let curr = [
+        ...prev,
+        {
+          userId: {
+            profile: {
+              ...user,
+            },
+            _id: user.userId,
+            userName: user.handle,
           },
-          _id:user.userId,
-          userName:user.handle
+          score: 0,
         },
-        score:0,
-      }];
-      console.log("curr",curr);
+      ];
+      // console.log("curr", curr);
       return curr;
-    })
+    });
   });
 
   socket.on("total_score", (data) => {
-    console.log("here3");
-    console.log("data: ", data);
+    // console.log("here3");
+    // console.log("data: ", data);
     let userId = data.userId;
-    let userIndex = users.findIndex(user => user.userId._id.toString() === userId.toString());
-    console.log(userIndex);
-    if(userIndex === -1){
-      return ;
+    let userIndex = users.findIndex(
+      (user) => user.userId._id.toString() === userId.toString()
+    );
+    // console.log(userIndex);
+    if (userIndex === -1) {
+      return;
     }
     users[userIndex].score = data.totalScore;
-    console.log(userId);
+    // console.log(userId);
     let newUsers = [...users];
     setUsers(newUsers);
-  })
+  });
 
   // browser back button handling i.e leaving the room
   window.onpopstate = () => {
@@ -79,10 +89,10 @@ const Room = ({users, setUsers}) => {
       userId: userId,
       roomId: roomID,
     });
-    socket.emit("leave_room",roomID,{
+    socket.emit("leave_room", roomID, {
       userId,
-      userName:user.handle
-    })
+      userName: user.handle,
+    });
   };
 
   const handleLeaveRoom = async () => {
@@ -90,10 +100,10 @@ const Room = ({users, setUsers}) => {
       userId: userId,
       roomId: roomID,
     });
-    socket.emit("leave_room",roomID,{
+    socket.emit("leave_room", roomID, {
       userId,
-      userName:user.handle
-    })
+      userName: user.handle,
+    });
     navigate("/home");
   };
 
@@ -101,12 +111,12 @@ const Room = ({users, setUsers}) => {
     let mxScr = 0;
     // console.log("fjageriutsbjln : ", problems);
     problems.map((problem, i) => {
-      console.log(problem);
-      mxScr += problem.problemId.rating/100;
-    })
-    console.log(mxScr);
+      // console.log(problem);
+      mxScr += problem.problemId.rating / 100;
+    });
+    // console.log(mxScr);
     return mxScr;
-  }
+  };
 
   useEffect(() => {
     const roomData = async () => {
@@ -120,36 +130,35 @@ const Room = ({users, setUsers}) => {
         return data.data.roomData.users.map((user) => {
           user.score = 0;
           return user;
-        })
+        });
       });
-      console.log("problems : ", problems);
-      console.log("users: ", users);
-      console.log(data.data.roomData.password);
+      // console.log("problems : ", problems);
+      // console.log("users: ", users);
+      // console.log(data.data.roomData.password);
       setpsswd(data.data.roomData.password);
     };
     roomData();
     setInterval(() => {
-      console.log("go to hell")
-      socket.emit('problem_solved', {
+      // console.log("go to hell");
+      socket.emit("problem_solved", {
         userId: userId,
-        roomId:roomID,
+        roomId: roomID,
         problems,
-        competitionId
-      })
-    },500000)
-    console.log("run",socket);
-  
+        competitionId,
+      });
+    }, 500000);
+    // console.log("run", socket);
   }, []);
 
   const updateScore = () => {
-    socket.emit('problem_solved', {
+    socket.emit("problem_solved", {
       userId: userId,
-      roomId:roomID,
+      roomId: roomID,
       problems,
-      competitionId
-    })
+      competitionId,
+    });
   };
-
+  
   return (
     <div className="room">
       <Navbar />
@@ -177,7 +186,20 @@ const Room = ({users, setUsers}) => {
                   </a>
                 ))}
               </div>
-              <Timer users={users}/>
+
+
+              {/* TODO here i will add chat for now but will change later  */}
+
+
+              {/* <div><p style={{color:"red"}}>frghfjlnjdvcyhebjslnfuxyohjlnesfdyouxhljnvetisodgyh</p></div> */}
+              <Messages users = {users} roomId = {roomID} />
+              
+              
+              
+              
+              
+              
+              <Timer users={users} />
             </div>
             <div className="bobBox">
               <Player user={users[1]} score={users[1].score} />

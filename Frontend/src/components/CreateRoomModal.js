@@ -2,7 +2,7 @@
 import './CreateRoomModal.css'
 
 export function CreateRoomModal({ rangeUpperLimit, rangeLowerLimit, numberOfQuestions, handleCreateRoom, showModal }) {
-  console.log(numberOfQuestions, "gfdhtyfdhteaerhdfg");
+  // console.log(numberOfQuestions, "gfdhtyfdhteaerhdfg");
   return (
     <div className="modalbackground">
         <div className="modalContainer">

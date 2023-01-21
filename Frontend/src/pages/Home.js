@@ -81,8 +81,8 @@ export default function Home() {
         }
         i++;
       }
-      console.log(arr);
-      console.log(userId);
+      // console.log(arr);
+      // console.log(userId);
       const response = await axios.post("http://localhost:4000/rooms/addRoom", {
         roomId: roomID,
         password: password,

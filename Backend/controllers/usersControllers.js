@@ -17,7 +17,7 @@ exports.registerUser = async (req,res,next) => {
                 userName: userName,
                 profile:profile?.data?.result[0]
             });
-            console.log("helo bbg", userData);
+            // console.log("helo bbg", userData);
             await userData.save();
         }
         return res.status(200).json({
