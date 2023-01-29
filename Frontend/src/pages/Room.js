@@ -26,6 +26,10 @@ const Room = ({ users, setUsers }) => {
   const navigate = useNavigate();
   const [psswd, setpsswd] = useState("");
   const [gameOver, setGameOver] = useState(false);
+  socket.emit("join_room", roomID, {
+    ...user,
+    userId
+  });
   // console.log(users);
   socket.on("user_left", (data) => {
     // console.log(data.message);

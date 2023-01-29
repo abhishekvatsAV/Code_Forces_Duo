@@ -3,6 +3,7 @@ const problemsModel = require("../models/problemsModel");
 const room = require("../models/roomsModel");
 const chat = require("../models/chatModel");
 const { findOne } = require("../models/usersModel");
+const { getSocket } = require("../utils/socket.connection");
 
 exports.addRoom = async (req, res, next) => {
   // console.log("first");
@@ -184,15 +185,21 @@ exports.getRoomById = async (req, res, next) => {
 exports.getChatById = async (req, res, next) => {
   try {
     console.log("first")
-    const {chatId} = req.query;
-    console.log("qO",chatId);
-    const chatData = await chat.findOne({ _id:chatId }).populate("sender");
+    const {roomId} = req.query;
+    const chatData = await chat.find({roomId}).populate("sender");
+    const chats = chatData.map(chat => {
+      return {
+        sender:chat.sender.userName,
+        chat:chat.content,
+        roomId
+      }
+    })
     // console.log("---------");
     // console.log(chatData);
     // console.log("---------")
     return res.status(200).json({
       message: "success",
-      chatData,
+      chats,
     });
   } catch (error) {
     console.log("eroor in getChatById ");
@@ -226,6 +233,12 @@ exports.newMessage = async (req, res, next) => {
     ).populate("roomId");
     // message = await chat.populate("roomId.messages");
     currRoom.messages.push(message._id);
+    // send socket 
+    const socketInstance = getSocket();
+    socketInstance.to(roomId).emit("chat",{
+      chat:content,
+      sender:message.sender.userName
+    })
     await currRoom.save();
     // await room.findOne({ roomId }).populate("messages");
     res.status(200).json(message);

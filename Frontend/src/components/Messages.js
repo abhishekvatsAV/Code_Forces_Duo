@@ -2,10 +2,12 @@ import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import "./Message.css";
+import { getSocket } from "../utils/io.connection";
 
 const Messages = ({ users, roomId }) => {
   const [newMessage, setNewMessage] = useState("");
   const userId = useSelector((state) => state.user.userId);
+  const userName = useSelector((state) => state.user.user).handle;
   const [messages, setMessages] = useState([]);
   const [chats, setChats] = useState([]);
   const [messageAdded, setMessageAdded] = useState("");
@@ -17,28 +19,22 @@ const Messages = ({ users, roomId }) => {
       );
 
       console.log("data from room : ", data.data.roomData.messages);
-
-      setMessages(data.data.roomData.messages);
-      let newChats = [];
-      messages.map(async (chatId) => {
-        console.log("chatId: ", chatId);
-        console.log("------------------------------")
-        console.log("------------------------------")
-        // TODO get the chat content using message call api to get the chat
-        const chat = await axios.get(
-          `http://localhost:4000/rooms/getAllMessages/?chatId=${chatId}`
-        );
-        console.log("chat Data : ", chat.data.chatData);
-        newChats.push(chat.data.chatData.content);
+      const socket = getSocket();
+      socket.off("chat");
+      socket.on("chat", (data) => {
+        console.log(data);
         setChats((prev) => {
-          return [...prev, chat.data.chatData.content];
+          return [...prev, data];
         });
-      });
+      })
+      let newChats = [];
+      const chatsData = await axios(`http://localhost:4000/rooms/getAllMessages/?roomId=${data.data.roomData._id}`);
+      setChats(chatsData.data.chats);
       // console.log("newChats: ", newChats);
       // setChats([...chats, newChats]);
     };
     roomData();
-  }, [messageAdded]);
+  }, []);
 
   const handleClick = async () => {
     let message = {
@@ -52,11 +48,17 @@ const Messages = ({ users, roomId }) => {
         "http://localhost:4000/rooms/newMessage",
         message
       );
-      setMessageAdded(chat);
+      // setMessageAdded(chat);
+      // setChats(prev => {
+      //   return [...prev,{
+      //     sender:userName,
+      //     chat:newMessage
+      //   }]
+      // })
     } catch (error) {
       console.log("error in newMessage request : ", error.message);
     }
-    setNewMessage("");
+    // setNewMessage("");
   };
 
 
@@ -64,15 +66,22 @@ const Messages = ({ users, roomId }) => {
 
 
   return (
-    <div style={{ color: "red" }}>
-      {chats.map(chat =>  <>{chat} {" "}</>)}
+    <div style={ { color: "white", width:"100%" } }>
+      { chats.map(chat => {
+        console.log(chats);
+        return (
+          <div className="chat">
+            <span>{chat.sender} : { chat.chat }</span>
+          </div>
+        )
+      }) }
       <div className="messages">
         <input
           type="text"
-          onChange={(e) => setNewMessage(e.target.value)}
-          value={newMessage}
+          onChange={ (e) => setNewMessage(e.target.value) }
+          value={ newMessage }
         />
-        <button onClick={handleClick}>Send</button>
+        <button onClick={ handleClick }>Send</button>
       </div>
     </div>
   );
