@@ -1,0 +1,27 @@
+.messages {
+  display: flex;
+  align-items: center;
+  color: "blue";
+}
+.messages > input {
+  width: 90%;
+  height: 30px;
+  border: none;
+  border-radius: 0;
+  background-color: #4f4b4b;
+  color: white;
+}
+
+.messages > button {
+  border: none;
+  border-radius: 3px;
+  width: 50px;
+}
+
+.chat{
+  display: flex;
+  justify-content: space-evenly;
+  flex-direction: column;
+  width: 100%;
+  height: 70px;
+}

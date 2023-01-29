@@ -26,7 +26,7 @@ const Login = () => {
       .get(`https://codeforces.com/api/user.info?handles=${username}`)
       .then(function (response) {
         // handle success
-        console.log(response);
+        // console.log(response);
         dispatch(login(response.data.result[0]));
         return { userName: username };
       })
@@ -41,7 +41,7 @@ const Login = () => {
             userName: JSON.stringify(userName),
           })
           .then((res) => {
-            console.log(res.data.userData._id);
+            // console.log(res.data.userData._id);
             dispatch(setUserId(res.data.userData._id));
           });
         navigate("/home");

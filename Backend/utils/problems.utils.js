@@ -8,7 +8,7 @@ exports.markProblemAsSolved = async (data,socket,userData,io) => {
         let { problems : competitionProblems, competitionId, userId, roomId} = data;
         competitionId = ObjectId(competitionId);
         userId = ObjectId(userId);
-        console.log(data);
+        // console.log(data);
         for(let i = 0;i<competitionProblems.length;i++){
             let problemId = competitionProblems[i].problemId._id;
             let problemData = competitionProblems[i].problemId;
@@ -37,7 +37,7 @@ exports.markProblemAsSolved = async (data,socket,userData,io) => {
             })
         }
         let totalScore = await getTotalScore(userId,competitionId);
-        console.log(totalScore);
+        // console.log(totalScore);
         io.in(roomId).emit("total_score",{
             totalScore,
             userId

@@ -24,7 +24,7 @@ exports.getTotalScore = async (userId,competitionId) => {
 				}
 			}
 		]);
-		console.log(totalScore);
+		// console.log(totalScore);
 		totalScore = totalScore[0] ? totalScore[0].totalScore : 0;
         return totalScore;
     } catch (error) {
