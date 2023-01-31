@@ -95,10 +95,12 @@ export default function Home() {
         },
       });
 
+      console.log("curr pswd : ", password);
+
       // console.log("roomId" + roomID, "user " +user.user.handle);
       socket.emit("join_room", roomID, {
         ...user,
-        userId
+        userId,
       });
 
       setLoading(false);
@@ -183,11 +185,12 @@ export default function Home() {
               <input
                 type="text"
                 value={password}
-                readOnly
+                // readOnly
                 className="form-control"
                 aria-label="Recipient's username"
                 aria-describedby="button-addon2"
                 placeholder="Genrate Password"
+                onChange={(e) => setPassword(e.target.value)}
               />
               <button
                 className="btn btn-outline-secondary"

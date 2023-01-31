@@ -1,124 +1,125 @@
 .room {
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    min-height: 100vh;
-    width: 100vw;
-    /* align-items: center; */
-    background-color: var(--bg_color);
-    /* justify-content: center; */
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 100vh;
+  width: 100vw;
+  /* align-items: center; */
+  background-color: var(--bg_color);
+  /* justify-content: center; */
+  overflow-y: scroll;
 }
 .invite {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 35rem;
-    background: var(--primary_color);
-    color: var(--text_color);
-    font-size: 1.5rem;
-    font-weight: 600;
-    text-align: center;
-    padding: 20px;   
-    border-radius: 10px;
-    margin-top: 4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 35rem;
+  background: var(--primary_color);
+  color: var(--text_color);
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+  margin-top: 4rem;
 
-    box-shadow: 2px 2px 2px var(--bg_color);
+  box-shadow: 2px 2px 2px var(--bg_color);
 }
 
 .invite * {
-    padding: 20px;
-    color: var(--text_color);
+  padding: 20px;
+  color: var(--text_color);
 }
 
 .invite h3 {
-    color: var(--head_color);
+  color: var(--head_color);
 }
 
 .inputLink {
-    display: flex;
-    flex-direction: row;
-    background-color: var(--bg_color);
-    padding: 5px;
-    border-radius: 30px 30px 30px 30px;
-    margin-top: 20px;
-    justify-content: space-between;
+  display: flex;
+  flex-direction: row;
+  background-color: var(--bg_color);
+  padding: 5px;
+  border-radius: 30px 30px 30px 30px;
+  margin-top: 20px;
+  justify-content: space-between;
 }
 
 .inputLink button {
-    background-color: var(--primary_color);
-    cursor: pointer;
-    border: 1px solid var(--bg_color);
-    border-radius: 30px;
-    text-align: center;
-    height: 20px;
-    display: inline-flex;
-    align-items: center;
+  background-color: var(--primary_color);
+  cursor: pointer;
+  border: 1px solid var(--bg_color);
+  border-radius: 30px;
+  text-align: center;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
 }
 
 .inputLink button:hover {
-    opacity: 0.8;
-    transition: 0.3s ease-in-out;
+  opacity: 0.8;
+  transition: 0.3s ease-in-out;
 }
 
 .inputLink input {
-    height: 1rem;
-    border-bottom: 1px solid white;
-    background: var(--bg_color);
-    color: white;
-    width: 70%;
-    font-size: 1rem;
-    font-weight: 500;
-    text-align: left;
-    outline: none;
-    border-radius: 30px;
-    border: none;
-    width: 100%;
+  height: 1rem;
+  border-bottom: 1px solid white;
+  background: var(--bg_color);
+  color: white;
+  width: 70%;
+  font-size: 1rem;
+  font-weight: 500;
+  text-align: left;
+  outline: none;
+  border-radius: 30px;
+  border: none;
+  width: 100%;
 }
 
-
-.roomContent{
-    display: grid;
-    grid-template-columns: 2fr 3fr 2fr;
-    height:80vh;
+.roomContent {
+  display: grid;
+  grid-template-columns: 2fr 3fr 2fr;
+  height: 80vh;
+  overflow-y: scroll;
 }
 
-.problemBox{
-    display: flex;
-    flex-direction: column;
-   
-    justify-content: space-between;
+.problemBox {
+  display: flex;
+  flex-direction: column;
+
+  justify-content: space-between;
 }
-.problemBox a{
-    background-color: var(--primary_color);
-    border-radius: 10px;
-    padding: 10px;
-    margin: 10px 10px;
-    color: var(--text_color);
+.problemBox a {
+  background-color: var(--primary_color);
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px 10px;
+  color: var(--text_color);
 }
-.problemContent{
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+.problemContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.centerBox{
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    border-left: 1px solid gray;
-    border-right: 1px solid gray;
+.centerBox {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-left: 1px solid gray;
+  border-right: 1px solid gray;
 }
 
 /* range */
 
-.roomCreateFooter{
-    position: absolute;
-    bottom: 0;
-    display: flex;
-    background-color: var(--primary_color);
-    width: 100vw;
-    height: 10vh;
-    justify-content: space-between;
-    align-items: center;
-} 
+.roomCreateFooter {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  background-color: var(--primary_color);
+  width: 100vw;
+  height: 10vh;
+  justify-content: space-between;
+  align-items: center;
+}

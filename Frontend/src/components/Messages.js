@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
 import "./Message.css";
@@ -11,6 +11,16 @@ const Messages = ({ users, roomId }) => {
   const [messages, setMessages] = useState([]);
   const [chats, setChats] = useState([]);
   const [messageAdded, setMessageAdded] = useState("");
+  const inputRef = useRef(null);
+
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    console.log("..,,.,.,..raju")
+    messagesEndRef.current.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(scrollToBottom, [chats]);
 
   useEffect(() => {
     const roomData = async () => {
@@ -26,9 +36,11 @@ const Messages = ({ users, roomId }) => {
         setChats((prev) => {
           return [...prev, data];
         });
-      })
+      });
       let newChats = [];
-      const chatsData = await axios(`http://localhost:4000/rooms/getAllMessages/?roomId=${data.data.roomData._id}`);
+      const chatsData = await axios(
+        `http://localhost:4000/rooms/getAllMessages/?roomId=${data.data.roomData._id}`
+      );
       setChats(chatsData.data.chats);
       // console.log("newChats: ", newChats);
       // setChats([...chats, newChats]);
@@ -48,40 +60,64 @@ const Messages = ({ users, roomId }) => {
         "http://localhost:4000/rooms/newMessage",
         message
       );
-      // setMessageAdded(chat);
-      // setChats(prev => {
-      //   return [...prev,{
-      //     sender:userName,
-      //     chat:newMessage
-      //   }]
-      // })
     } catch (error) {
       console.log("error in newMessage request : ", error.message);
     }
-    // setNewMessage("");
+    setNewMessage("");
+    inputRef.current.focus();
   };
 
-
-  console.log("chats : ", chats);
-
+  const handleKeyDown = (event) => {
+    console.log("keydown");
+    if (event.key === "Enter") {
+      // Send the message
+      handleClick();
+    }
+  };
 
   return (
-    <div style={ { color: "white", width:"100%" } }>
-      { chats.map(chat => {
-        console.log(chats);
-        return (
-          <div className="chat">
-            <span>{chat.sender} : { chat.chat }</span>
-          </div>
-        )
-      }) }
+    <div className="parentMsg">
+      <div className="allMessages">
+        {chats.map((chat) => {
+          console.log(chats);
+          return (
+            <div className="chat">
+              <span className="chatDiv">
+                <span className="chatSender">{chat.sender}</span>:
+                <span className="chatMessage">{chat.chat}</span>
+              </span>
+            </div>
+          );
+        })}
+        <div ref={messagesEndRef}></div>
+      </div>
       <div className="messages">
         <input
           type="text"
-          onChange={ (e) => setNewMessage(e.target.value) }
-          value={ newMessage }
+          onChange={(e) => setNewMessage(e.target.value)}
+          value={newMessage}
+          ref={inputRef}
+          onKeyDown={handleKeyDown}
         />
-        <button onClick={ handleClick }>Send</button>
+        <button
+          style={{
+            backgroundColor: "white",
+            color: "black",
+            border: "none",
+            textAlign: "center",
+            textDecoration: "none",
+            display: "inline-block",
+            fontSize: "16px",
+            margin: "4px 2px 4px 0px",
+            cursor: "pointer",
+            borderRadius: "0px 20px 20px 0px",
+            width: "25%",
+            height: "30px",
+          }}
+          onClick={handleClick}
+        >
+          Send
+        </button>
       </div>
     </div>
   );

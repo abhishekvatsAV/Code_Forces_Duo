@@ -63,7 +63,7 @@ const Lobby = ({ setUsers }) => {
             <div className="privateCards">
               {privateCards.map((card) => (
                 <>
-                  {/* {console.log("private room : ", card)} */}
+                  {console.log("private room : ", card)}
 
                   {card.users.length === 1 && (
                     <JoinCard

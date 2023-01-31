@@ -7,21 +7,48 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 import { getSocket } from "../utils/io.connection";
-import { useState } from "react";
+import { useRef, useState } from "react";
 
-const JoinCard = ({ roomId, name, room, noOfQuestions, range, password, setUsers }) => {
+import {
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button,
+  Input,
+} from "@chakra-ui/react";
+
+
+const JoinCard = ({
+  roomId,
+  name,
+  room,
+  noOfQuestions,
+  range,
+  password,
+  setUsers,
+}) => {
   const socket = getSocket();
   const user = useSelector((state) => state.user.user);
   const userId = useSelector((state) => state.user.userId);
   const [psswd, setpsswd] = useState("");
   const navigate = useNavigate();
-  // socket.off("user_join");
+  const [showModal, setShowModal] = useState(false);
+
+  // for modal
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  console.log("roomIDDDD ; ", roomId);
 
   const handleClick = async (roomId) => {
     console.log("clicked");
     socket.emit("join_room", roomId, {
       ...user,
-      userId
+      userId,
     });
 
     const url = "http://localhost:4000/rooms/joinRoom";
@@ -32,29 +59,35 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range, password, setUsers
 
     socket.emit("join_room", roomId, {
       ...user,
-      userId
+      userId,
     });
     // console.log("roomId - " + roomId,"user - " + user.handle );
     navigate(`/room/${roomId}`);
   };
 
-  const handlePrivateRoom = async ({ roomId }) => {
+  const handleClose = () => {
+    setShowModal(false);
+  };
+
+  const handlePrivateRoom = async (roomId) => {
     if (password === psswd) {
+      console.log("clicked");
       socket.emit("join_room", roomId, {
         ...user,
-        userId
+        userId,
       });
-      // console.log(roomId);
-
+      console.log(" fffffbhanu roomID   : ", roomId);
       const url = "http://localhost:4000/rooms/joinRoom";
       const response = await axios.post(url, {
         roomId: roomId,
         userId: userId,
       });
 
+      onClose();
+
       socket.emit("join_room", roomId, {
         ...user,
-        userId
+        userId,
       });
       // console.log("roomId - " + roomId,"user - " + user.handle );
       navigate(`/room/${roomId}`);
@@ -108,70 +141,35 @@ const JoinCard = ({ roomId, name, room, noOfQuestions, range, password, setUsers
       <button
         type="button"
         className="btn btn-outline-success btn-small"
-        data-bs-toggle={`${room === "private" && "modal"}`}
-        data-bs-target={`${room === "private" && "#exampleModal"}`}
-        onClick={() => {
-          room === "public" && handleClick(roomId);
-        }}
+        onClick={room === "public" ? () => handleClick(roomId) : onOpen}
       >
         join room
       </button>
 
-      {/* modal */}
-      <div
-        className="modal fade"
-        id="exampleModal"
-        tabIndex="-1"
-        aria-labelledby="exampleModalLabel"
-        aria-hidden="true"
-      >
-        <div
-          className="modal-dialog modal-dialog-centered"
-          style={{ color: "black" }}
-        >
-          <div className="modal-content" style={{ backgroundColor: "#171717" }}>
-            <div className="modal-header" style={{ borderBottom: "none" }}>
-              <h1
-                className="modal-title fs-5"
-                id="exampleModalLabel"
-                style={{ color: "white" }}
-              >
-                Enter Your Password
-              </h1>
-              <button
-                type="button"
-                className="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-                style={{ backgroundColor: "white" }}
-              ></button>
-            </div>{" "}
-            <input
-              className="modal-body modalInput"
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent color="#ffffff" bg="rgba(0,0,0,0.5)">
+          <ModalHeader>Password : </ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Input
+              variant="flushed"
               onChange={(e) => setpsswd(e.target.value)}
               value={psswd}
-              style={{
-                width: "100%",
-                border: "none",
-                outline: "none",
-                backgroundColor: "#444444",
-                color: "#171717",
-                margin: "0",
-              }}
-              type="text"
             />
-            <div className="modal-footer" style={{ borderTop: "none" }}>
-              <button
-                onClick={() => handlePrivateRoom(roomId)}
-                type="button"
-                className="btn btn-light"
-              >
-                Join Room
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              colorScheme="blue"
+              mr={3}
+              onClick={() => handlePrivateRoom(roomId)}
+            >
+              Join Room
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </div>
   );
 };

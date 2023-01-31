@@ -194,8 +194,6 @@ const Room = ({ users, setUsers }) => {
 
               {/* TODO here i will add chat for now but will change later  */}
 
-
-              {/* <div><p style={{color:"red"}}>frghfjlnjdvcyhebjslnfuxyohjlnesfdyouxhljnvetisodgyh</p></div> */}
               <Messages users = {users} roomId = {roomID} />
               
               
