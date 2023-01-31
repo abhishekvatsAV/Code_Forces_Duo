@@ -1,5 +1,11 @@
 
+.login {
+    width: 100vh;
+}
+
 .userHandle {
+    margin: auto;
+    margin-top: 400px;
     padding-top: 20px;
     position: absolute;
     top: 50%;
